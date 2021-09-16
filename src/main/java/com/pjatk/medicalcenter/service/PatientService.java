@@ -25,23 +25,22 @@ public class PatientService {
     }
 
     public Patient getPatientById(long id){
-       return patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+       return patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Patient does not exists"));
     }
 
     public Patient addPatient(Patient patient){
-        Address address = new Address("aa","bb","a","a","poland");
-
-      //  Patient patient1 = new Patient(new Person("ola","lola","ola@gmial.com", LocalDate.now(),"199219191919"),address,"908162812");
         return patientRepository.save(patient);
     }
 
-    public void updatePatient(Patient patient){
-        if(patientRepository.findById(patient.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND)) != null)
-            patientRepository.save(patient);
+    public Patient updatePatient(Patient patient){
+        if(patientRepository.findById(patient.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient does not exists")) != null)
+            return patientRepository.save(patient);
+
+        return null;
     }
 
     public void deletePatientById(long id){
-        patientRepository.delete(patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        patientRepository.delete(patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Patient does not exists")));
     }
 
 }
