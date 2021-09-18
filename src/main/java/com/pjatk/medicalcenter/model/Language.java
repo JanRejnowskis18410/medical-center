@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public abstract class Language {
+public class Language {
 
     @Id
     @SequenceGenerator(
