@@ -20,5 +20,5 @@ public class CheckUp {
 
     @Column(nullable = false)
     private String name;
-    
+
 }

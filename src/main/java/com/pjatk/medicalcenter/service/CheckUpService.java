@@ -42,4 +42,5 @@ public class CheckUpService {
 
         checkUpRepository.delete(checkUp);
     }
+
 }
