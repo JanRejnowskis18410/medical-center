@@ -11,18 +11,11 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Appointment {
 
     @Id
-    @SequenceGenerator(
-            name = "appointment_sequence",
-            sequenceName = "appointment_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "appointment_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(
