@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.controller;
 
+import com.pjatk.medicalcenter.dto.PatientDTO;
 import com.pjatk.medicalcenter.model.Patient;
 import com.pjatk.medicalcenter.service.PatientService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/patients")
@@ -19,18 +21,20 @@ public class PatientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Patient>> getPatients(){
-        return ResponseEntity.ok(patientService.getPatients());
+    public ResponseEntity<List<PatientDTO>> getPatients(){
+        List<Patient> patients = patientService.getPatients();
+        return ResponseEntity.ok(patients.stream().map(PatientDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable long id){
-        return ResponseEntity.ok(patientService.getPatientById(id));
+    public ResponseEntity<PatientDTO> getPatientById(@PathVariable long id){
+        return ResponseEntity.ok(new PatientDTO(patientService.getPatientById(id)));
     }
 
     @PostMapping
-    public ResponseEntity<Patient> addPatient(@RequestBody Patient patient){
-        Patient createdPatient = patientService.addPatient(patient);
+    public ResponseEntity<Patient> addPatient(@RequestBody PatientDTO patientDTO){
+        Patient createdPatient = patientService.addPatient(mapPatientDTOToPatient(patientDTO));
+        System.out.println("bu");
         return ResponseEntity.created(URI.create(String.format("/patients/%d", createdPatient.getId()))).build();
     }
 
@@ -45,5 +49,21 @@ public class PatientController {
         patientService.deletePatientById(id);
         return ResponseEntity.ok("Success");
     }
+
+    //TODO move this method to other package with common used methods
+    Patient mapPatientDTOToPatient(PatientDTO patientDTO){
+        Patient patient = new Patient();
+        patient.setFirstName(patientDTO.getFirstName());
+        patient.setLastName(patientDTO.getLastName());
+        patient.setEmail(patientDTO.getEmail());
+        patient.setBirthDate(patientDTO.getBirthDate());
+        patient.setPesel(patientDTO.getPesel());
+        patient.setPhoneNumber(patientDTO.getPhoneNumber());
+        patient.setAddress(patientDTO.getAddress());
+
+        return patient;
+    }
+
+
 
 }
