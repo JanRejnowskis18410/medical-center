@@ -34,14 +34,14 @@ public class LanguageController {
     public ResponseEntity<Language> addLanguage(@RequestBody Language language) {
         Language createdLanguage = languageService.addLanguage(language);
 
-        return ResponseEntity.created(URI.create(String.format("/patients/%d", createdLanguage.getId()))).build();
+        return ResponseEntity.created(URI.create(String.format("/languages/%d", createdLanguage.getId()))).build();
     }
 
     @PutMapping
     public ResponseEntity<Language> updateLanguage(@RequestBody Language language) {
         Language updatedLanguage = languageService.updateLanguage(language);
 
-        return ResponseEntity.created(URI.create(String.format("/patients/%d", updatedLanguage.getId()))).build();
+        return ResponseEntity.created(URI.create(String.format("/languages/%d", updatedLanguage.getId()))).build();
     }
 
     @DeleteMapping("/{id}")
