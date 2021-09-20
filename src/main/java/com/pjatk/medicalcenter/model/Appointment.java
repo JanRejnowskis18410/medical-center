@@ -27,6 +27,9 @@ public abstract class Appointment {
             inverseJoinColumns = {@JoinColumn(name = "language_id")})
     private Set<Language> languages = new HashSet<>();
 
+    @OneToMany(mappedBy = "appointment")
+    private Set<AppointmentCheckUp> appointmentCheckUps = new HashSet<>();
+
     @Column(
             nullable = false
     )
@@ -37,7 +40,9 @@ public abstract class Appointment {
     @Type(type = "numeric_boolean")
     private boolean confirmed;
 
+    @Column
     private String recommendations;
 
+    @Column
     private String description;
 }

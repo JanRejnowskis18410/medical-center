@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -21,4 +23,6 @@ public class CheckUp {
     @Column(nullable = false)
     private String name;
 
+    @OneToMany(mappedBy = "checkUp")
+    private Set<AppointmentCheckUp> appointmentCheckUps = new HashSet<>();
 }
