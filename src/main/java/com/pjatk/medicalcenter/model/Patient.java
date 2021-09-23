@@ -23,4 +23,9 @@ public class Patient extends Person{
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "patient")
     private List<PatientsFile> patientsFiles = new ArrayList<>();
 
+    //TODO is it needed?
+//    public void setPatientsFiles(List<PatientsFile> patientsFiles) {
+//        getPatientsFiles().forEach(e -> e.setPatient(this));
+//        this.patientsFiles = patientsFiles;
+//    }
 }

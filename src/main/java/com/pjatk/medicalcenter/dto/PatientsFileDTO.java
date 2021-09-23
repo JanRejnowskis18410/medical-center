@@ -10,11 +10,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PatientsFileDTO {
 
+    private Long id;
+
     private String name;
 
     private byte[] file;
 
     public PatientsFileDTO(PatientsFile patientsFile) {
+        this.id=patientsFile.getId();
         this.name=patientsFile.getName();
         this.file=patientsFile.getFile();
     }

@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 @Getter @Setter @NoArgsConstructor
 public class PatientDTO {
 
+    private Long id;
+
     private Address address;
 
     private String phoneNumber;
@@ -30,6 +32,7 @@ public class PatientDTO {
     private List<PatientsFileDTO> patientsFiles;
 
     public PatientDTO(Patient patient){
+        this.id=patient.getId();
         this.address=patient.getAddress();
         this.phoneNumber=patient.getPhoneNumber();
         this.firstName=patient.getFirstName();
