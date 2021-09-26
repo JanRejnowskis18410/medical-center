@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,5 +20,8 @@ public class Specialization {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "specialization")
+    private List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
 
 }

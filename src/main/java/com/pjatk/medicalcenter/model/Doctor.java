@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,4 +19,6 @@ public class Doctor extends Person{
     @Column(name = "PWZ")
     private String PWZ;
 
+    @OneToMany(mappedBy = "doctor")
+    private List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
 }
