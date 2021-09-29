@@ -24,4 +24,12 @@ public class MedicationService {
     }
 
     public Medication addMedication(Medication medication) { return medicationRepository.save(medication); }
+
+    public Medication updateMedication(Medication medication) {
+        if(medicationRepository.findById(medication.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication does not exists")) != null) {
+            return medicationRepository.save(medication);
+        }
+
+        return null;
+    }
 }

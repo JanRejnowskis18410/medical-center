@@ -37,6 +37,12 @@ public class MedicationController {
         return ResponseEntity.created(URI.create(String.format("/medications/%d", createdMedication.getId()))).build();
     }
 
+    @PutMapping
+    public ResponseEntity<Medication> updateMedication(@RequestBody MedicationDTO medicationDTO) {
+        Medication updatedMedication = medicationService.updateMedication(mapMedicationDTOToMedication(medicationDTO));
+        return ResponseEntity.created(URI.create(String.format("/medications/%d", updatedMedication.getId()))).build();
+    }
+
     private Medication mapMedicationDTOToMedication(MedicationDTO medicationDTO) {
         return new Medication(medicationDTO.getId(), medicationDTO.getName(), medicationDTO.getUnit(),
                 medicationDTO.getPayment(), medicationDTO.getQuantity(), medicationDTO.isExtendable());
