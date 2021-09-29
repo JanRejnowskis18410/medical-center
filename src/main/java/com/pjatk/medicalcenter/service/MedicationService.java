@@ -17,16 +17,20 @@ public class MedicationService {
         this.medicationRepository = medicationRepository;
     }
 
-    public List<Medication> getMedications() { return medicationRepository.findAll(); }
-
-    public Medication getMedicationById(long id) {
-        return medicationRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Medication does not exist"));
+    public List<Medication> getMedications() {
+        return medicationRepository.findAll();
     }
 
-    public Medication addMedication(Medication medication) { return medicationRepository.save(medication); }
+    public Medication getMedicationById(long id) {
+        return medicationRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication does not exist"));
+    }
+
+    public Medication addMedication(Medication medication) {
+        return medicationRepository.save(medication);
+    }
 
     public Medication updateMedication(Medication medication) {
-        if(medicationRepository.findById(medication.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication does not exists")) != null) {
+        if (medicationRepository.findById(medication.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication does not exists")) != null) {
             return medicationRepository.save(medication);
         }
 
