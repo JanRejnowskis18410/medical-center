@@ -5,6 +5,7 @@ import com.pjatk.medicalcenter.model.Medication;
 import com.pjatk.medicalcenter.service.MedicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +26,10 @@ public class MedicationController {
     public ResponseEntity<List<MedicationDTO>> getMedications() {
         List<Medication> medications = medicationService.getMedications();
         return ResponseEntity.ok(medications.stream().map(MedicationDTO::new).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MedicationDTO> getMedicationById(@PathVariable long id) {
+        return ResponseEntity.ok(new MedicationDTO(medicationService.getMedicationById(id)));
     }
 }
