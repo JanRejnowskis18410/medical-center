@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.controller;
 
+import com.pjatk.medicalcenter.dto.CheckUpDTO;
 import com.pjatk.medicalcenter.model.CheckUp;
 import com.pjatk.medicalcenter.service.CheckUpService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/checkups")
@@ -19,8 +21,9 @@ public class CheckUpController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CheckUp>> getCheckUps() {
-        return ResponseEntity.ok(checkUpService.getCheckUps());
+    public ResponseEntity<List<CheckUpDTO>> getCheckUps() {
+        List<CheckUp> checkUps = checkUpService.getCheckUps();
+        return ResponseEntity.ok(checkUps.stream().map(CheckUpDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
