@@ -32,4 +32,8 @@ public class MedicationService {
 
         return null;
     }
+
+    public void deletePatientById(long id) {
+        medicationRepository.delete(medicationRepository.getById(id));
+    }
 }

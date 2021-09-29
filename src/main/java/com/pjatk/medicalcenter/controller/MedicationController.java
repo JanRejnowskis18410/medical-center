@@ -43,6 +43,12 @@ public class MedicationController {
         return ResponseEntity.created(URI.create(String.format("/medications/%d", updatedMedication.getId()))).build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMedication(@PathVariable long id) {
+        medicationService.deletePatientById(id);
+        return ResponseEntity.ok("Success");
+    }
+
     private Medication mapMedicationDTOToMedication(MedicationDTO medicationDTO) {
         return new Medication(medicationDTO.getId(), medicationDTO.getName(), medicationDTO.getUnit(),
                 medicationDTO.getPayment(), medicationDTO.getQuantity(), medicationDTO.isExtendable());
