@@ -16,11 +16,4 @@ public class Address {
     private String city;
     private String country;
 
-    public Address(String street, String streetNumber, String postCode, String city, String country) {
-        this.street = street;
-        this.streetNumber = streetNumber;
-        this.postCode = postCode;
-        this.city = city;
-        this.country = country;
-    }
 }

@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +12,16 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Doctor extends Person{
+public class Specialization {
 
-    @Column(name = "PWZ")
-    private String PWZ;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @OneToMany(mappedBy = "doctor")
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany(mappedBy = "specialization")
     private List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
+
 }

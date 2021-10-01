@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.controller;
 
+import com.pjatk.medicalcenter.dto.CheckUpDTO;
 import com.pjatk.medicalcenter.model.CheckUp;
 import com.pjatk.medicalcenter.service.CheckUpService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/checkups")
@@ -19,26 +21,26 @@ public class CheckUpController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CheckUp>> getCheckUps() {
-        return ResponseEntity.ok(checkUpService.getCheckUps());
+    public ResponseEntity<List<CheckUpDTO>> getCheckUps() {
+        List<CheckUp> checkUps = checkUpService.getCheckUps();
+        return ResponseEntity.ok(checkUps.stream().map(CheckUpDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CheckUp> getCheckUpById(@PathVariable long id) {
-        return ResponseEntity.ok(checkUpService.getCheckUpById(id));
+    public ResponseEntity<CheckUpDTO> getCheckUpById(@PathVariable long id) {
+        return ResponseEntity.ok(new CheckUpDTO(checkUpService.getCheckUpById(id)));
     }
 
     @PostMapping
-    public ResponseEntity<CheckUp> addCheckUp(@RequestBody CheckUp checkUp) {
-        CheckUp createdCheckUp = checkUpService.addCheckUp(checkUp);
+    public ResponseEntity<CheckUp> addCheckUp(@RequestBody CheckUpDTO checkUpDTO) {
+        CheckUp createdCheckUp = checkUpService.addCheckUp(mapCheckUpDTOToCheckUp(checkUpDTO));
 
         return ResponseEntity.created(URI.create(String.format("/checkups/%d", createdCheckUp.getId()))).build();
     }
 
     @PutMapping
-    public ResponseEntity<CheckUp> updateCheckUp(@RequestBody CheckUp checkUp) {
-        CheckUp updatedCheckUp = checkUpService.updateCheckUp(checkUp);
-
+    public ResponseEntity<CheckUp> updateCheckUp(@RequestBody CheckUpDTO checkUpDTO) {
+        CheckUp updatedCheckUp = checkUpService.updateCheckUp(mapCheckUpDTOToCheckUp(checkUpDTO));
         return ResponseEntity.created(URI.create(String.format("/checkups/%d", updatedCheckUp.getId()))).build();
     }
 
@@ -49,4 +51,7 @@ public class CheckUpController {
         return ResponseEntity.ok("Success");
     }
 
+    private CheckUp mapCheckUpDTOToCheckUp(CheckUpDTO checkUpDTO) {
+        return new CheckUp(checkUpDTO.getId(), checkUpDTO.getName());
+    }
 }
