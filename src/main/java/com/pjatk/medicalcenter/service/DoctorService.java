@@ -1,7 +1,6 @@
 package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.model.Doctor;
-import com.pjatk.medicalcenter.model.Patient;
 import com.pjatk.medicalcenter.repository.DoctorRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
