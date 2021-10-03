@@ -68,6 +68,12 @@ public class PatientController {
         return ResponseEntity.ok("Success");
     }
 
+    @DeleteMapping
+    public ResponseEntity<String> deleteAllPatients(){
+        patientService.deleteAllPatients();
+        return ResponseEntity.ok("Success");
+    }
+
     //TODO move this method to other package with common used methods
     Patient mapPatientDTOtoPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
@@ -85,7 +91,6 @@ public class PatientController {
             patientsFiles.add(mapPatientFileDTOtoPatientFile(patientsFileDTO));
         }
         patient.setPatientsFiles(patientsFiles);
-
         return patient;
     }
 

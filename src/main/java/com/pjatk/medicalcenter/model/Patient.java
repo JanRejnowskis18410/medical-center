@@ -18,12 +18,13 @@ public class Patient extends Person{
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "patient")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "patient")
+    @Setter(AccessLevel.NONE)
     private List<PatientsFile> patientsFiles = new ArrayList<>();
 
     //TODO is it needed?
-//    public void setPatientsFiles(List<PatientsFile> patientsFiles) {
-//        getPatientsFiles().forEach(e -> e.setPatient(this));
-//        this.patientsFiles = patientsFiles;
-//    }
+    public void setPatientsFiles(List<PatientsFile> patientsFiles) {
+        patientsFiles.forEach(e -> e.setPatient(this));
+        this.patientsFiles = patientsFiles;
+    }
 }
