@@ -66,4 +66,8 @@ public class PatientService {
         patientsFile.setPatient(getPatientById(id));
         return patientsFileRepository.save(patientsFile);
     }
+
+    public void deleteAllPatients() {
+        patientRepository.deleteAll();
+    }
 }
