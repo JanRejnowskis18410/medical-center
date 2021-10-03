@@ -27,4 +27,11 @@ public class ServiceService {
     public com.pjatk.medicalcenter.model.Service addService(com.pjatk.medicalcenter.model.Service service) {
         return serviceRepository.save(service);
     }
+
+    public com.pjatk.medicalcenter.model.Service updateService(com.pjatk.medicalcenter.model.Service service) {
+        if(serviceRepository.findById(service.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exists")) != null)
+            return serviceRepository.save(service);
+
+        return null;
+    }
 }

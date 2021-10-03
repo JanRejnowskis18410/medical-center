@@ -37,6 +37,12 @@ public class ServiceController {
         return ResponseEntity.created(URI.create(String.format("/services/%d", createdService.getId()))).build();
     }
 
+    @PutMapping
+    public ResponseEntity<Service> updateService(@RequestBody ServiceDTO serviceDTO) {
+        Service updatedService = serviceService.updateService(mapServiceDTOToService(serviceDTO));
+        return ResponseEntity.created(URI.create(String.format("/services/%d", updatedService.getId()))).build();
+    }
+
     Service mapServiceDTOToService(ServiceDTO serviceDTO) {
         Service service = new Service();
         service.setId(serviceDTO.getId());
