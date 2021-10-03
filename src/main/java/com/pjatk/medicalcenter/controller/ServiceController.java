@@ -1,15 +1,12 @@
 package com.pjatk.medicalcenter.controller;
 
-import com.pjatk.medicalcenter.dto.PatientDTO;
 import com.pjatk.medicalcenter.dto.ServiceDTO;
 import com.pjatk.medicalcenter.model.Service;
 import com.pjatk.medicalcenter.service.ServiceService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +27,21 @@ public class ServiceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceDTO> getServiceById(@PathVariable long id){
+    public ResponseEntity<ServiceDTO> getServiceById(@PathVariable long id) {
         return ResponseEntity.ok(new ServiceDTO(serviceService.getServiceById(id)));
+    }
+
+    @PostMapping
+    public ResponseEntity<Service> addService(@RequestBody ServiceDTO serviceDTO) {
+        Service createdService = serviceService.addService(mapServiceDTOToService(serviceDTO));
+        return ResponseEntity.created(URI.create(String.format("/services/%d", createdService.getId()))).build();
+    }
+
+    Service mapServiceDTOToService(ServiceDTO serviceDTO) {
+        Service service = new Service();
+        service.setId(serviceDTO.getId());
+        service.setName(serviceDTO.getName());
+
+        return service;
     }
 }
