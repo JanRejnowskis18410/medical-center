@@ -1,9 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
+@AllArgsConstructor
 public class RegistrationWorker extends Person{
 
 }

@@ -1,16 +1,17 @@
 package com.pjatk.medicalcenter.model;
 
-import jakarta.validation.constraints.Email;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Getter @Setter @NoArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
