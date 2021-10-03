@@ -43,6 +43,13 @@ public class ServiceController {
         return ResponseEntity.created(URI.create(String.format("/services/%d", updatedService.getId()))).build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteService(@PathVariable long id) {
+        serviceService.deletePatientById(id);
+        return ResponseEntity.ok("Success");
+    }
+
+
     Service mapServiceDTOToService(ServiceDTO serviceDTO) {
         Service service = new Service();
         service.setId(serviceDTO.getId());

@@ -34,4 +34,8 @@ public class ServiceService {
 
         return null;
     }
+
+    public void deletePatientById(long id) {
+        serviceRepository.delete(serviceRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exist")));
+    }
 }
