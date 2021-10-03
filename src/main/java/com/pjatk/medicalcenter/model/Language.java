@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Language {
 
     @Id
