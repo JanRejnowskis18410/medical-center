@@ -1,8 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Embeddable;
 
