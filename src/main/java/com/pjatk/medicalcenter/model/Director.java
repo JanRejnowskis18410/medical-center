@@ -9,6 +9,5 @@ import javax.persistence.Entity;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Director extends Person{
 }
