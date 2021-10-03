@@ -6,11 +6,12 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Medication {
 
@@ -34,6 +35,9 @@ public class Medication {
             return code;
         }
     }
+
+    @OneToMany(mappedBy = "medication")
+    private List<PrescriptionMedication> prescriptionMedications = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

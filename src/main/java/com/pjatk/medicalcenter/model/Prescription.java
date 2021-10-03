@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +30,9 @@ public class Prescription {
             nullable = false
     )
     private LocalDate dateFrom;
+
+    @OneToMany(mappedBy = "prescription")
+    private List<PrescriptionMedication> prescriptionMedications = new ArrayList<>();
 
     @Lob
     @Column(columnDefinition = "BLOB", nullable = false)
