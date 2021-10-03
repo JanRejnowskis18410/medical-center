@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,10 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@NoArgsConstructor @Getter @Setter
-public class RegistrationWorker {
+@Data
+public class RegistrationWorker extends Person{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 }
