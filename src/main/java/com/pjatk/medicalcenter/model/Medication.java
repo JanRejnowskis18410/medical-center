@@ -10,6 +10,8 @@ import java.util.stream.Stream;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Medication {
 
     public enum Unit {

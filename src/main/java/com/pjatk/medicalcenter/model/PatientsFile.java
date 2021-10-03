@@ -1,15 +1,14 @@
 package com.pjatk.medicalcenter.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PatientsFile {
 
     @Id
