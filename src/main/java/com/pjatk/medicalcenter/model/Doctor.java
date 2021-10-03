@@ -15,7 +15,6 @@ import java.util.List;
 @Data
 public class Doctor extends Person{
 
-
     @Column(name = "PWZ")
     private String PWZ;
 

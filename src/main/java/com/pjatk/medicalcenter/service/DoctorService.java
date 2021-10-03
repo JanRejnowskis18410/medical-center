@@ -1,6 +1,9 @@
 package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.model.Doctor;
+import com.pjatk.medicalcenter.model.DoctorSpecialization;
+import com.pjatk.medicalcenter.model.Schedule;
+import com.pjatk.medicalcenter.model.Specialization;
 import com.pjatk.medicalcenter.repository.DoctorRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,5 +41,13 @@ public class DoctorService {
 
     public void deleteDoctorById(long id){
         doctorRepository.delete(doctorRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Doctor does not exists")));
+    }
+
+    public Doctor addDoctorSpecializationWithSchedule(long id, Specialization specialization, Schedule schedule) {
+
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
+        DoctorSpecialization doctorSpecialization = new DoctorSpecialization(doctor,specialization,schedule);
+
+        return doctor;
     }
 }

@@ -1,6 +1,8 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.model.Doctor;
+import com.pjatk.medicalcenter.model.Schedule;
+import com.pjatk.medicalcenter.model.Specialization;
 import com.pjatk.medicalcenter.service.DoctorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,12 @@ public class DoctorController {
     @PostMapping
     public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor Doctor){
         Doctor createdDoctor = doctorService.addDoctor(Doctor);
+        return ResponseEntity.created(URI.create(String.format("/doctors/%d", createdDoctor.getId()))).build();
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Doctor> addDoctorSpecialization(@PathVariable long id, @RequestBody Specialization specialization, @RequestBody Schedule schedule){
+        Doctor createdDoctor = doctorService.addDoctorSpecializationWithSchedule(id, specialization, schedule);
         return ResponseEntity.created(URI.create(String.format("/doctors/%d", createdDoctor.getId()))).build();
     }
 
