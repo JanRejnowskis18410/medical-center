@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicationService {
@@ -21,8 +22,12 @@ public class MedicationService {
         return medicationRepository.findAll();
     }
 
+    public Optional<Medication> findMedicationById(long id) {
+        return medicationRepository.findById(id);
+    }
+
     public Medication getMedicationById(long id) {
-        return medicationRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication does not exist"));
+        return findMedicationById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Medication does not exist"));
     }
 
     public Medication addMedication(Medication medication) {
