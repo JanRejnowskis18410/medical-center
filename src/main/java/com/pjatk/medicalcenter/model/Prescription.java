@@ -37,4 +37,8 @@ public class Prescription {
     @Lob
     @Column(columnDefinition = "BLOB", nullable = false)
     private byte[] binaryCode;
+
+    public void addPrescriptionMedication(PrescriptionMedication prescriptionMedication) {
+        prescriptionMedications.add(prescriptionMedication);
+    }
 }

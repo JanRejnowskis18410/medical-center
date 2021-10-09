@@ -59,4 +59,8 @@ public class Medication {
     @Column(nullable = false)
     @Type(type = "numeric_boolean")
     private boolean extendable;
+
+    public void addPrescriptionMedication(PrescriptionMedication prescriptionMedication) {
+        prescriptionMedications.add(prescriptionMedication);
+    }
 }
