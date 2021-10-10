@@ -15,7 +15,7 @@ import java.util.List;
 public class AddSpecializationWithScheduleDTO {
 
     private long specializationId;
-    private List<Schedule> schedules;
+    private List<ScheduleDTO> schedules;
 
 //    public AddSpecializationDTO(long specializationId, Schedule schedule) {
 //        this.specializationId = specializationId;

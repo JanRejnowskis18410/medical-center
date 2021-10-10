@@ -39,7 +39,7 @@ public class DoctorSpecialization {
     }
 
     public void setSpecialization(Specialization specialization) {
-        doctor.addDoctorSpecialization(this);
+        specialization.addDoctorSpecialization(this);
         this.specialization = specialization;
     }
 

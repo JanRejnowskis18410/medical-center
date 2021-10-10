@@ -8,12 +8,14 @@ import com.pjatk.medicalcenter.model.Specialization;
 import com.pjatk.medicalcenter.repository.DoctorRepository;
 import com.pjatk.medicalcenter.repository.DoctorSpecializationRepository;
 import com.pjatk.medicalcenter.repository.SpecializationRepository;
+import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DoctorService {
@@ -59,7 +61,7 @@ public class DoctorService {
         doctorSpecialization.setSpecialization(specialization);
         doctorSpecialization.setDoctor(doctor);
         if(addSpecializationWithScheduleDTO.getSchedules() != null && addSpecializationWithScheduleDTO.getSchedules().size() > 0)
-            doctorSpecialization.addSchedule(addSpecializationWithScheduleDTO.getSchedules());
+            doctorSpecialization.addSchedule(addSpecializationWithScheduleDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList()));
         doctorSpecializationRepository.save(doctorSpecialization);
 
         return doctor;

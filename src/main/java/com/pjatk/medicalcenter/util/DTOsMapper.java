@@ -10,6 +10,20 @@ import java.util.stream.Collectors;
 
 public class DTOsMapper {
 
+    public static Doctor mapDoctorWithSpecializationDTOtoDoctor(DoctorWithSpecializationDTO doctorWithSpecializationDTO){
+        Doctor doctor = new Doctor();
+        doctor.setId(doctorWithSpecializationDTO.getId());
+        doctor.setFirstName(doctorWithSpecializationDTO.getFirstName());
+        doctor.setLastName(doctorWithSpecializationDTO.getLastName());
+        doctor.setEmail(doctorWithSpecializationDTO.getEmail());
+        doctor.setBirthDate(doctorWithSpecializationDTO.getBirthDate());
+        doctor.setPesel(doctorWithSpecializationDTO.getPesel());
+        doctor.setPWZ(doctorWithSpecializationDTO.getPWZ());
+        doctor.setDoctorSpecializations(doctorWithSpecializationDTO.getDoctorSpecializations().stream().map(DTOsMapper::mapDoctorSpecializationDTOtoDoctorSpecialization).collect(Collectors.toList()));
+
+        return doctor;
+    }
+
     public static Doctor mapDoctorDTOtoDoctor(DoctorDTO doctorDTO){
         Doctor doctor = new Doctor();
         doctor.setId(doctorDTO.getId());
@@ -19,7 +33,6 @@ public class DTOsMapper {
         doctor.setBirthDate(doctorDTO.getBirthDate());
         doctor.setPesel(doctorDTO.getPesel());
         doctor.setPWZ(doctorDTO.getPWZ());
-        doctor.setDoctorSpecializations(doctorDTO.getDoctorSpecializations().stream().map(DTOsMapper::mapDoctorSpecializationDTOtoDoctorSpecialization).collect(Collectors.toList()));
 
         return doctor;
     }
