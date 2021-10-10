@@ -22,7 +22,6 @@ public class Patient extends Person{
     @Setter(AccessLevel.NONE)
     private List<PatientsFile> patientsFiles = new ArrayList<>();
 
-    //TODO is it needed?
     public void setPatientsFiles(List<PatientsFile> patientsFiles) {
         patientsFiles.forEach(e -> e.setPatient(this));
         this.patientsFiles = patientsFiles;

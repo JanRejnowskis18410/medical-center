@@ -19,4 +19,8 @@ public class Doctor extends Person{
 
     @OneToMany(mappedBy = "doctor")
     private List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
+
+    public void addDoctorSpecialization(DoctorSpecialization doctorSpecialization){
+        this.doctorSpecializations.add(doctorSpecialization);
+    }
 }

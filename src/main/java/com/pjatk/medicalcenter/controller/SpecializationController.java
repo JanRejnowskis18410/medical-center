@@ -1,12 +1,16 @@
 package com.pjatk.medicalcenter.controller;
 
+import com.pjatk.medicalcenter.dto.SpecializationDTO;
+import com.pjatk.medicalcenter.dto.SpecializationWithDoctorsDTO;
 import com.pjatk.medicalcenter.model.Specialization;
 import com.pjatk.medicalcenter.service.SpecializationService;
+import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/specializations")
@@ -19,24 +23,24 @@ public class SpecializationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Specialization>> getSpecializations(){
-        return ResponseEntity.ok(specializationService.getSpecializations());
+    public ResponseEntity<List<SpecializationWithDoctorsDTO>> getSpecializations(){
+        return ResponseEntity.ok(specializationService.getSpecializations().stream().map(SpecializationWithDoctorsDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Specialization> getSpecializationById(@PathVariable long id){
-        return ResponseEntity.ok(specializationService.getSpecializationById(id));
+    public ResponseEntity<SpecializationWithDoctorsDTO> getSpecializationById(@PathVariable long id){
+        return ResponseEntity.ok(new SpecializationWithDoctorsDTO(specializationService.getSpecializationById(id)));
     }
 
     @PostMapping
-    public ResponseEntity<Specialization> addSpecialization(@RequestBody Specialization Specialization){
-        Specialization createdSpecialization = specializationService.addSpecialization(Specialization);
+    public ResponseEntity<SpecializationDTO> addSpecialization(@RequestBody SpecializationDTO specializationDTO){
+        Specialization createdSpecialization = specializationService.addSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
         return ResponseEntity.created(URI.create(String.format("/specializations/%d", createdSpecialization.getId()))).build();
     }
 
     @PutMapping
-    public ResponseEntity<Specialization> updateSpecialization(@RequestBody Specialization Specialization){
-        Specialization updatedSpecialization = specializationService.updateSpecialization(Specialization);
+    public ResponseEntity<SpecializationDTO> updateSpecialization(@RequestBody SpecializationDTO specializationDTO){
+        Specialization updatedSpecialization = specializationService.updateSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
         return ResponseEntity.created(URI.create(String.format("/specializations/%d", updatedSpecialization.getId()))).build();
     }
 

@@ -3,12 +3,13 @@ package com.pjatk.medicalcenter.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="Doctor_Specialization")
 @IdClass(DoctorSpecializationId.class)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class DoctorSpecialization {
 
@@ -24,7 +25,28 @@ public class DoctorSpecialization {
     @NonNull
     private Specialization specialization;
 
-    @Embedded
-    @NonNull
-    private Schedule schedule;
+    @OneToMany(mappedBy = "doctorSpecialization")
+    private List<Schedule> schedules = new ArrayList<>();
+
+    public DoctorSpecialization(Doctor doctor, Specialization specialization){
+        this.doctor=doctor;
+        this.specialization=specialization;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        doctor.addDoctorSpecialization(this);
+        this.doctor = doctor;
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        doctor.addDoctorSpecialization(this);
+        this.specialization = specialization;
+    }
+
+    public void addSchedule(List<Schedule> schedule){
+        schedule.forEach(sch -> {
+            sch.setDoctorSpecialization(this);
+            this.schedules.add(sch);
+        });
+    }
 }

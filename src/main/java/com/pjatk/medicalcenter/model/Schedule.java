@@ -2,10 +2,10 @@ package com.pjatk.medicalcenter.model;
 
 import lombok.*;
 
-import javax.persistence.Embeddable;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Embeddable
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +15,18 @@ public class Schedule {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id"),
+            @JoinColumn(name = "specialization_id", referencedColumnName = "specialization_id")
+    })
+    private DoctorSpecialization doctorSpecialization;
+
     private DayOfWeek dayOfWeek;
-    private LocalDate dateFrom;
-    private LocalDate dateTo;
+    private LocalDateTime dateFrom;
+    private LocalDateTime dateTo;
 }
