@@ -5,6 +5,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.EnumSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -12,9 +14,16 @@ import java.time.LocalDate;
 @DiscriminatorColumn(name = "appointment_type")
 public abstract class Appointment {
 
+    public enum Language {
+        PL, EN, DE, RU
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    private Service service;
 
     @Column(
             nullable = false
@@ -32,4 +41,9 @@ public abstract class Appointment {
 
     @Column
     private String description;
+
+    @ElementCollection
+    @CollectionTable(name = "appointment_languages", joinColumns = @JoinColumn(name = "appointment_id"))
+    @Column(name = "language")
+    private Set<Language> languages = EnumSet.noneOf(Language.class);
 }
