@@ -52,6 +52,10 @@ public class CheckUpController {
     }
 
     private CheckUp mapCheckUpDTOToCheckUp(CheckUpDTO checkUpDTO) {
-        return new CheckUp(checkUpDTO.getId(), checkUpDTO.getName());
+        CheckUp checkUp = new CheckUp();
+        checkUp.setId(checkUpDTO.getId());
+        checkUp.setName(checkUp.getName());
+
+        return checkUp;
     }
 }
