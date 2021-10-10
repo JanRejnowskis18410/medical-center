@@ -50,7 +50,14 @@ public class MedicationController {
     }
 
     private Medication mapMedicationDTOToMedication(MedicationDTO medicationDTO) {
-        return new Medication(medicationDTO.getId(), medicationDTO.getName(), medicationDTO.getUnit(),
-                medicationDTO.getPayment(), medicationDTO.getQuantity(), medicationDTO.isExtendable());
+        Medication medication = new Medication();
+        medication.setId(medicationDTO.getId());
+        medication.setName(medicationDTO.getName());
+        medication.setUnit(medicationDTO.getUnit());
+        medication.setPayment(medicationDTO.getPayment());
+        medicationDTO.setQuantity(medicationDTO.getQuantity());
+        medication.setExtendable(medicationDTO.isExtendable());
+
+        return medication;
     }
 }
