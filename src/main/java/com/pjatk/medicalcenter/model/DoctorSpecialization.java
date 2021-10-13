@@ -29,8 +29,8 @@ public class DoctorSpecialization {
     private List<Schedule> schedules = new ArrayList<>();
 
     public DoctorSpecialization(Doctor doctor, Specialization specialization){
-        this.doctor=doctor;
-        this.specialization=specialization;
+        setDoctor(doctor);
+        setSpecialization(specialization);
     }
 
     public void setDoctor(Doctor doctor) {
@@ -45,6 +45,21 @@ public class DoctorSpecialization {
 
     public void addSchedule(List<Schedule> schedule){
         schedule.forEach(sch -> {
+            sch.setDoctorSpecialization(this);
+            this.schedules.add(sch);
+        });
+    }
+
+    public void addSchedule(Schedule schedule){
+        schedule.setDoctorSpecialization(this);
+        this.schedules.add(schedule);
+    }
+
+    public void updateExistingOrAddNewSchedule(List<Schedule> schedule){
+        schedule.forEach(sch -> {
+            if(sch.getDoctorSpecialization() != null){
+
+            }
             sch.setDoctorSpecialization(this);
             this.schedules.add(sch);
         });

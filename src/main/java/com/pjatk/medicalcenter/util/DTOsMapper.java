@@ -6,6 +6,8 @@ import com.pjatk.medicalcenter.model.DoctorSpecialization;
 import com.pjatk.medicalcenter.model.Schedule;
 import com.pjatk.medicalcenter.model.Specialization;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class DTOsMapper {
@@ -19,7 +21,18 @@ public class DTOsMapper {
         doctor.setBirthDate(doctorWithSpecializationDTO.getBirthDate());
         doctor.setPesel(doctorWithSpecializationDTO.getPesel());
         doctor.setPWZ(doctorWithSpecializationDTO.getPWZ());
-        doctor.setDoctorSpecializations(doctorWithSpecializationDTO.getDoctorSpecializations().stream().map(DTOsMapper::mapDoctorSpecializationDTOtoDoctorSpecialization).collect(Collectors.toList()));
+
+        List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
+        for (SpecializationWithSchedulesDTO specializationWithSchedulesDTO : doctorWithSpecializationDTO.getSpecializationWithSchedulesDTOs()) {
+            Specialization specialization = new Specialization();
+            specialization.setId(specializationWithSchedulesDTO.getId());
+            specialization.setName(specializationWithSchedulesDTO.getName());
+
+            DoctorSpecialization doctorSpecialization = new DoctorSpecialization(doctor,specialization);
+            doctorSpecialization.setSchedules(specializationWithSchedulesDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList()));
+            doctorSpecializations.add(doctorSpecialization);
+        }
+        doctor.setDoctorSpecializations(doctorSpecializations);
 
         return doctor;
     }
@@ -37,14 +50,21 @@ public class DTOsMapper {
         return doctor;
     }
 
-    public static Specialization mapSpecializationWithDoctorsDTOtoSpecialization(SpecializationWithDoctorsDTO specializationWithDoctorsDTO) {
-        Specialization specialization = new Specialization();
-        specialization.setId(specializationWithDoctorsDTO.getId());
-        specialization.setName(specializationWithDoctorsDTO.getName());
-        specialization.setDoctorSpecializations(specializationWithDoctorsDTO.getDoctorSpecializations().stream().map(DTOsMapper::mapDoctorSpecializationDTOtoDoctorSpecialization).collect(Collectors.toList()));
-
-        return specialization;
-    }
+//    public static Specialization mapSpecializationWithDoctorsDTOtoSpecialization(SpecializationWithDoctorsDTO specializationWithDoctorsDTO) {
+//        Specialization specialization = new Specialization();
+//        specialization.setId(specializationWithDoctorsDTO.getId());
+//        specialization.setName(specializationWithDoctorsDTO.getName());
+//
+//        List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
+//        for (DoctorDTO doctorDTO : specializationWithDoctorsDTO.getDoctorDTOs()) {
+//            Doctor doctor = DTOsMapper.mapDoctorDTOtoDoctor(doctorDTO);
+//            DoctorSpecialization doctorSpecialization = new DoctorSpecialization(doctor,specialization);
+//            doctorSpecializations.add(doctorSpecialization);
+//        }
+//        specialization.setDoctorSpecializations(doctorSpecializations);
+//
+//        return specialization;
+//    }
 
     public static Specialization mapSpecializationDTOtoSpecialization(SpecializationDTO specializationDTO) {
         Specialization specialization = new Specialization();
@@ -63,8 +83,16 @@ public class DTOsMapper {
         return doctorSpecialization;
     }
 
+//    public static Specialization SpecializationWithSchedulesDTOtoSpecialization(SpecializationWithSchedulesDTO specializationWithSchedulesDTO){
+//        Specialization specialization = new Specialization();
+//        specialization.setId(specializationWithSchedulesDTO.getId());
+//        specialization.setName(specializationWithSchedulesDTO.getName());
+//        specialization.
+//    }
+
     public static Schedule mapScheduleDTOtoSchedule(ScheduleDTO scheduleDTO){
         Schedule schedule = new Schedule();
+        schedule.setId(scheduleDTO.getId());
         schedule.setDayOfWeek(scheduleDTO.getDayOfWeek());
         schedule.setDateFrom(scheduleDTO.getDateFrom());
         schedule.setDateTo(scheduleDTO.getDateTo());

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ScheduleDTO {
 
+    private long id;
     @NonNull
     private Schedule.DayOfWeek dayOfWeek;
     @NonNull
@@ -18,6 +19,7 @@ public class ScheduleDTO {
     private LocalDateTime dateTo;
 
     public ScheduleDTO(Schedule schedule){
+        this.id = schedule.getId();
         this.dayOfWeek = schedule.getDayOfWeek();
         this.dateFrom = schedule.getDateFrom();
         this.dateTo = schedule.getDateTo();

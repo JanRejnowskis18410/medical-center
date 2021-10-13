@@ -1,8 +1,6 @@
 package com.pjatk.medicalcenter.controller;
 
-import com.pjatk.medicalcenter.dto.AddSpecializationWithScheduleDTO;
-import com.pjatk.medicalcenter.dto.DoctorWithSpecializationDTO;
-import com.pjatk.medicalcenter.dto.SpecializationDTO;
+import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.Doctor;
 import com.pjatk.medicalcenter.service.DoctorService;
 import com.pjatk.medicalcenter.util.DTOsMapper;
@@ -34,19 +32,32 @@ public class DoctorController {
     }
 
     @PostMapping
-    public ResponseEntity<DoctorWithSpecializationDTO> addDoctor(@RequestBody DoctorWithSpecializationDTO doctorWithSpecializationDTO){
-        Doctor createdDoctor = doctorService.addDoctor(DTOsMapper.mapDoctorWithSpecializationDTOtoDoctor(doctorWithSpecializationDTO));
+    public ResponseEntity<DoctorWithSpecializationDTO> addDoctor(@RequestBody DoctorDTO doctorDTO){
+        Doctor createdDoctor = doctorService.addDoctor(DTOsMapper.mapDoctorDTOtoDoctor(doctorDTO));
         return ResponseEntity.created(URI.create(String.format("/doctors/%d", createdDoctor.getId()))).build();
     }
 
     @PostMapping("/{doctorId}/specializations")
-    public ResponseEntity<DoctorWithSpecializationDTO> addDoctorSpecialization(@PathVariable long doctorId, @RequestBody AddSpecializationWithScheduleDTO addSpecializationWithScheduleDTO){
-        Doctor updatedDoctor = doctorService.addDoctorSpecializationWithSchedule(doctorId, addSpecializationWithScheduleDTO);
+    public ResponseEntity<DoctorWithSpecializationDTO> addDoctorSpecialization(@PathVariable long doctorId, @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
+        Doctor updatedDoctor = doctorService.addDoctorSpecializationWithSchedule(doctorId, specializationWithScheduleRequestDTO);
+        return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
+    }
+
+    //TODO - this one doesn't work
+    @PutMapping("/{doctorId}/specializations")
+    public ResponseEntity<DoctorWithSpecializationDTO> updateDoctorSpecializationSchedule(@PathVariable long doctorId, @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
+        Doctor updatedDoctor = doctorService.updateDoctorSpecializationSchedules(doctorId, specializationWithScheduleRequestDTO);
+        return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
+    }
+
+    @DeleteMapping("/{doctorId}/specializations")
+    public ResponseEntity<DoctorWithSpecializationDTO> deleteDoctorSpecializationSchedule(@PathVariable long doctorId, @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
+        Doctor updatedDoctor = doctorService.deleteDoctorSpecializationSchedules(doctorId, specializationWithScheduleRequestDTO);
         return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
     }
 
     @GetMapping("/{id}/specializations")
-    public ResponseEntity<List<SpecializationDTO>> getDoctorSpecializations(@PathVariable long id){
+    public ResponseEntity<List<SpecializationWithSchedulesDTO>> getDoctorSpecializations(@PathVariable long id){
         return ResponseEntity.ok(doctorService.getDoctorSpecializations(id));
     }
 
@@ -61,4 +72,6 @@ public class DoctorController {
         doctorService.deleteDoctorById(id);
         return ResponseEntity.ok("Success");
     }
+
+    //TODO -> update doctor's specialization, delete docto's specialization (delete object DoctorSpecialization)
 }

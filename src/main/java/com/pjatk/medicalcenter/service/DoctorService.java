@@ -1,12 +1,14 @@
 package com.pjatk.medicalcenter.service;
 
-import com.pjatk.medicalcenter.dto.AddSpecializationWithScheduleDTO;
-import com.pjatk.medicalcenter.dto.SpecializationDTO;
+import com.pjatk.medicalcenter.dto.SpecializationWithScheduleRequestDTO;
+import com.pjatk.medicalcenter.dto.SpecializationWithSchedulesDTO;
 import com.pjatk.medicalcenter.model.Doctor;
 import com.pjatk.medicalcenter.model.DoctorSpecialization;
+import com.pjatk.medicalcenter.model.Schedule;
 import com.pjatk.medicalcenter.model.Specialization;
 import com.pjatk.medicalcenter.repository.DoctorRepository;
 import com.pjatk.medicalcenter.repository.DoctorSpecializationRepository;
+import com.pjatk.medicalcenter.repository.ScheduleRepository;
 import com.pjatk.medicalcenter.repository.SpecializationRepository;
 import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.HttpStatus;
@@ -23,11 +25,13 @@ public class DoctorService {
     private final DoctorRepository doctorRepository;
     private final DoctorSpecializationRepository doctorSpecializationRepository;
     private final SpecializationRepository specializationRepository;
+    private final ScheduleRepository scheduleRepository;
 
-    public DoctorService(DoctorRepository doctorRepository, DoctorSpecializationRepository doctorSpecializationRepository, SpecializationRepository specializationRepository) {
+    public DoctorService(DoctorRepository doctorRepository, DoctorSpecializationRepository doctorSpecializationRepository, SpecializationRepository specializationRepository, ScheduleRepository scheduleRepository) {
         this.doctorRepository = doctorRepository;
         this.doctorSpecializationRepository = doctorSpecializationRepository;
         this.specializationRepository = specializationRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
     public List<Doctor> getDoctors(){
@@ -53,25 +57,69 @@ public class DoctorService {
         doctorRepository.delete(doctorRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Doctor does not exists")));
     }
 
-    //TODO czy to dziala
-    public Doctor addDoctorSpecializationWithSchedule(long doctorId, AddSpecializationWithScheduleDTO addSpecializationWithScheduleDTO) {
+    public Doctor addDoctorSpecializationWithSchedule(long doctorId, SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO) {
         Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
-        Specialization specialization = specializationRepository.findById(addSpecializationWithScheduleDTO.getSpecializationId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
+        Specialization specialization = specializationRepository.findById(specializationWithScheduleRequestDTO.getSpecializationId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
         DoctorSpecialization doctorSpecialization = new DoctorSpecialization(doctor,specialization);
         doctorSpecialization.setSpecialization(specialization);
         doctorSpecialization.setDoctor(doctor);
-        if(addSpecializationWithScheduleDTO.getSchedules() != null && addSpecializationWithScheduleDTO.getSchedules().size() > 0)
-            doctorSpecialization.addSchedule(addSpecializationWithScheduleDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList()));
+        if(specializationWithScheduleRequestDTO.getSchedules() != null && specializationWithScheduleRequestDTO.getSchedules().size() > 0) {
+            doctorSpecialization.addSchedule(specializationWithScheduleRequestDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList()));
+            scheduleRepository.saveAll(doctorSpecialization.getSchedules());
+        }
         doctorSpecializationRepository.save(doctorSpecialization);
 
         return doctor;
     }
 
-    public List<SpecializationDTO> getDoctorSpecializations(long id) {
-        Doctor doctor = doctorRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
-        List<SpecializationDTO> specializationDTOs = new ArrayList<>();
-        doctor.getDoctorSpecializations().forEach(e -> specializationDTOs.add(new SpecializationDTO(e.getSpecialization())));
+    public Doctor updateDoctorSpecializationSchedules(long doctorId, SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO) {
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
+        Specialization specialization = specializationRepository.findById(specializationWithScheduleRequestDTO.getSpecializationId())
+                                                                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
 
-        return specializationDTOs;
+        DoctorSpecialization foundSpecializationForThisDoctor = doctor.getDoctorSpecializations().stream()
+                .filter(docSpec -> docSpec.getSpecialization().getId() == specialization.getId())
+                .findFirst()
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Specialization with id %s does not exists for doctor for id %s", specializationWithScheduleRequestDTO.getSpecializationId(),doctorId)));
+
+        if(specializationWithScheduleRequestDTO.getSchedules() != null && specializationWithScheduleRequestDTO.getSchedules().size() > 0) {
+            List<Schedule> schedules = specializationWithScheduleRequestDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList());
+            for(Schedule schedule: schedules)
+                if(schedule.getId() == null)
+                    foundSpecializationForThisDoctor.addSchedule(schedule);
+
+            scheduleRepository.saveAll(schedules);
+        }
+        doctorSpecializationRepository.save(foundSpecializationForThisDoctor);
+
+        return doctor;
+    }
+
+    public Doctor deleteDoctorSpecializationSchedules(long doctorId, SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO) {
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
+        Specialization specialization = specializationRepository.findById(specializationWithScheduleRequestDTO.getSpecializationId())
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
+
+        DoctorSpecialization foundSpecializationForThisDoctor = doctor.getDoctorSpecializations().stream()
+                .filter(docSpec -> docSpec.getSpecialization().getId() == specialization.getId())
+                .findFirst()
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Specialization with id %s does not exists for doctor for id %s", specializationWithScheduleRequestDTO.getSpecializationId(),doctorId)));
+
+        List<Schedule> schedules = specializationWithScheduleRequestDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList());
+        for(Schedule schedule: schedules)
+            scheduleRepository.delete(schedule);
+
+
+        return doctor;
+    }
+
+    public List<SpecializationWithSchedulesDTO> getDoctorSpecializations(long id) {
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
+        List<SpecializationWithSchedulesDTO> specializationWithSchedulesDTOS = new ArrayList<>();
+        doctor.getDoctorSpecializations().forEach(docSpec -> specializationWithSchedulesDTOS.add(new SpecializationWithSchedulesDTO(docSpec)));
+
+        return specializationWithSchedulesDTOS;
     }
 }

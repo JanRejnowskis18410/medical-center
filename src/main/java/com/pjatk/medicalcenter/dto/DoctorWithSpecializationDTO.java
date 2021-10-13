@@ -24,7 +24,7 @@ public class DoctorWithSpecializationDTO {
     private String pesel;
     private String PWZ;
 
-   private List<DoctorSpecializationDTO> doctorSpecializations = new ArrayList<>();
+   private List<SpecializationWithSchedulesDTO> specializationWithSchedulesDTOs = new ArrayList<>();
 
    public DoctorWithSpecializationDTO(Doctor doctor){
        this.id=doctor.getId();
@@ -34,7 +34,7 @@ public class DoctorWithSpecializationDTO {
        this.birthDate= doctor.getBirthDate();
        this.pesel=doctor.getPesel();
        this.PWZ=doctor.getPWZ();
-       this.doctorSpecializations=doctor.getDoctorSpecializations().stream().map(DoctorSpecializationDTO::new).collect(Collectors.toList());
+       this.specializationWithSchedulesDTOs=doctor.getDoctorSpecializations().stream().map(SpecializationWithSchedulesDTO::new).collect(Collectors.toList());
    }
 
 }
