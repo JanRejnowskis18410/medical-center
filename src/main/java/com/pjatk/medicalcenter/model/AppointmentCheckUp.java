@@ -10,7 +10,7 @@ public class AppointmentCheckUp {
 
     @ManyToOne
     @MapsId("appointmentId")
-    private FacilityAppointment appointment;
+    private Appointment appointment;
 
     @ManyToOne
     @MapsId("checkUpId")
@@ -21,4 +21,8 @@ public class AppointmentCheckUp {
 
     @Column
     private String description;
+
+    @Lob
+    @Column(columnDefinition = "BLOB", nullable = false)
+    private byte[] file;
 }

@@ -1,21 +1,21 @@
 package com.pjatk.medicalcenter.model;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.EnumSet;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "appointment_type")
-public abstract class Appointment {
+@Getter
+@Setter
+public class Appointment {
 
-    public enum Language {
-        PL, EN, DE, RU
+    public enum AppointmentType {
+        TELEPHONE, FACILITY
     }
 
     @Id
@@ -23,12 +23,15 @@ public abstract class Appointment {
     private Long id;
 
     @ManyToOne
+    private Patient patient;
+
+    @ManyToOne(optional = false)
     private Service service;
 
     @Column(
             nullable = false
     )
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(
             nullable = false
@@ -42,8 +45,6 @@ public abstract class Appointment {
     @Column
     private String description;
 
-    @ElementCollection
-    @CollectionTable(name = "appointment_languages", joinColumns = @JoinColumn(name = "appointment_id"))
-    @Column(name = "language")
-    private Set<Language> languages = EnumSet.noneOf(Language.class);
+    @Enumerated(EnumType.STRING)
+    private AppointmentType type;
 }
