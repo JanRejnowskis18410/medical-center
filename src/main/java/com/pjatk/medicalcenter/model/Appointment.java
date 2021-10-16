@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Appointment {
     private Patient patient;
 
     @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
     private Service service;
 
     @Column(
@@ -45,6 +47,14 @@ public class Appointment {
     @Column
     private String description;
 
+    @Column(
+            nullable = false
+    )
     @Enumerated(EnumType.STRING)
     private AppointmentType type;
+
+    public void setService(Service service) {
+        this.service = service;
+        service.addAppointment(this);
+    }
 }

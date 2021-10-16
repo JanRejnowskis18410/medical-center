@@ -26,4 +26,7 @@ public class Service {
     @Column(nullable = false)
     private String name;
 
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+    }
 }
