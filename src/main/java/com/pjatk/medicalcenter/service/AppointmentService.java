@@ -20,4 +20,8 @@ public class AppointmentService {
         LocalDateTime now = LocalDateTime.now();
         return this.appointmentRepository.findAppointmentsByPatientIsNullAndDateAfter(now);
     }
+
+    public Appointment addAppointment(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
 }
