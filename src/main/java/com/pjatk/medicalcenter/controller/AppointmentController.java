@@ -34,7 +34,7 @@ public class AppointmentController {
     @PostMapping
     public ResponseEntity<Appointment> addAppointment(@RequestBody CreateAppointmentDTO createAppointmentDTO) {
         Appointment createdAppointment = appointmentService.addAppointment(mapCreateAppointmentDTOToAppointment(createAppointmentDTO));
-        return ResponseEntity.created(URI.create(String.format("/doctors/%d", createdAppointment.getId()))).build();
+        return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
     }
 
     private Appointment mapCreateAppointmentDTOToAppointment(CreateAppointmentDTO createAppointmentDTO) {
