@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -18,7 +20,13 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "service")
+    private List<Appointment> appointments = new ArrayList<>();
+
     @Column(nullable = false)
     private String name;
 
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+    }
 }
