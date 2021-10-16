@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.service;
 
+import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Patient;
 import com.pjatk.medicalcenter.model.PatientsFile;
 import com.pjatk.medicalcenter.repository.PatientRepository;
@@ -50,6 +51,11 @@ public class PatientService {
         List<PatientsFile> patientsFiles = patientsFileRepository.getPatientsFileByPatientId(patientsId);
 
         return patientsFiles;
+    }
+
+    public List<Appointment> getPatientsAppointments(long patientId) {
+        Patient patient = getPatientById(patientId);
+        return patient.getAppointments();
     }
 
     public PatientsFile getPatientsFileById(long id, long fileId){

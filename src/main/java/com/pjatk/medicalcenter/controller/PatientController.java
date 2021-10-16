@@ -1,7 +1,9 @@
 package com.pjatk.medicalcenter.controller;
 
+import com.pjatk.medicalcenter.dto.AppointmentDTO;
 import com.pjatk.medicalcenter.dto.PatientDTO;
 import com.pjatk.medicalcenter.dto.PatientsFileDTO;
+import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Patient;
 import com.pjatk.medicalcenter.model.PatientsFile;
 import com.pjatk.medicalcenter.service.PatientService;
@@ -43,6 +45,12 @@ public class PatientController {
     @GetMapping("/{patientId}/files/{fileId}")
     public ResponseEntity<PatientsFileDTO> getPatientsFileById(@PathVariable long patientId, @PathVariable long fileId){
         return ResponseEntity.ok(new PatientsFileDTO(patientService.getPatientsFileById(patientId,fileId)));
+    }
+
+    @GetMapping("/{patientId}/appointments")
+    public ResponseEntity<List<AppointmentDTO>> getPatientsAppointments(@PathVariable long patientId){
+        List<Appointment> appointments = patientService.getPatientsAppointments(patientId);
+        return ResponseEntity.ok(appointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
     }
 
     @PostMapping
