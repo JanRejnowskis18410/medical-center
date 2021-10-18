@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +21,7 @@ public class DoctorDTO {
     private LocalDate birthDate;
     private String pesel;
     private String PWZ;
+    private List<Doctor.Language> languages;
 
     public DoctorDTO(Doctor doctor){
         this.id=doctor.getId();
@@ -28,5 +31,6 @@ public class DoctorDTO {
         this.birthDate= doctor.getBirthDate();
         this.pesel=doctor.getPesel();
         this.PWZ=doctor.getPWZ();
+        this.languages = new ArrayList<>(doctor.getLanguages());
     }
 }

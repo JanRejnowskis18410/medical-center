@@ -23,6 +23,7 @@ public class DoctorWithSpecializationDTO {
     private LocalDate birthDate;
     private String pesel;
     private String PWZ;
+    private List<Doctor.Language> languages;
 
    private List<SpecializationWithSchedulesDTO> specializationWithSchedulesDTOs = new ArrayList<>();
 
@@ -35,6 +36,7 @@ public class DoctorWithSpecializationDTO {
        this.pesel=doctor.getPesel();
        this.PWZ=doctor.getPWZ();
        this.specializationWithSchedulesDTOs=doctor.getDoctorSpecializations().stream().map(SpecializationWithSchedulesDTO::new).collect(Collectors.toList());
+       this.languages = new ArrayList<>(doctor.getLanguages());
    }
 
 }

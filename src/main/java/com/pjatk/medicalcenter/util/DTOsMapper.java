@@ -21,6 +21,7 @@ public class DTOsMapper {
         doctor.setBirthDate(doctorWithSpecializationDTO.getBirthDate());
         doctor.setPesel(doctorWithSpecializationDTO.getPesel());
         doctor.setPWZ(doctorWithSpecializationDTO.getPWZ());
+        doctor.getLanguages().addAll(doctorWithSpecializationDTO.getLanguages());
 
         List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
         for (SpecializationWithSchedulesDTO specializationWithSchedulesDTO : doctorWithSpecializationDTO.getSpecializationWithSchedulesDTOs()) {
@@ -46,6 +47,7 @@ public class DTOsMapper {
         doctor.setBirthDate(doctorDTO.getBirthDate());
         doctor.setPesel(doctorDTO.getPesel());
         doctor.setPWZ(doctorDTO.getPWZ());
+        doctor.getLanguages().addAll(doctorDTO.getLanguages());
 
         return doctor;
     }
