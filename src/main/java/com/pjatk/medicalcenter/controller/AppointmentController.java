@@ -3,7 +3,7 @@ package com.pjatk.medicalcenter.controller;
 import com.pjatk.medicalcenter.dto.AppointmentDTO;
 import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
 import com.pjatk.medicalcenter.model.Appointment;
-import com.pjatk.medicalcenter.model.Service;
+import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.service.AppointmentService;
 import com.pjatk.medicalcenter.service.ServiceService;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +26,14 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AppointmentDTO>> getAvailableAppointments() {
-        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments();
+    public ResponseEntity<List<AppointmentDTO>> getAvailableAppointments(@RequestParam(name = "type") Appointment.AppointmentType appointmentType) {
+        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(appointmentType);
         return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable long id){
+        return ResponseEntity.ok(new AppointmentDTO(appointmentService.getAppointmentById(id)));
     }
 
     @PostMapping
@@ -37,14 +42,26 @@ public class AppointmentController {
         return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
     }
 
+    @PostMapping("/addList")
+    public ResponseEntity<Appointment> addAppointments(@RequestBody List<CreateAppointmentDTO> createAppointmentDTOs) {
+        List<Appointment> createdAppointments = appointmentService.addAppointments(createAppointmentDTOs.stream().map(this::mapCreateAppointmentDTOToAppointment).collect(Collectors.toList()));
+        return ResponseEntity.created(URI.create(String.format("/appointments/"))).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAppointment(@PathVariable long id){
+        appointmentService.deleteAppointmentById(id);
+        return ResponseEntity.ok("Success");
+    }
+
     private Appointment mapCreateAppointmentDTOToAppointment(CreateAppointmentDTO createAppointmentDTO) {
         Appointment appointment = new Appointment();
         appointment.setId(createAppointmentDTO.getId());
         appointment.setType(createAppointmentDTO.getType());
         appointment.setDate(createAppointmentDTO.getDate());
 
-        Service service = serviceService.getServiceById(createAppointmentDTO.getServiceId());
-        appointment.setService(service);
+        MedicalService medicalService = serviceService.getServiceById(createAppointmentDTO.getServiceId());
+        appointment.setMedicalService(medicalService);
         appointment.setConfirmed(false);
 
         return appointment;

@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.service;
 
+import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.repository.ServiceRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,21 +17,21 @@ public class ServiceService {
         this.serviceRepository = serviceRepository;
     }
 
-    public List<com.pjatk.medicalcenter.model.Service> getServices() {
+    public List<MedicalService> getServices() {
         return serviceRepository.findAll();
     }
 
-    public com.pjatk.medicalcenter.model.Service getServiceById(long id) {
+    public MedicalService getServiceById(long id) {
         return serviceRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exist"));
     }
 
-    public com.pjatk.medicalcenter.model.Service addService(com.pjatk.medicalcenter.model.Service service) {
-        return serviceRepository.save(service);
+    public MedicalService addService(MedicalService medicalService) {
+        return serviceRepository.save(medicalService);
     }
 
-    public com.pjatk.medicalcenter.model.Service updateService(com.pjatk.medicalcenter.model.Service service) {
-        if(serviceRepository.findById(service.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exists")) != null)
-            return serviceRepository.save(service);
+    public MedicalService updateService(MedicalService medicalService) {
+        if(serviceRepository.findById(medicalService.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exists")) != null)
+            return serviceRepository.save(medicalService);
 
         return null;
     }

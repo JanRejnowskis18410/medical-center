@@ -1,7 +1,7 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.ServiceDTO;
-import com.pjatk.medicalcenter.model.Service;
+import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.service.ServiceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +22,8 @@ public class ServiceController {
 
     @GetMapping
     public ResponseEntity<List<ServiceDTO>> getServices() {
-        List<Service> services = serviceService.getServices();
-        return ResponseEntity.ok(services.stream().map(ServiceDTO::new).collect(Collectors.toList()));
+        List<MedicalService> medicalServices = serviceService.getServices();
+        return ResponseEntity.ok(medicalServices.stream().map(ServiceDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
@@ -32,15 +32,15 @@ public class ServiceController {
     }
 
     @PostMapping
-    public ResponseEntity<Service> addService(@RequestBody ServiceDTO serviceDTO) {
-        Service createdService = serviceService.addService(mapServiceDTOToService(serviceDTO));
-        return ResponseEntity.created(URI.create(String.format("/services/%d", createdService.getId()))).build();
+    public ResponseEntity<MedicalService> addService(@RequestBody ServiceDTO serviceDTO) {
+        MedicalService createdMedicalService = serviceService.addService(mapServiceDTOToService(serviceDTO));
+        return ResponseEntity.created(URI.create(String.format("/services/%d", createdMedicalService.getId()))).build();
     }
 
     @PutMapping
-    public ResponseEntity<Service> updateService(@RequestBody ServiceDTO serviceDTO) {
-        Service updatedService = serviceService.updateService(mapServiceDTOToService(serviceDTO));
-        return ResponseEntity.created(URI.create(String.format("/services/%d", updatedService.getId()))).build();
+    public ResponseEntity<MedicalService> updateService(@RequestBody ServiceDTO serviceDTO) {
+        MedicalService updatedMedicalService = serviceService.updateService(mapServiceDTOToService(serviceDTO));
+        return ResponseEntity.created(URI.create(String.format("/services/%d", updatedMedicalService.getId()))).build();
     }
 
     @DeleteMapping("/{id}")
@@ -50,11 +50,11 @@ public class ServiceController {
     }
 
 
-    Service mapServiceDTOToService(ServiceDTO serviceDTO) {
-        Service service = new Service();
-        service.setId(serviceDTO.getId());
-        service.setName(serviceDTO.getName());
+    MedicalService mapServiceDTOToService(ServiceDTO serviceDTO) {
+        MedicalService medicalService = new MedicalService();
+        medicalService.setId(serviceDTO.getId());
+        medicalService.setName(serviceDTO.getName());
 
-        return service;
+        return medicalService;
     }
 }
