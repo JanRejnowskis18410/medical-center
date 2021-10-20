@@ -8,6 +8,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -29,6 +31,12 @@ public class Appointment {
     @ManyToOne(optional = false)
     @Setter(AccessLevel.NONE)
     private Service service;
+
+    @OneToOne(mappedBy = "appointment")
+    private Referral referral;
+
+    @OneToMany(mappedBy = "issueAppointment")
+    private List<Referral> issuedReferrals = new ArrayList<>();
 
     @Column(
             nullable = false
