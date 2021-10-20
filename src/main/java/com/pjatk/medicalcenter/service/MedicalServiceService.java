@@ -9,11 +9,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-public class ServiceService {
+public class MedicalServiceService {
 
     private final ServiceRepository serviceRepository;
 
-    public ServiceService(ServiceRepository serviceRepository) {
+    public MedicalServiceService(ServiceRepository serviceRepository) {
         this.serviceRepository = serviceRepository;
     }
 

@@ -5,7 +5,7 @@ import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.service.AppointmentService;
-import com.pjatk.medicalcenter.service.ServiceService;
+import com.pjatk.medicalcenter.service.MedicalServiceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
-    private final ServiceService serviceService;
+    private final MedicalServiceService medicalServiceService;
 
-    public AppointmentController(AppointmentService appointmentService, ServiceService serviceService) {
+    public AppointmentController(AppointmentService appointmentService, MedicalServiceService medicalServiceService) {
         this.appointmentService = appointmentService;
-        this.serviceService = serviceService;
+        this.medicalServiceService = medicalServiceService;
     }
 
     @GetMapping
@@ -60,7 +60,7 @@ public class AppointmentController {
         appointment.setType(createAppointmentDTO.getType());
         appointment.setDate(createAppointmentDTO.getDate());
 
-        MedicalService medicalService = serviceService.getServiceById(createAppointmentDTO.getServiceId());
+        MedicalService medicalService = medicalServiceService.getServiceById(createAppointmentDTO.getServiceId());
         appointment.setMedicalService(medicalService);
         appointment.setConfirmed(false);
 
