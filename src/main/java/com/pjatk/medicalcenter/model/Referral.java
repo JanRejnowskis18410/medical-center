@@ -36,4 +36,7 @@ public class Referral {
 
     @ManyToOne(optional = false)
     private Appointment issueAppointment;
+
+    @ManyToOne(optional = false)
+    private Service service;
 }

@@ -23,6 +23,9 @@ public class Service {
     @OneToMany(mappedBy = "service")
     private List<Appointment> appointments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "service")
+    private List<Referral> referrals = new ArrayList<>();
+
     @Column(nullable = false)
     private String name;
 
