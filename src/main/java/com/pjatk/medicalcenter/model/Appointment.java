@@ -30,7 +30,7 @@ public class Appointment {
 
     @ManyToOne(optional = false)
     @Setter(AccessLevel.NONE)
-    private Service service;
+    private MedicalService medicalService;
 
     @OneToOne(mappedBy = "appointment")
     private Referral referral;
@@ -61,8 +61,8 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private AppointmentType type;
 
-    public void setService(Service service) {
-        this.service = service;
-        service.addAppointment(this);
+    public void setMedicalService(MedicalService medicalService) {
+        this.medicalService = medicalService;
+        medicalService.addAppointment(this);
     }
 }

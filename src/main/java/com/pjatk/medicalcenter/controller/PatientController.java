@@ -7,11 +7,11 @@ import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Patient;
 import com.pjatk.medicalcenter.model.PatientsFile;
 import com.pjatk.medicalcenter.service.PatientService;
+import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,18 +55,18 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<Patient> addPatient(@RequestBody PatientDTO patientDTO){
-        Patient createdPatient = patientService.addPatient(mapPatientDTOtoPatient(patientDTO));
+        Patient createdPatient = patientService.addPatient(DTOsMapper.mapPatientDTOtoPatient(patientDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d", createdPatient.getId()))).build();
     }
     @PostMapping("/{id}/files")
     public ResponseEntity<Patient> addPatientsFile(@PathVariable long id, @RequestBody PatientsFileDTO patientsFileDTO){
-        PatientsFile createdPatientsFile = patientService.addPatientsFile(id,mapPatientFileDTOtoPatientFile(patientsFileDTO));
+        PatientsFile createdPatientsFile = patientService.addPatientsFile(id,DTOsMapper.mapPatientFileDTOtoPatientFile(patientsFileDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d/files/%d",id,createdPatientsFile.getId()))).build();
     }
 
     @PutMapping
     public ResponseEntity<Patient> updatePatient(@RequestBody PatientDTO patientDTO){
-        Patient updatedPatient = patientService.updatePatient(mapPatientDTOtoPatient(patientDTO));
+        Patient updatedPatient = patientService.updatePatient(DTOsMapper.mapPatientDTOtoPatient(patientDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d", updatedPatient.getId()))).build();
     }
 
@@ -80,34 +80,5 @@ public class PatientController {
     public ResponseEntity<String> deleteAllPatients(){
         patientService.deleteAllPatients();
         return ResponseEntity.ok("Success");
-    }
-
-    //TODO move this method to other package with common used methods
-    Patient mapPatientDTOtoPatient(PatientDTO patientDTO){
-        Patient patient = new Patient();
-        patient.setId(patientDTO.getId());
-        patient.setFirstName(patientDTO.getFirstName());
-        patient.setLastName(patientDTO.getLastName());
-        patient.setEmail(patientDTO.getEmail());
-        patient.setBirthDate(patientDTO.getBirthDate());
-        patient.setPesel(patientDTO.getPesel());
-        patient.setPhoneNumber(patientDTO.getPhoneNumber());
-        patient.setAddress(patientDTO.getAddress());
-
-        List<PatientsFile> patientsFiles = new ArrayList<>();
-        for(PatientsFileDTO patientsFileDTO: patientDTO.getPatientsFiles()){
-            patientsFiles.add(mapPatientFileDTOtoPatientFile(patientsFileDTO));
-        }
-        patient.setPatientsFiles(patientsFiles);
-        return patient;
-    }
-
-    PatientsFile mapPatientFileDTOtoPatientFile(PatientsFileDTO patientsFileDTO){
-        PatientsFile patientsFile = new PatientsFile();
-        patientsFile.setId(patientsFileDTO.getId());
-        patientsFile.setFile(patientsFileDTO.getFile());
-        patientsFile.setName(patientsFileDTO.getName());
-
-        return patientsFile;
     }
 }

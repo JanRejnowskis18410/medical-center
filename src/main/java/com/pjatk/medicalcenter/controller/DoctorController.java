@@ -43,13 +43,6 @@ public class DoctorController {
         return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
     }
 
-    //TODO - this one doesn't work
-    @PutMapping("/{doctorId}/specializations")
-    public ResponseEntity<DoctorWithSpecializationDTO> updateDoctorSpecializationSchedule(@PathVariable long doctorId, @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
-        Doctor updatedDoctor = doctorService.updateDoctorSpecializationSchedules(doctorId, specializationWithScheduleRequestDTO);
-        return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
-    }
-
     @DeleteMapping("/{doctorId}/specializations")
     public ResponseEntity<DoctorWithSpecializationDTO> deleteDoctorSpecializationSchedule(@PathVariable long doctorId, @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
         Doctor updatedDoctor = doctorService.deleteDoctorSpecializationSchedules(doctorId, specializationWithScheduleRequestDTO);

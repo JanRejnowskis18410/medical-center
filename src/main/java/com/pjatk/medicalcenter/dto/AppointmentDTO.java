@@ -26,7 +26,7 @@ public class AppointmentDTO {
 
     public AppointmentDTO(Appointment appointment) {
         this.id = appointment.getId();
-        this.service = new ServiceDTO(appointment.getService());
+        this.service = new ServiceDTO(appointment.getMedicalService());
         this.date = appointment.getDate();
         this.confirmed = appointment.isConfirmed();
         this.description = appointment.getDescription();
