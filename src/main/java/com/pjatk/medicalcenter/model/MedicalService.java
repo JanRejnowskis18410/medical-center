@@ -20,7 +20,7 @@ public class MedicalService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "medicalService")
     private List<Appointment> appointments = new ArrayList<>();
 
     @Column(nullable = false)
