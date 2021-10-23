@@ -2,8 +2,6 @@ package com.pjatk.medicalcenter.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-import org.hibernate.type.NumericBooleanType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,10 +25,6 @@ public class Referral {
     )
     private LocalDate expiryDate;
 
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private boolean used;
-
     @OneToOne
     private Appointment appointment;
 
@@ -39,4 +33,7 @@ public class Referral {
 
     @ManyToOne(optional = false)
     private Service service;
+
+    @ManyToOne(optional = false)
+    private Patient patient;
 }

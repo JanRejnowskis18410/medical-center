@@ -18,6 +18,9 @@ public class Patient extends Person{
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "patient")
+    private List<Referral> referrals = new ArrayList<>();
+
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "patient")
     @Setter(AccessLevel.NONE)
     private List<PatientsFile> patientsFiles = new ArrayList<>();
