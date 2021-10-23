@@ -23,7 +23,7 @@ public class MedicalService {
     @OneToMany(mappedBy = "medicalService")
     private List<Appointment> appointments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "medicalService")
     private List<Referral> referrals = new ArrayList<>();
 
     @Column(nullable = false)

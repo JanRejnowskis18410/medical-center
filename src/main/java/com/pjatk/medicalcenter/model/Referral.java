@@ -32,7 +32,7 @@ public class Referral {
     private Appointment issueAppointment;
 
     @ManyToOne(optional = false)
-    private Service service;
+    private MedicalService medicalService;
 
     @ManyToOne(optional = false)
     private Patient patient;
