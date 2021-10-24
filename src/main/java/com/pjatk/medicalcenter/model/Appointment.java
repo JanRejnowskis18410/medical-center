@@ -65,4 +65,8 @@ public class Appointment {
         this.medicalService = medicalService;
         medicalService.addAppointment(this);
     }
+
+    public void addIssuedReferral(Referral issuedReferral) {
+        issuedReferrals.add(issuedReferral);
+    }
 }

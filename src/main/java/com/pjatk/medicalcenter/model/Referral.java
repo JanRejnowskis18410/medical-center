@@ -1,7 +1,9 @@
 package com.pjatk.medicalcenter.model;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -29,11 +31,29 @@ public class Referral {
     private Appointment appointment;
 
     @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
     private Appointment issueAppointment;
 
     @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
     private MedicalService medicalService;
 
     @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
     private Patient patient;
+
+    public void setMedicalService(MedicalService medicalService) {
+        this.medicalService = medicalService;
+        medicalService.addReferral(this);
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+        patient.addReferral(this);
+    }
+
+    public void setIssueAppointment(Appointment issueAppointment) {
+        this.issueAppointment = issueAppointment;
+        issueAppointment.addIssuedReferral(this);
+    }
 }

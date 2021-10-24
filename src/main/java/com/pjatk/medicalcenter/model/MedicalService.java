@@ -32,4 +32,6 @@ public class MedicalService {
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);
     }
+
+    public void addReferral(Referral referral) { referrals.add(referral); }
 }

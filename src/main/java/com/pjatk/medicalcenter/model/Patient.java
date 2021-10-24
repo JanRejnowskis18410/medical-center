@@ -33,4 +33,8 @@ public class Patient extends Person{
         patientsFiles.forEach(e -> e.setPatient(this));
         this.patientsFiles = patientsFiles;
     }
+
+    public void addReferral(Referral referral) {
+        referrals.add(referral);
+    }
 }
