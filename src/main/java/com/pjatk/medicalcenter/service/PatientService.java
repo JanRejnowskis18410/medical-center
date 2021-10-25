@@ -3,13 +3,16 @@ package com.pjatk.medicalcenter.service;
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Patient;
 import com.pjatk.medicalcenter.model.PatientsFile;
+import com.pjatk.medicalcenter.model.Referral;
 import com.pjatk.medicalcenter.repository.PatientRepository;
 import com.pjatk.medicalcenter.repository.PatientsFileRepository;
 
+import com.pjatk.medicalcenter.repository.ReferralRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -17,10 +20,12 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
     private final PatientsFileRepository patientsFileRepository;
+    private final ReferralRepository referralRepository;
 
-    public PatientService(PatientRepository patientRepository, PatientsFileRepository patientsFileRepository) {
+    public PatientService(PatientRepository patientRepository, PatientsFileRepository patientsFileRepository, ReferralRepository referralRepository) {
         this.patientRepository = patientRepository;
         this.patientsFileRepository = patientsFileRepository;
+        this.referralRepository = referralRepository;
     }
 
     public List<Patient> getPatients(){
@@ -75,5 +80,11 @@ public class PatientService {
 
     public void deleteAllPatients() {
         patientRepository.deleteAll();
+    }
+
+    public List<Referral> getAvailablePatientsReferrals(Long id) {
+        LocalDate now = LocalDate.now();
+        System.out.println(now);
+        return referralRepository.findByPatientIdAndAppointmentIsNullAndExpiryDateIsGreaterThanEqual(id, now);
     }
 }
