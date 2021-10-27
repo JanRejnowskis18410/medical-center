@@ -14,7 +14,7 @@ public class AppointmentDTO {
 
     private Long id;
 
-    private ServiceDTO service;
+    private MedicalServiceDTO service;
 
     private LocalDateTime date;
 
@@ -26,7 +26,7 @@ public class AppointmentDTO {
 
     public AppointmentDTO(Appointment appointment) {
         this.id = appointment.getId();
-        this.service = new ServiceDTO(appointment.getMedicalService());
+        this.service = new MedicalServiceDTO(appointment.getMedicalService());
         this.date = appointment.getDate();
         this.confirmed = appointment.isConfirmed();
         this.description = appointment.getDescription();

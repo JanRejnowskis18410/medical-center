@@ -2,14 +2,8 @@ package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.dto.SpecializationWithScheduleRequestDTO;
 import com.pjatk.medicalcenter.dto.SpecializationWithSchedulesDTO;
-import com.pjatk.medicalcenter.model.Doctor;
-import com.pjatk.medicalcenter.model.DoctorSpecialization;
-import com.pjatk.medicalcenter.model.Schedule;
-import com.pjatk.medicalcenter.model.Specialization;
-import com.pjatk.medicalcenter.repository.DoctorRepository;
-import com.pjatk.medicalcenter.repository.DoctorSpecializationRepository;
-import com.pjatk.medicalcenter.repository.ScheduleRepository;
-import com.pjatk.medicalcenter.repository.SpecializationRepository;
+import com.pjatk.medicalcenter.model.*;
+import com.pjatk.medicalcenter.repository.*;
 import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,12 +20,14 @@ public class DoctorService {
     private final DoctorSpecializationRepository doctorSpecializationRepository;
     private final SpecializationRepository specializationRepository;
     private final ScheduleRepository scheduleRepository;
+    private final MedicalServiceRepository medicalServiceRepository;
 
-    public DoctorService(DoctorRepository doctorRepository, DoctorSpecializationRepository doctorSpecializationRepository, SpecializationRepository specializationRepository, ScheduleRepository scheduleRepository) {
+    public DoctorService(DoctorRepository doctorRepository, DoctorSpecializationRepository doctorSpecializationRepository, SpecializationRepository specializationRepository, ScheduleRepository scheduleRepository, MedicalServiceRepository medicalServiceRepository) {
         this.doctorRepository = doctorRepository;
         this.doctorSpecializationRepository = doctorSpecializationRepository;
         this.specializationRepository = specializationRepository;
         this.scheduleRepository = scheduleRepository;
+        this.medicalServiceRepository = medicalServiceRepository;
     }
 
     public List<Doctor> getDoctors(){
@@ -59,12 +55,15 @@ public class DoctorService {
 
     public Doctor addDoctorSpecializationWithSchedule(long doctorId, SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO) {
         Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
-        Specialization specialization = specializationRepository.findById(specializationWithScheduleRequestDTO.getSpecializationId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
+        Specialization specialization = specializationRepository
+                .findById(specializationWithScheduleRequestDTO.getSpecializationId()).orElseThrow(()->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
         DoctorSpecialization doctorSpecialization = new DoctorSpecialization(doctor,specialization);
         doctorSpecialization.setSpecialization(specialization);
         doctorSpecialization.setDoctor(doctor);
+        doctorSpecializationRepository.save(doctorSpecialization);
         if(specializationWithScheduleRequestDTO.getSchedules() != null && specializationWithScheduleRequestDTO.getSchedules().size() > 0) {
-            doctorSpecialization.addSchedule(specializationWithScheduleRequestDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList()));
+            doctorSpecialization.addSchedules(specializationWithScheduleRequestDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList()));
             scheduleRepository.saveAll(doctorSpecialization.getSchedules());
         }
         doctorSpecializationRepository.save(doctorSpecialization);
@@ -92,10 +91,18 @@ public class DoctorService {
     }
 
     public List<SpecializationWithSchedulesDTO> getDoctorSpecializations(long id) {
-        Doctor doctor = doctorRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
         List<SpecializationWithSchedulesDTO> specializationWithSchedulesDTOS = new ArrayList<>();
-        doctor.getDoctorSpecializations().forEach(docSpec -> specializationWithSchedulesDTOS.add(new SpecializationWithSchedulesDTO(docSpec)));
+        doctor.getDoctorSpecializations().forEach(docSpec ->
+                specializationWithSchedulesDTOS.add(new SpecializationWithSchedulesDTO(docSpec)));
 
         return specializationWithSchedulesDTOS;
+    }
+
+    public List<Doctor> getDoctorsByMedicalServiceId(long serviceId) {
+        MedicalService medicalService = medicalServiceRepository.findById(serviceId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exists"));
+        return doctorRepository.findDoctorsByMedicalServiceId(serviceId);
     }
 }
