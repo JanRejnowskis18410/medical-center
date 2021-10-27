@@ -7,6 +7,7 @@ import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,11 @@ public class DoctorController {
     @GetMapping("/{id}")
     public ResponseEntity<DoctorWithSpecializationDTO> getDoctorById(@PathVariable long id){
         return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
+    }
+
+    @GetMapping("/services/{serviceId}")
+    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceId(@PathVariable long serviceId){
+        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(serviceId).stream().map(DoctorDTO::new).collect(Collectors.toList()));
     }
 
     @PostMapping

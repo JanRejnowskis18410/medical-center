@@ -22,8 +22,13 @@ public class Specialization {
     @OneToMany(mappedBy = "specialization")
     private List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
 
+    @OneToMany(mappedBy = "specialization")
+    private List<MedicalService> medicalServices = new ArrayList<>();
+
     public void addDoctorSpecialization(DoctorSpecialization doctorSpecialization){
         this.doctorSpecializations.add(doctorSpecialization);
     }
-
+    public void addMedicalService(MedicalService medicalService){
+        this.medicalServices.add(medicalService);
+    }
 }
