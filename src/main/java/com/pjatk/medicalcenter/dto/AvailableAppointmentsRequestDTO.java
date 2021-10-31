@@ -20,9 +20,9 @@ public class AvailableAppointmentsRequestDTO {
     @NotBlank
     private Appointment.AppointmentType type;
     @NotNull
-    private MedicalServiceDTO medicalServiceDTO;
+    private long medicalServiceId;
     @Nullable
-    private DoctorDTO doctorDTO;
+    private long doctorId;
     @Nullable
     private LocalDateTime dateFrom;
     @Nullable

@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.service;
 
+import com.pjatk.medicalcenter.dto.AvailableAppointmentsRequestDTO;
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.repository.AppointmentRepository;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,8 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    public List<Appointment> getAvailableAppointments(Appointment.AppointmentType appointmentType) {
-        LocalDateTime now = LocalDateTime.now();
-        return this.appointmentRepository.findByTypeAndPatientIsNullAndDateAfter(appointmentType,now);
+    public List<Appointment> getAvailableAppointments(AvailableAppointmentsRequestDTO availableAppointments) {
+        return null;
     }
 
     public Appointment getAppointmentById(long id){

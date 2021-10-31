@@ -13,10 +13,11 @@ import java.util.List;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     @Query(value = "SELECT * FROM doctor d " +
             "JOIN person p ON d.id=p.id " +
+            "JOIN language l ON d.id=l.doctor_id " +
             "JOIN doctor_specialization ds ON d.id=ds.doctor_id " +
             "JOIN specialization s ON ds.specialization_id=s.id " +
             "JOIN medical_service ms on s.id=ms.specialization_id " +
-            "WHERE ms.id= :serviceId",
+            "WHERE ms.id= :serviceId AND :language IN (l.doctor_language)",
             nativeQuery = true)
-    public List<Doctor> findDoctorsByMedicalServiceId(@Param("serviceId")long serviceId);
+    public List<Doctor> findDoctorsByMedicalServiceId(@Param("serviceId") long serviceId, @Param("language") String language);
 }
