@@ -100,9 +100,9 @@ public class DoctorService {
         return specializationWithSchedulesDTOS;
     }
 
-    public List<Doctor> getDoctorsByMedicalServiceId(long serviceId) {
+    public List<Doctor> getDoctorsByMedicalServiceId(long serviceId, Doctor.Language language) {
         MedicalService medicalService = medicalServiceRepository.findById(serviceId).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exists"));
-        return doctorRepository.findDoctorsByMedicalServiceId(serviceId);
+        return doctorRepository.findDoctorsByMedicalServiceId(serviceId,language.toString());
     }
 }

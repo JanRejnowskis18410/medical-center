@@ -1,6 +1,7 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.AppointmentDTO;
+import com.pjatk.medicalcenter.dto.AvailableAppointmentsRequestDTO;
 import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.MedicalService;
@@ -25,11 +26,11 @@ public class AppointmentController {
         this.medicalServiceService = medicalServiceService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<AppointmentDTO>> getAvailableAppointments(@RequestParam(name = "type") Appointment.AppointmentType appointmentType) {
-        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(appointmentType);
-        return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
-    }
+//    @GetMapping
+//    public ResponseEntity<List<AppointmentDTO>> getAvailableAppointments(AvailableAppointmentsRequestDTO availableAppointments) {
+////        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(availableAppointments);
+////        return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable long id){
