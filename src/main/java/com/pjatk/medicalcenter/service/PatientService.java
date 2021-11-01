@@ -1,9 +1,6 @@
 package com.pjatk.medicalcenter.service;
 
-import com.pjatk.medicalcenter.model.Appointment;
-import com.pjatk.medicalcenter.model.Patient;
-import com.pjatk.medicalcenter.model.PatientsFile;
-import com.pjatk.medicalcenter.model.Referral;
+import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.repository.PatientRepository;
 import com.pjatk.medicalcenter.repository.PatientsFileRepository;
 
@@ -84,7 +81,11 @@ public class PatientService {
 
     public List<Referral> getAvailablePatientsReferrals(Long id) {
         LocalDate now = LocalDate.now();
-        System.out.println(now);
         return referralRepository.findByPatientIdAndAppointmentIsNullAndExpiryDateIsGreaterThanEqual(id, now);
+    }
+
+    public List<Prescription> getPatientsPrescriptions(long patientId) {
+        Patient patient = getPatientById(patientId);
+        return patient.getPrescriptions();
     }
 }

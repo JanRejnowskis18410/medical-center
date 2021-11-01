@@ -1,13 +1,7 @@
 package com.pjatk.medicalcenter.controller;
 
-import com.pjatk.medicalcenter.dto.AppointmentDTO;
-import com.pjatk.medicalcenter.dto.PatientDTO;
-import com.pjatk.medicalcenter.dto.PatientsFileDTO;
-import com.pjatk.medicalcenter.dto.ReferralDTO;
-import com.pjatk.medicalcenter.model.Appointment;
-import com.pjatk.medicalcenter.model.Patient;
-import com.pjatk.medicalcenter.model.PatientsFile;
-import com.pjatk.medicalcenter.model.Referral;
+import com.pjatk.medicalcenter.dto.*;
+import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +53,12 @@ public class PatientController {
     public ResponseEntity<List<ReferralDTO>> getAvailablePatientsReferrals(@PathVariable long patientId) {
         List<Referral> referrals = patientService.getAvailablePatientsReferrals(patientId);
         return ResponseEntity.ok(referrals.stream().map(ReferralDTO::new).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{patientId}/prescriptions")
+    public ResponseEntity<List<PrescriptionDTO>> getPatientsPrescriptions(@PathVariable long patientId) {
+        List<Prescription> prescriptions = patientService.getPatientsPrescriptions(patientId);
+        return ResponseEntity.ok(prescriptions.stream().map(PrescriptionDTO::new).collect(Collectors.toList()));
     }
 
     @PostMapping
