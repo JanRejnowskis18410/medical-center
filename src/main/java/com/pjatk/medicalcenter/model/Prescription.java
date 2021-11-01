@@ -1,9 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -31,6 +28,10 @@ public class Prescription {
     )
     private LocalDate dateFrom;
 
+    @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
+    private Patient patient;
+
     @OneToMany(mappedBy = "prescription")
     private List<PrescriptionMedication> prescriptionMedications = new ArrayList<>();
 
@@ -40,5 +41,10 @@ public class Prescription {
 
     public void addPrescriptionMedication(PrescriptionMedication prescriptionMedication) {
         prescriptionMedications.add(prescriptionMedication);
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+        patient.addPrescription(this);
     }
 }

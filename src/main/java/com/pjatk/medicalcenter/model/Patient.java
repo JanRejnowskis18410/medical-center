@@ -21,6 +21,9 @@ public class Patient extends Person{
     @OneToMany(mappedBy = "patient")
     private List<Referral> referrals = new ArrayList<>();
 
+    @OneToMany(mappedBy = "patient")
+    private List<Prescription> prescriptions = new ArrayList<>();
+
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "patient")
     @Setter(AccessLevel.NONE)
     private List<PatientsFile> patientsFiles = new ArrayList<>();
@@ -36,5 +39,9 @@ public class Patient extends Person{
 
     public void addReferral(Referral referral) {
         referrals.add(referral);
+    }
+
+    public void addPrescription(Prescription prescription) {
+        prescriptions.add(prescription);
     }
 }
