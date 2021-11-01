@@ -36,6 +36,10 @@ public class Prescription {
     @Setter(AccessLevel.NONE)
     private Doctor doctor;
 
+    @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
+    private Appointment appointment;
+
     @OneToMany(mappedBy = "prescription")
     private List<PrescriptionMedication> prescriptionMedications = new ArrayList<>();
 

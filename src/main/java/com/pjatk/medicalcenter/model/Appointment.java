@@ -38,6 +38,9 @@ public class Appointment {
     @OneToMany(mappedBy = "issueAppointment")
     private List<Referral> issuedReferrals = new ArrayList<>();
 
+    @OneToMany(mappedBy = "appointment")
+    private List<Prescription> prescriptions = new ArrayList<>();
+
     @Column(
             nullable = false
     )
@@ -68,5 +71,9 @@ public class Appointment {
 
     public void addIssuedReferral(Referral issuedReferral) {
         issuedReferrals.add(issuedReferral);
+    }
+
+    public void addPrescription(Prescription prescription) {
+        prescriptions.add(prescription);
     }
 }
