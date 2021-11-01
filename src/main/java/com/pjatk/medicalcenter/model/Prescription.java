@@ -32,6 +32,10 @@ public class Prescription {
     @Setter(AccessLevel.NONE)
     private Patient patient;
 
+    @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
+    private Doctor doctor;
+
     @OneToMany(mappedBy = "prescription")
     private List<PrescriptionMedication> prescriptionMedications = new ArrayList<>();
 
@@ -46,5 +50,10 @@ public class Prescription {
     public void setPatient(Patient patient) {
         this.patient = patient;
         patient.addPrescription(this);
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+        doctor.addPrescription(this);
     }
 }
