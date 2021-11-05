@@ -7,7 +7,6 @@ import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.Doc;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +33,7 @@ public class DoctorController {
 
     @GetMapping("/services")
     public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestBody DoctorsByMedicalServiceIdAndLanguagesDTO dto){
-        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(dto.getServiceId(),dto.getLanguage())
+        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(dto.getMedicalServiceId(),dto.getLanguage())
                 .stream().map(DoctorDTO::new).collect(Collectors.toList()));
     }
 
