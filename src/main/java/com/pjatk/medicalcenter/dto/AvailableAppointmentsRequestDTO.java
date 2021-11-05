@@ -2,9 +2,7 @@ package com.pjatk.medicalcenter.dto;
 
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Doctor;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,15 +15,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AvailableAppointmentsRequestDTO {
 
-    @NotBlank
-    private Appointment.AppointmentType type;
     @NotNull
-    private long medicalServiceId;
+    private Long medicalServiceId;
     @Nullable
-    private long doctorId;
+    private Long doctorId;
     @Nullable
+    @FutureOrPresent
     private LocalDateTime dateFrom;
-    @Nullable
+    @FutureOrPresent
     private LocalDateTime dateTo;
     @NotBlank
     private Doctor.Language language;

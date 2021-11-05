@@ -15,5 +15,5 @@ public class SearchCriteria {
 }
 
 enum SearchOperation {
-    EQUALITY, NEGATION, GREATER_THAN, LESS_THAN, LIKE, STARTS_WITH, IN
+    EQUALS, GREATER_THEN_OR_EQUAL, LESS_THEN_OR_EQUAL, IN
 }

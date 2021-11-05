@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 public class DoctorsByMedicalServiceIdAndLanguagesDTO {
-    private long serviceId;
+    private long medicalServiceId;
     private Doctor.Language language;
 }

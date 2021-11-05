@@ -28,7 +28,6 @@ public class Patient extends Person{
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointments = new ArrayList<>();
 
-    //TODO is it needed?
     public void setPatientsFiles(List<PatientsFile> patientsFiles) {
         patientsFiles.forEach(e -> e.setPatient(this));
         this.patientsFiles = patientsFiles;
@@ -36,5 +35,9 @@ public class Patient extends Person{
 
     public void addReferral(Referral referral) {
         referrals.add(referral);
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
     }
 }
