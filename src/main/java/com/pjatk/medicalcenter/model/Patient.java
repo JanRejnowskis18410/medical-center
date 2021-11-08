@@ -37,4 +37,8 @@ public class Patient extends Person{
     public void addReferral(Referral referral) {
         referrals.add(referral);
     }
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+    }
 }

@@ -26,6 +26,7 @@ public class Appointment {
     private Long id;
 
     @ManyToOne
+    @Setter(AccessLevel.NONE)
     private Patient patient;
 
     @ManyToOne(optional = false)
@@ -33,6 +34,7 @@ public class Appointment {
     private MedicalService medicalService;
 
     @OneToOne(mappedBy = "appointment")
+    @Setter(AccessLevel.NONE)
     private Referral referral;
 
     @OneToMany(mappedBy = "issueAppointment")
@@ -68,5 +70,15 @@ public class Appointment {
 
     public void addIssuedReferral(Referral issuedReferral) {
         issuedReferrals.add(issuedReferral);
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+        patient.addAppointment(this);
+    }
+
+    public void setReferral(Referral referral) {
+        this.referral = referral;
+        referral.setAppointment(this);
     }
 }
