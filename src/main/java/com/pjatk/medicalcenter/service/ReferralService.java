@@ -2,7 +2,9 @@ package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.model.Referral;
 import com.pjatk.medicalcenter.repository.ReferralRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ReferralService {
@@ -14,4 +16,8 @@ public class ReferralService {
     }
 
     public Referral addReferral(Referral referral) { return referralRepository.save(referral); }
+
+    public Referral getReferralById(long id){
+        return referralRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Referral does not exists"));
+    }
 }
