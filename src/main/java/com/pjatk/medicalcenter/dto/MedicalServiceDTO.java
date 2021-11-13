@@ -21,6 +21,7 @@ public class MedicalServiceDTO {
     private boolean facilityService;
     @NotNull
     private boolean doneByMedicalStaff;
+    private long specializationId;
 
 
     public MedicalServiceDTO(MedicalService medicalService) {
@@ -28,6 +29,7 @@ public class MedicalServiceDTO {
         this.name = medicalService.getName();
         this.facilityService = medicalService.isFacilityService();
         this.doneByMedicalStaff = medicalService.isDoneByMedicalStaff();
+        this.specializationId = medicalService.getSpecialization().getId();
     }
 
 }

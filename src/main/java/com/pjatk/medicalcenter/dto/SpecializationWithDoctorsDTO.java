@@ -16,12 +16,12 @@ public class SpecializationWithDoctorsDTO {
 
     private Long id;
     private String name;
-    private List<DoctorDTO> doctorDTOs = new ArrayList<>();
+    private List<DoctorDTO> doctor = new ArrayList<>();
 
     public SpecializationWithDoctorsDTO(Specialization specialization){
         this.id=specialization.getId();
         this.name=specialization.getName();
-        this.doctorDTOs=specialization.getDoctorSpecializations().stream().map(docSpec -> new DoctorDTO(docSpec.getDoctor())).collect(Collectors.toList());
+        this.doctor =specialization.getDoctorSpecializations().stream().map(docSpec -> new DoctorDTO(docSpec.getDoctor())).collect(Collectors.toList());
     }
 }
 

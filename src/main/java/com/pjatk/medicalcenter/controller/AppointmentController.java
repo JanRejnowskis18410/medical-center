@@ -28,7 +28,7 @@ public class AppointmentController {
 
     @GetMapping("/all")
     public ResponseEntity<List<AppointmentDTO>> getAppointments() {
-        List<Appointment> availableAppointments = appointmentService.getAllApointments();
+        List<Appointment> availableAppointments = appointmentService.getAllAppointments();
         return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
     }
 

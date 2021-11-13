@@ -6,15 +6,14 @@ import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Doctor;
 import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.repository.AppointmentRepository;
-import com.pjatk.medicalcenter.specifications.SpecificationFactory;
-import com.pjatk.medicalcenter.specifications.GenericSpecificationsBuilder;
+import com.pjatk.medicalcenter.specifications.AppointmentSpecification;
+import com.pjatk.medicalcenter.specifications.AppointmentSpecificationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,8 +22,6 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final MedicalServiceService medicalServiceService;
     private final DoctorService doctorService;
-    @Autowired
-    private  SpecificationFactory<Appointment> appointmentSpecificationFactory;
 
     public AppointmentService(AppointmentRepository appointmentRepository, MedicalServiceService medicalServiceService, DoctorService doctorService) {
         this.appointmentRepository = appointmentRepository;
@@ -32,29 +29,36 @@ public class AppointmentService {
         this.doctorService = doctorService;
     }
 
-    public List<Appointment> getAllApointments(){
+    public List<Appointment> getAllAppointments(){
         return appointmentRepository.findAll();
     }
 
     public List<Appointment> getAvailableAppointments(AvailableAppointmentsRequestDTO availableAppointmentsRq) {
 
-        GenericSpecificationsBuilder<Appointment> builder = new GenericSpecificationsBuilder<>();
+        AppointmentSpecificationBuilder appointmentSpecificationBuilder = new AppointmentSpecificationBuilder();
 
-        if(medicalServiceService.getServiceById(availableAppointmentsRq.getMedicalServiceId()) != null){
-            builder.with(appointmentSpecificationFactory.isEqual("medicalService", availableAppointmentsRq.getMedicalServiceId()));
+        if(Objects.nonNull(medicalServiceService.getServiceById(availableAppointmentsRq.getMedicalServiceId()))) {
+            appointmentSpecificationBuilder
+                    .addSpecification(AppointmentSpecification.medicalServiceIdEqualTo(availableAppointmentsRq.getMedicalServiceId()));
         }
-        if(Objects.nonNull(availableAppointmentsRq.getDoctorId()) && doctorService.getDoctorById(availableAppointmentsRq.getDoctorId()) != null){
-            builder.with(appointmentSpecificationFactory.isEqual("doctor", availableAppointmentsRq.getDoctorId()));
+        if(Objects.nonNull(availableAppointmentsRq.getDoctorId()) && Objects.nonNull(doctorService.getDoctorById(availableAppointmentsRq.getDoctorId()))) {
+            appointmentSpecificationBuilder
+                    .addSpecification(AppointmentSpecification.doctorIdEqualTo(availableAppointmentsRq.getDoctorId()));
         }
-        if(Objects.nonNull(availableAppointmentsRq.getDateFrom())){
-            builder.with(appointmentSpecificationFactory.isGreaterThanOrEqualTo("date",availableAppointmentsRq.getDateFrom()));
+        if(Objects.nonNull(availableAppointmentsRq.getDateFrom())) {
+            appointmentSpecificationBuilder
+                    .addSpecification(AppointmentSpecification.dateGreaterThanOrEqual(availableAppointmentsRq.getDateFrom()));
         }
-        if(Objects.nonNull(availableAppointmentsRq.getDateTo())){
-            builder.with(appointmentSpecificationFactory.isLessThanOrEqualTo("date",availableAppointmentsRq.getDateTo()));
+        if(Objects.nonNull(availableAppointmentsRq.getDateTo())) {
+            appointmentSpecificationBuilder
+                    .addSpecification(AppointmentSpecification.dateLessThanOrEqual(availableAppointmentsRq.getDateTo()));
         }
-        builder.with(appointmentSpecificationFactory.isIn("",availableAppointmentsRq.getLanguage()));
+        if(Objects.nonNull(availableAppointmentsRq.getLanguage())){
+            appointmentSpecificationBuilder
+                    .addSpecification(AppointmentSpecification.languageEqual(availableAppointmentsRq.getLanguage()));
+        }
 
-        return appointmentRepository.findAll(builder.build());
+        return appointmentRepository.findAll(appointmentSpecificationBuilder.build());
     }
 
     public Appointment getAppointmentById(long id){

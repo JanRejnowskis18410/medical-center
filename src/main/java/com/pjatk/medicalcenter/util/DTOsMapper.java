@@ -49,7 +49,7 @@ public class DTOsMapper {
         doctor.getLanguages().addAll(doctorWithSpecializationDTO.getLanguages());
 
         List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
-        for (SpecializationWithSchedulesDTO specializationWithSchedulesDTO : doctorWithSpecializationDTO.getSpecializationWithSchedulesDTOs()) {
+        for (SpecializationWithSchedulesDTO specializationWithSchedulesDTO : doctorWithSpecializationDTO.getSpecializationWithSchedules()) {
             Specialization specialization = new Specialization();
             specialization.setId(specializationWithSchedulesDTO.getId());
             specialization.setName(specializationWithSchedulesDTO.getName());
