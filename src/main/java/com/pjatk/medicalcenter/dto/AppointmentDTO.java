@@ -16,6 +16,8 @@ public class AppointmentDTO {
 
     private MedicalServiceDTO service;
 
+    private DoctorDTO doctor;
+
     private LocalDateTime date;
 
     private boolean confirmed;
@@ -27,6 +29,7 @@ public class AppointmentDTO {
     public AppointmentDTO(Appointment appointment) {
         this.id = appointment.getId();
         this.service = new MedicalServiceDTO(appointment.getMedicalService());
+        this.doctor = new DoctorDTO(appointment.getDoctor());
         this.date = appointment.getDate();
         this.confirmed = appointment.isConfirmed();
         this.description = appointment.getDescription();
