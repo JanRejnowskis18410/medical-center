@@ -1,7 +1,10 @@
 package com.pjatk.medicalcenter.model;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Type;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.print.Doc;
@@ -24,37 +27,43 @@ public class Appointment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = true)
     @Setter(AccessLevel.NONE)
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = true)
     @Setter(AccessLevel.NONE)
     private Doctor doctor;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "medicalService_id", referencedColumnName = "id")
+    @JoinColumn(name = "medicalService_id", referencedColumnName = "id", nullable = false)
     @Setter(AccessLevel.NONE)
     private MedicalService medicalService;
 
     @OneToOne(mappedBy = "appointment")
+    @Nullable
     private Referral referral;
 
     @OneToMany(mappedBy = "issueAppointment")
+    @Nullable
     private List<Referral> issuedReferrals = new ArrayList<>();
 
+    @OneToMany(mappedBy = "appointment")
+    private List<Prescription> prescriptions = new ArrayList<>();
+
     @Column(nullable = false)
+    @Future(message = "Incorrect date")
     private LocalDateTime date;
 
     @Column(nullable = false)
     @Type(type = "numeric_boolean")
     private boolean confirmed;
 
-    @Column
+    @Column(nullable = true)
     private String recommendations;
 
-    @Column
+    @Column(nullable = true)
     private String description;
 
     @Column(nullable = false)
@@ -80,4 +89,7 @@ public class Appointment {
         issuedReferrals.add(issuedReferral);
     }
 
+    public void addPrescription(Prescription prescription) {
+        prescriptions.add(prescription);
+    }
 }

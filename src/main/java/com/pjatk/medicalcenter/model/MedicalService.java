@@ -1,6 +1,7 @@
 package com.pjatk.medicalcenter.model;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class MedicalService {
     private List<Referral> referrals = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "specialization_id", referencedColumnName = "id")
+    @JoinColumn(name = "specialization_id", referencedColumnName = "id", nullable = false)
     @Setter(AccessLevel.NONE)
     private Specialization specialization;
 

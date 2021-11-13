@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,9 +14,10 @@ import java.util.List;
 public class Patient extends Person{
 
     @Embedded
+    @NotNull
     private Address address;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")

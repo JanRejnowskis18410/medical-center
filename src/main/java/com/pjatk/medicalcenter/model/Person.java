@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
+import jakarta.validation.constraints.Past;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,16 +18,17 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstName")
+    @Column(name = "firstName", nullable = false)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastName", nullable = false)
     private String lastName;
 
-    @Column(name = "email",unique = true)
+    @Column(name = "email",unique = true, nullable = false)
     private String email;
 
-    @Column(name = "birthDate")
+    @Column(name = "birthDate", nullable = false)
+    @Past
     private LocalDate birthDate;
 
     @Column(name = "PESEL",unique = true)

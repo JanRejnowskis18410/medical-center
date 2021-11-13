@@ -18,7 +18,7 @@ public class Doctor extends Person{
         PL, EN, DE, RU
     }
 
-    @Column(name = "PWZ")
+    @Column(name = "PWZ", nullable = false)
     private String PWZ;
 
     @OneToMany(mappedBy = "doctor")
