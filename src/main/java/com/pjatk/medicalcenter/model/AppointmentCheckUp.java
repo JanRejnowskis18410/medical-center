@@ -16,10 +16,10 @@ public class AppointmentCheckUp {
     @MapsId("checkUpId")
     private CheckUp checkUp;
 
-    @Column
+    @Column(nullable = false)
     private String result;
 
-    @Column
+    @Column(nullable = true)
     private String description;
 
     @Lob

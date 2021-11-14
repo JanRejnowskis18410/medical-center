@@ -1,30 +1,26 @@
 package com.pjatk.medicalcenter.model;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Future;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class Referral {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(
-            nullable = false
-    )
+    @Column(nullable = false)
     private LocalDate issueDate;
 
-    @Column(
-            nullable = false
-    )
+    @Column(nullable = false)
+    @Future
     private LocalDate expiryDate;
 
     @OneToOne
@@ -41,6 +37,10 @@ public class Referral {
     @ManyToOne(optional = false)
     @Setter(AccessLevel.NONE)
     private Patient patient;
+
+    public Referral() {
+        setIssueDate(LocalDate.now());
+    }
 
     public void setMedicalService(MedicalService medicalService) {
         this.medicalService = medicalService;

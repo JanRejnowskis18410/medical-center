@@ -49,7 +49,7 @@ public class DTOsMapper {
         doctor.getLanguages().addAll(doctorWithSpecializationDTO.getLanguages());
 
         List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
-        for (SpecializationWithSchedulesDTO specializationWithSchedulesDTO : doctorWithSpecializationDTO.getSpecializationWithSchedulesDTOs()) {
+        for (SpecializationWithSchedulesDTO specializationWithSchedulesDTO : doctorWithSpecializationDTO.getSpecializationWithSchedules()) {
             Specialization specialization = new Specialization();
             specialization.setId(specializationWithSchedulesDTO.getId());
             specialization.setName(specializationWithSchedulesDTO.getName());
@@ -119,11 +119,30 @@ public class DTOsMapper {
 
     public static Schedule mapScheduleDTOtoSchedule(ScheduleDTO scheduleDTO){
         Schedule schedule = new Schedule();
-        schedule.setId(scheduleDTO.getId());
+        if(scheduleDTO.getId()!=0)
+            schedule.setId(scheduleDTO.getId());
         schedule.setDayOfWeek(scheduleDTO.getDayOfWeek());
         schedule.setDateFrom(scheduleDTO.getDateFrom());
         schedule.setDateTo(scheduleDTO.getDateTo());
 
         return schedule;
+    }
+
+    public static MedicalService mapServiceDTOToService(MedicalServiceDTO medicalServiceDTO) {
+        MedicalService medicalService = new MedicalService();
+        medicalService.setId(medicalServiceDTO.getId());
+        medicalService.setName(medicalServiceDTO.getName());
+        medicalService.setFacilityService(medicalServiceDTO.isFacilityService());
+        medicalService.setDoneByMedicalStaff(medicalServiceDTO.isDoneByMedicalStaff());
+        return medicalService;
+    }
+
+    public static MedicalService mapCreateServiceDTOToService(CreateMedicalServiceDTO createMedicalServiceDTO) {
+        MedicalService medicalService = new MedicalService();
+        medicalService.setId(createMedicalServiceDTO.getId());
+        medicalService.setName(createMedicalServiceDTO.getName());
+        medicalService.setFacilityService(createMedicalServiceDTO.isFacilityService());
+        medicalService.setDoneByMedicalStaff(createMedicalServiceDTO.isDoneByMedicalStaff());
+        return medicalService;
     }
 }

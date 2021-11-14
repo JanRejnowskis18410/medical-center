@@ -1,7 +1,6 @@
 package com.pjatk.medicalcenter.dto;
 
 import com.pjatk.medicalcenter.model.Doctor;
-import com.pjatk.medicalcenter.model.DoctorSpecialization;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +24,7 @@ public class DoctorWithSpecializationDTO {
     private String PWZ;
     private List<Doctor.Language> languages;
 
-   private List<SpecializationWithSchedulesDTO> specializationWithSchedulesDTOs = new ArrayList<>();
+   private List<SpecializationWithSchedulesDTO> specializationWithSchedules = new ArrayList<>();
 
    public DoctorWithSpecializationDTO(Doctor doctor){
        this.id=doctor.getId();
@@ -35,7 +34,7 @@ public class DoctorWithSpecializationDTO {
        this.birthDate= doctor.getBirthDate();
        this.pesel=doctor.getPesel();
        this.PWZ=doctor.getPWZ();
-       this.specializationWithSchedulesDTOs=doctor.getDoctorSpecializations().stream().map(SpecializationWithSchedulesDTO::new).collect(Collectors.toList());
+       this.specializationWithSchedules =doctor.getDoctorSpecializations().stream().map(SpecializationWithSchedulesDTO::new).collect(Collectors.toList());
        this.languages = new ArrayList<>(doctor.getLanguages());
    }
 

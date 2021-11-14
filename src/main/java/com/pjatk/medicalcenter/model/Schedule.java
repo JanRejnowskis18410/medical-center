@@ -22,8 +22,8 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id"),
-            @JoinColumn(name = "specialization_id", referencedColumnName = "specialization_id")
+            @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id", nullable = false),
+            @JoinColumn(name = "specialization_id", referencedColumnName = "specialization_id", nullable = false)
     })
     private DoctorSpecialization doctorSpecialization;
 

@@ -1,5 +1,7 @@
 package com.pjatk.medicalcenter.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,14 +21,17 @@ public class PrescriptionMedication {
     @ManyToOne
     @MapsId("prescriptionId")
     @Setter(AccessLevel.NONE)
+    @NotNull
     private Prescription prescription;
 
     @ManyToOne
     @MapsId("medicationId")
     @Setter(AccessLevel.NONE)
+    @NotNull
     private Medication medication;
 
     @Column(nullable = false)
+    @Min(1)
     private int numberOfPackages;
 
     @Column(nullable = false)

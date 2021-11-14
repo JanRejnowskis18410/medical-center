@@ -20,15 +20,27 @@ public class PrescriptionDTO {
 
     private byte[] binaryCode;
 
-    private LocalDate dateFrom;
+    private LocalDate dateToUse;
+
+    private LocalDate creationDate;
 
     private List<PrescriptionMedicationDTO> medications;
+
+    private String doctorFirstName;
+
+    private String doctorLastName;
+
+    private String doctorPwz;
 
     public PrescriptionDTO(Prescription prescription) {
         this.id = prescription.getId();
         this.accessCode = prescription.getAccessCode();
         this.binaryCode = prescription.getBinaryCode();
-        this.dateFrom = prescription.getDateFrom();
+        this.dateToUse = prescription.getDateToUse();
+        this.creationDate = prescription.getCreationDate();
         this.medications = prescription.getPrescriptionMedications().stream().map(PrescriptionMedicationDTO::new).collect(Collectors.toList());
+        this.doctorFirstName = prescription.getDoctor().getFirstName();
+        this.doctorLastName = prescription.getDoctor().getLastName();
+        this.doctorPwz = prescription.getDoctor().getPWZ();
     }
 }
