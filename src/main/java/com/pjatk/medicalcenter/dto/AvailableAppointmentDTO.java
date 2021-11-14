@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AppointmentDTO {
+public class AvailableAppointmentDTO {
 
     private Long id;
 
@@ -26,7 +26,7 @@ public class AppointmentDTO {
 
     private Appointment.AppointmentType type;
 
-    public AppointmentDTO(Appointment appointment) {
+    public AvailableAppointmentDTO(Appointment appointment) {
         this.id = appointment.getId();
         this.service = new MedicalServiceDTO(appointment.getMedicalService());
         this.doctor = new DoctorDTO(appointment.getDoctor());

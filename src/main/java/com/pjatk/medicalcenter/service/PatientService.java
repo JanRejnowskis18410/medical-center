@@ -55,7 +55,7 @@ public class PatientService {
         return patientsFiles;
     }
 
-    public List<Appointment> getPatientsAppointments(long patientId) {
+    public List<Appointment> getPatientsDoneAppointments(long patientId) {
         Patient patient = getPatientById(patientId);
         return patient.getAppointments();
     }

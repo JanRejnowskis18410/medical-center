@@ -18,12 +18,12 @@ public class ReferralDTO {
 
     private LocalDate expiryDate;
 
-    private MedicalServiceDTO medicalServiceDTO;
+    private MedicalServiceDTO medicalService;
 
     public ReferralDTO(Referral referral) {
         this.id = referral.getId();
         this.issueDate = referral.getIssueDate();
         this.expiryDate = referral.getExpiryDate();
-        this.medicalServiceDTO = new MedicalServiceDTO(referral.getMedicalService());
+        this.medicalService = new MedicalServiceDTO(referral.getMedicalService());
     }
 }

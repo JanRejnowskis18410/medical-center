@@ -11,7 +11,6 @@ import lombok.Setter;
 public class CheckUpDTO {
 
     private Long id;
-
     private String name;
 
     public CheckUpDTO(CheckUp checkUp) {

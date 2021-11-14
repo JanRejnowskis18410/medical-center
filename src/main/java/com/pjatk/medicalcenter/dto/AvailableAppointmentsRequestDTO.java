@@ -15,15 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AvailableAppointmentsRequestDTO {
 
-    @NotNull
     private Long medicalServiceId;
     @Nullable
     private Long doctorId;
     @Nullable
-    @FutureOrPresent
     private LocalDateTime dateFrom;
-    @FutureOrPresent
+    @Nullable
     private LocalDateTime dateTo;
-    @NotBlank
     private Doctor.Language language;
 }

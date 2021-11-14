@@ -145,4 +145,32 @@ public class DTOsMapper {
         medicalService.setDoneByMedicalStaff(createMedicalServiceDTO.isDoneByMedicalStaff());
         return medicalService;
     }
+
+    public static AppointmentTestDTO mapAppointmentTestDTOToAppointmentTest(AppointmentCheckUp aCU){
+        AppointmentTestDTO appointmentTestDTO = new AppointmentTestDTO();
+        appointmentTestDTO.setAppointmentId(aCU.getAppointment().getId());
+        appointmentTestDTO.setCheckUpId(aCU.getCheckUp().getId());
+        appointmentTestDTO.setDiagnosticTestName(aCU.getCheckUp().getName());
+        appointmentTestDTO.setResult(aCU.getResult());
+        appointmentTestDTO.setDescription(aCU.getDescription());
+        appointmentTestDTO.setFile(aCU.getFile());
+        return appointmentTestDTO;
+    }
+
+//    public static PatientsDoneVisitDTO mapAppointmentToPatientsDoneVisitDTO(Appointment apmt){
+//        PatientsDoneVisitDTO patientsDoneVisitDTO = new PatientsDoneVisitDTO();
+//        patientsDoneVisitDTO.setServiceName(apmt.getMedicalService().getName());
+//        patientsDoneVisitDTO.setDoctor(new DoctorDTO(apmt.getDoctor()));
+//        patientsDoneVisitDTO.setDate(apmt.getDate());
+//        patientsDoneVisitDTO.setRecommendations(apmt.getRecommendations());
+//        patientsDoneVisitDTO.setType(apmt.getType());
+//        patientsDoneVisitDTO.setIssuedReferrals(apmt.getIssuedReferrals().stream()
+//                                                    .map(ReferralDTO::new)
+//                                                    .collect(Collectors.toList()));
+//        patientsDoneVisitDTO.setPrescriptions(apmt.getPrescriptions().stream()
+//                                                .map(PrescriptionDTO::new)
+//                                                .collect(Collectors.toList()));
+//        patientsDoneVisitDTO.setDiagnosticTests(apmt.);
+//        }
+//    }
 }

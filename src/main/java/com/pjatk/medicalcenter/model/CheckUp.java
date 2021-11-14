@@ -19,6 +19,6 @@ public class CheckUp {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "appointment")
+    @OneToMany(mappedBy = "checkUp")
     private List<AppointmentCheckUp> appointmentCheckUps = new ArrayList<>();
 }

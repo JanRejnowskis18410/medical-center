@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DoctorsByMedicalServiceIdAndLanguagesDTO {
+public class GetDoctorsByMedicalServiceIdAndLanguagesDTO {
     private long medicalServiceId;
     private Doctor.Language language;
 }
