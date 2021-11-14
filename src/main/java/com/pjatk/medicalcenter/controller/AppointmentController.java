@@ -1,10 +1,9 @@
 package com.pjatk.medicalcenter.controller;
 
-import com.pjatk.medicalcenter.dto.AppointmentDTO;
+import com.pjatk.medicalcenter.dto.AvailableAppointmentDTO;
 import com.pjatk.medicalcenter.dto.AvailableAppointmentsRequestDTO;
 import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
 import com.pjatk.medicalcenter.model.Appointment;
-import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.service.AppointmentService;
 import com.pjatk.medicalcenter.service.MedicalServiceService;
 import org.springframework.http.ResponseEntity;
@@ -27,30 +26,30 @@ public class AppointmentController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<AppointmentDTO>> getAppointments() {
+    public ResponseEntity<List<AvailableAppointmentDTO>> getAppointments() {
         List<Appointment> availableAppointments = appointmentService.getAllAppointments();
-        return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping
-    public ResponseEntity<List<AppointmentDTO>> getAvailableAppointments(@RequestBody AvailableAppointmentsRequestDTO availableAppointmentsRq) {
+    public ResponseEntity<List<AvailableAppointmentDTO>> getAvailableAppointments(@RequestBody AvailableAppointmentsRequestDTO availableAppointmentsRq) {
         List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(availableAppointmentsRq);
-        return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable long id){
-        return ResponseEntity.ok(new AppointmentDTO(appointmentService.getAppointmentById(id)));
+    public ResponseEntity<AvailableAppointmentDTO> getAppointmentById(@PathVariable long id){
+        return ResponseEntity.ok(new AvailableAppointmentDTO(appointmentService.getAppointmentById(id)));
     }
 
     @PostMapping
-    public ResponseEntity<Appointment> addAppointment(@RequestBody CreateAppointmentDTO createAppointmentDTO) {
+    public ResponseEntity<AvailableAppointmentDTO> addAppointment(@RequestBody CreateAppointmentDTO createAppointmentDTO) {
         Appointment createdAppointment = appointmentService.addAppointment(createAppointmentDTO);
         return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
     }
 
     @PostMapping("/addList")
-    public ResponseEntity<Appointment> addAppointments(@RequestBody List<CreateAppointmentDTO> createAppointmentDTOs) {
+    public ResponseEntity<AvailableAppointmentDTO> addAppointments(@RequestBody List<CreateAppointmentDTO> createAppointmentDTOs) {
         List<Appointment> createdAppointments = appointmentService.addAppointments(createAppointmentDTOs);
         return ResponseEntity.created(URI.create(String.format("/appointments/"))).build();
     }

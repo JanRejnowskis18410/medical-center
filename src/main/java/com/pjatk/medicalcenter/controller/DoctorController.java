@@ -32,7 +32,7 @@ public class DoctorController {
     }
 
     @GetMapping("/services")
-    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestBody DoctorsByMedicalServiceIdAndLanguagesDTO dto){
+    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestBody GetDoctorsByMedicalServiceIdAndLanguagesDTO dto){
         return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(dto.getMedicalServiceId(),dto.getLanguage())
                 .stream().map(DoctorDTO::new).collect(Collectors.toList()));
     }
@@ -72,5 +72,5 @@ public class DoctorController {
         return ResponseEntity.ok("Success");
     }
 
-    //TODO -> update doctor's specialization, delete docto's specialization (delete object DoctorSpecialization)
+    //TODO -> update doctor's specialization, delete doctor's specialization (delete object DoctorSpecialization)
 }

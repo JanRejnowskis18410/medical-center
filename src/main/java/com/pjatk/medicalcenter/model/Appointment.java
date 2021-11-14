@@ -42,15 +42,16 @@ public class Appointment {
     private MedicalService medicalService;
 
     @OneToOne(mappedBy = "appointment")
-    @Nullable
     private Referral referral;
 
     @OneToMany(mappedBy = "issueAppointment")
-    @Nullable
     private List<Referral> issuedReferrals = new ArrayList<>();
 
     @OneToMany(mappedBy = "appointment")
     private List<Prescription> prescriptions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "appointment")
+    private List<AppointmentCheckUp> appointmentCheckUps = new ArrayList<>();
 
     @Column(nullable = false)
     @Future(message = "Incorrect date")
