@@ -18,7 +18,7 @@ public class CreatePrescriptionDTO {
 
     private byte[] binaryCode;
 
-    private LocalDate dateFrom;
+    private LocalDate dateToUse;
 
     private List<CreatePrescriptionMedicationDTO> medications;
 }
