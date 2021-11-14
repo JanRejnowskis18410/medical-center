@@ -70,6 +70,10 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
+    public Appointment addAppointment(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
+
     public List<Appointment> addAppointments(List<CreateAppointmentDTO> newAppointments) {
         List<Appointment> appointments = newAppointments
                                             .stream()

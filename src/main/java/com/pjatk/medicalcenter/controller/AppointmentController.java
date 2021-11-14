@@ -89,17 +89,4 @@ public class AppointmentController {
         appointmentService.addAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
-
-    private Appointment mapCreateAppointmentDTOToAppointment(CreateAppointmentDTO createAppointmentDTO) {
-        Appointment appointment = new Appointment();
-        appointment.setId(createAppointmentDTO.getId());
-        appointment.setType(createAppointmentDTO.getType());
-        appointment.setDate(createAppointmentDTO.getDate());
-
-        MedicalService medicalService = medicalServiceService.getServiceById(createAppointmentDTO.getServiceId());
-        appointment.setMedicalService(medicalService);
-        appointment.setConfirmed(false);
-
-        return appointment;
-    }
 }
