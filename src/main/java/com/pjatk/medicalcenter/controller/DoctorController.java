@@ -31,6 +31,12 @@ public class DoctorController {
         return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
     }
 
+    @GetMapping("/services")
+    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestBody DoctorsByMedicalServiceIdAndLanguagesDTO dto){
+        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(dto.getMedicalServiceId(),dto.getLanguage())
+                .stream().map(DoctorDTO::new).collect(Collectors.toList()));
+    }
+
     @PostMapping
     public ResponseEntity<DoctorWithSpecializationDTO> addDoctor(@RequestBody DoctorDTO doctorDTO){
         Doctor createdDoctor = doctorService.addDoctor(DTOsMapper.mapDoctorDTOtoDoctor(doctorDTO));

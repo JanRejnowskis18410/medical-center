@@ -1,6 +1,7 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.AppointmentDTO;
+import com.pjatk.medicalcenter.dto.AvailableAppointmentsRequestDTO;
 import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.MedicalService;
@@ -25,9 +26,15 @@ public class AppointmentController {
         this.medicalServiceService = medicalServiceService;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<AppointmentDTO>> getAppointments() {
+        List<Appointment> availableAppointments = appointmentService.getAllAppointments();
+        return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
+    }
+
     @GetMapping
-    public ResponseEntity<List<AppointmentDTO>> getAvailableAppointments(@RequestParam(name = "type") Appointment.AppointmentType appointmentType) {
-        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(appointmentType);
+    public ResponseEntity<List<AppointmentDTO>> getAvailableAppointments(@RequestBody AvailableAppointmentsRequestDTO availableAppointmentsRq) {
+        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(availableAppointmentsRq);
         return ResponseEntity.ok(availableAppointments.stream().map(AppointmentDTO::new).collect(Collectors.toList()));
     }
 
@@ -38,13 +45,13 @@ public class AppointmentController {
 
     @PostMapping
     public ResponseEntity<Appointment> addAppointment(@RequestBody CreateAppointmentDTO createAppointmentDTO) {
-        Appointment createdAppointment = appointmentService.addAppointment(mapCreateAppointmentDTOToAppointment(createAppointmentDTO));
+        Appointment createdAppointment = appointmentService.addAppointment(createAppointmentDTO);
         return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
     }
 
     @PostMapping("/addList")
     public ResponseEntity<Appointment> addAppointments(@RequestBody List<CreateAppointmentDTO> createAppointmentDTOs) {
-        List<Appointment> createdAppointments = appointmentService.addAppointments(createAppointmentDTOs.stream().map(this::mapCreateAppointmentDTOToAppointment).collect(Collectors.toList()));
+        List<Appointment> createdAppointments = appointmentService.addAppointments(createAppointmentDTOs);
         return ResponseEntity.created(URI.create(String.format("/appointments/"))).build();
     }
 
@@ -52,18 +59,5 @@ public class AppointmentController {
     public ResponseEntity<String> deleteAppointment(@PathVariable long id){
         appointmentService.deleteAppointmentById(id);
         return ResponseEntity.ok("Success");
-    }
-
-    private Appointment mapCreateAppointmentDTOToAppointment(CreateAppointmentDTO createAppointmentDTO) {
-        Appointment appointment = new Appointment();
-        appointment.setId(createAppointmentDTO.getId());
-        appointment.setType(createAppointmentDTO.getType());
-        appointment.setDate(createAppointmentDTO.getDate());
-
-        MedicalService medicalService = medicalServiceService.getServiceById(createAppointmentDTO.getServiceId());
-        appointment.setMedicalService(medicalService);
-        appointment.setConfirmed(false);
-
-        return appointment;
     }
 }

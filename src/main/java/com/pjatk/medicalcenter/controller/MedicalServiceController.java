@@ -1,8 +1,11 @@
 package com.pjatk.medicalcenter.controller;
 
-import com.pjatk.medicalcenter.dto.ServiceDTO;
+import com.pjatk.medicalcenter.dto.CreateMedicalServiceDTO;
+import com.pjatk.medicalcenter.dto.MedicalServiceDTO;
+import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.service.MedicalServiceService;
+import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/services")
+@RequestMapping("/medicalServices")
 public class MedicalServiceController {
 
     private final MedicalServiceService medicalServiceService;
@@ -20,26 +23,31 @@ public class MedicalServiceController {
         this.medicalServiceService = medicalServiceService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<ServiceDTO>> getServices() {
-        List<MedicalService> medicalServices = medicalServiceService.getServices();
-        return ResponseEntity.ok(medicalServices.stream().map(ServiceDTO::new).collect(Collectors.toList()));
+    @GetMapping("/{id}")
+    public ResponseEntity<MedicalServiceDTO> getServiceById(@PathVariable long id) {
+        return ResponseEntity.ok(new MedicalServiceDTO(medicalServiceService.getServiceById(id)));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ServiceDTO> getServiceById(@PathVariable long id) {
-        return ResponseEntity.ok(new ServiceDTO(medicalServiceService.getServiceById(id)));
+    @GetMapping()
+    public ResponseEntity<List<MedicalServiceDTO>> getServices(@RequestParam(name = "type", required = false) Appointment.AppointmentType appointmentType) {
+        if(appointmentType != null)
+            return ResponseEntity.ok(medicalServiceService.getServicesByAppointmentType(appointmentType).stream()
+                .map(MedicalServiceDTO::new).collect(Collectors.toList()));
+        else
+            return ResponseEntity.ok(medicalServiceService.getServices().stream()
+                    .map(MedicalServiceDTO::new).collect(Collectors.toList()));
     }
 
     @PostMapping
-    public ResponseEntity<MedicalService> addService(@RequestBody ServiceDTO serviceDTO) {
-        MedicalService createdMedicalService = medicalServiceService.addService(mapServiceDTOToService(serviceDTO));
+    public ResponseEntity<MedicalService> addService(@RequestBody CreateMedicalServiceDTO createMedicalServiceDTO) {
+        MedicalService createdMedicalService = medicalServiceService
+                .addMedicalService(DTOsMapper.mapCreateServiceDTOToService(createMedicalServiceDTO),createMedicalServiceDTO.getSpecializationId());
         return ResponseEntity.created(URI.create(String.format("/services/%d", createdMedicalService.getId()))).build();
     }
 
     @PutMapping
-    public ResponseEntity<MedicalService> updateService(@RequestBody ServiceDTO serviceDTO) {
-        MedicalService updatedMedicalService = medicalServiceService.updateService(mapServiceDTOToService(serviceDTO));
+    public ResponseEntity<MedicalService> updateService(@RequestBody MedicalServiceDTO medicalServiceDTO) {
+        MedicalService updatedMedicalService = medicalServiceService.updateService(DTOsMapper.mapServiceDTOToService(medicalServiceDTO));
         return ResponseEntity.created(URI.create(String.format("/services/%d", updatedMedicalService.getId()))).build();
     }
 
@@ -47,14 +55,5 @@ public class MedicalServiceController {
     public ResponseEntity<String> deleteService(@PathVariable long id) {
         medicalServiceService.deletePatientById(id);
         return ResponseEntity.ok("Success");
-    }
-
-
-    MedicalService mapServiceDTOToService(ServiceDTO serviceDTO) {
-        MedicalService medicalService = new MedicalService();
-        medicalService.setId(serviceDTO.getId());
-        medicalService.setName(serviceDTO.getName());
-
-        return medicalService;
     }
 }

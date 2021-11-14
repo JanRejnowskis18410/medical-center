@@ -43,7 +43,7 @@ public class DoctorSpecialization {
         this.specialization = specialization;
     }
 
-    public void addSchedule(List<Schedule> schedule){
+    public void addSchedules(List<Schedule> schedule){
         schedule.forEach(sch -> {
             sch.setDoctorSpecialization(this);
             this.schedules.add(sch);

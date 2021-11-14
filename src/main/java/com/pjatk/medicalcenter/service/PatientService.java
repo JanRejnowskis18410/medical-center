@@ -70,6 +70,7 @@ public class PatientService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("File %d does not exists for patient %d",patientsFile.getId(), patient.getId()));
         }
     }
+    //TODO czy nie trzbe dodac w pacjencie do listy plikow?
     public PatientsFile addPatientsFile(long id, PatientsFile patientsFile){
         patientsFile.setPatient(getPatientById(id));
         return patientsFileRepository.save(patientsFile);

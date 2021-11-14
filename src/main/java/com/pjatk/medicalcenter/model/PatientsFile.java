@@ -15,15 +15,15 @@ public class PatientsFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Lob
-    @Column(name = "file", columnDefinition = "BLOB")
+    @Column(name = "file", columnDefinition = "BLOB", nullable = false)
     private byte[] file;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
     private Patient patient;
 
 }

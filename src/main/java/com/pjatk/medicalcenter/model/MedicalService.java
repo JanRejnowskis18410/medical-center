@@ -1,9 +1,7 @@
 package com.pjatk.medicalcenter.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,11 +24,27 @@ public class MedicalService {
     @OneToMany(mappedBy = "medicalService")
     private List<Referral> referrals = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "specialization_id", referencedColumnName = "id", nullable = false)
+    @Setter(AccessLevel.NONE)
+    private Specialization specialization;
+
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private boolean facilityService;
+
+    @Column(nullable = false)
+    private boolean doneByMedicalStaff;
+
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);
+    }
+
+    public void setSpecialization(Specialization specialization) {
+        specialization.addMedicalService(this);
+        this.specialization = specialization;
     }
 
     public void addReferral(Referral referral) { referrals.add(referral); }
