@@ -1,10 +1,7 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
-import com.pjatk.medicalcenter.model.Appointment;
-import com.pjatk.medicalcenter.model.Patient;
-import com.pjatk.medicalcenter.model.PatientsFile;
-import com.pjatk.medicalcenter.model.Referral;
+import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
