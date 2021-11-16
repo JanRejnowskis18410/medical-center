@@ -49,6 +49,12 @@ public class PatientController {
         return ResponseEntity.ok(appointments.stream().map(PatientsDoneVisitDTO::new).collect(Collectors.toList()));
     }
 
+    @GetMapping("/{patientId}/plannedAppointments")
+    public ResponseEntity<List<AvailableAppointmentDTO>> getPatientsPlannedAppointments(@PathVariable long patientId){
+        List<Appointment> appointments = patientService.getPatientsPlannedAppointments(patientId);
+        return ResponseEntity.ok(appointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
+    }
+
     @GetMapping("/{patientId}/referrals")
     public ResponseEntity<List<ReferralDTO>> getAvailablePatientsReferrals(@PathVariable long patientId) {
         List<Referral> referrals = patientService.getAvailablePatientsReferrals(patientId);

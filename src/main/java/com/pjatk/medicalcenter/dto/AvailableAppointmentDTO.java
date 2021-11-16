@@ -13,17 +13,10 @@ import java.time.LocalDateTime;
 public class AvailableAppointmentDTO {
 
     private Long id;
-
     private MedicalServiceDTO service;
-
     private DoctorDTO doctor;
-
     private LocalDateTime date;
-
     private boolean confirmed;
-
-    private String description;
-
     private Appointment.AppointmentType type;
 
     public AvailableAppointmentDTO(Appointment appointment) {
@@ -32,7 +25,6 @@ public class AvailableAppointmentDTO {
         this.doctor = new DoctorDTO(appointment.getDoctor());
         this.date = appointment.getDate();
         this.confirmed = appointment.isConfirmed();
-        this.description = appointment.getDescription();
         this.type = appointment.getType();
     }
 }

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PatientService {
@@ -57,18 +59,25 @@ public class PatientService {
 
     public List<Appointment> getPatientsDoneAppointments(long patientId) {
         Patient patient = getPatientById(patientId);
-        return patient.getAppointments();
+        return patient.getAppointments().stream()
+                .filter(apmt -> apmt.getDate().isBefore(LocalDate.now().atStartOfDay()))
+                .collect(Collectors.toList());
+    }
+
+    // returns today's and future visits
+    public List<Appointment> getPatientsPlannedAppointments(long patientId) {
+        Patient patient = getPatientById(patientId);
+        return patient.getAppointments().stream()
+                .filter(apmt -> apmt.getDate().isAfter(LocalDate.now().atStartOfDay()))
+                .collect(Collectors.toList());
     }
 
     public PatientsFile getPatientsFileById(long id, long fileId){
         Patient patient = getPatientById(id);
-        PatientsFile patientsFile = patientsFileRepository.findById(fileId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"File does not exists"));
-
-        if(patientsFile.getPatient().getId().equals(patient.getId())){
-            return patientsFile;
-        }else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("File %d does not exists for patient %d",patientsFile.getId(), patient.getId()));
-        }
+        return patient.getPatientsFiles().stream()
+                                        .filter(e -> e.getId() == fileId)
+                                        .findFirst()
+                                        .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"File does not exists"));
     }
     //TODO czy nie trzbe dodac w pacjencie do listy plikow?
     public PatientsFile addPatientsFile(long id, PatientsFile patientsFile){
@@ -76,6 +85,7 @@ public class PatientService {
         return patientsFileRepository.save(patientsFile);
     }
 
+    //TODO do celow robocznych
     public void deleteAllPatients() {
         patientRepository.deleteAll();
     }

@@ -23,7 +23,7 @@ public class Prescription {
 
     @Column(nullable = false)
     @Future
-    private LocalDate dateToUse;
+    private LocalDate expiryDate;
 
     @Column(nullable = false)
     private LocalDate creationDate;

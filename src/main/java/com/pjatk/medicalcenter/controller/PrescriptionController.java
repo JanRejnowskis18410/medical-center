@@ -75,7 +75,7 @@ public class PrescriptionController {
         Prescription prescription = new Prescription();
         prescription.setId(createPrescriptionDTO.getId());
         prescription.setAccessCode(createPrescriptionDTO.getAccessCode());
-        prescription.setDateToUse(createPrescriptionDTO.getDateToUse());
+        prescription.setExpiryDate(createPrescriptionDTO.getDateToUse());
         prescription.setBinaryCode(createPrescriptionDTO.getBinaryCode());
 
         return prescription;
