@@ -13,6 +13,7 @@ import com.pjatk.medicalcenter.service.MedicalServiceService;
 import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.service.ReferralService;
 import jakarta.validation.Valid;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,17 +73,21 @@ public class AppointmentController {
         return ResponseEntity.ok("Success");
     }
 
+    //TODO: Validation does not work
     @PatchMapping("{id}")
-    public ResponseEntity<Void> updateAppointment(@PathVariable("id") long id,
-                                                  @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {
+    public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
+                                                   @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
-        if (patchAppointmentDTO.getPatientId().isPresent()) {
-            Patient patient = patientService.getPatientById(id);
+        JsonNullable<Long> patientId = patchAppointmentDTO.getPatientId();
+        if (patientId.isPresent()) {
+            Patient patient = patientService.getPatientById(patientId.get());
             appointment.setPatient(patient);
         }
-        if (patchAppointmentDTO.getReferralId().isPresent()) {
-            Referral referral = referralService.getReferralById(id);
+
+        JsonNullable<Long> referralId = patchAppointmentDTO.getReferralId();
+        if (referralId.isPresent()) {
+            Referral referral = referralService.getReferralById(referralId.get());
             appointment.setReferral(referral);
         }
 
