@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,7 +75,7 @@ public class AppointmentController {
     }
 
     //TODO: Validation does not work
-    @PatchMapping("{id}")
+    @PatchMapping("{id}/reserve")
     public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
                                                    @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {
         Appointment appointment = appointmentService.getAppointmentById(id);
@@ -91,6 +92,20 @@ public class AppointmentController {
             appointment.setReferral(referral);
         }
 
+        LocalDate appointmentDate = appointment.getDate().toLocalDate();
+        if (LocalDate.now().isEqual(appointmentDate)) {
+            appointment.setConfirmed(true);
+        }
+
+        appointmentService.addAppointment(appointment);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("{id}/confirm")
+    public ResponseEntity<Void> confirmAppointment(@PathVariable("id") long id) {
+        Appointment appointment = appointmentService.getAppointmentById(id);
+
+        appointment.setConfirmed(true);
         appointmentService.addAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
