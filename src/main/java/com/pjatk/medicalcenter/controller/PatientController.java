@@ -28,6 +28,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<PatientDTO> getPatientById(@PathVariable long id){
         return ResponseEntity.ok(new PatientDTO(patientService.getPatientById(id)));
     }
@@ -63,6 +64,7 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}/prescriptions")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<PrescriptionDTO>> getPatientsPrescriptions(@PathVariable long patientId) {
         List<Prescription> prescriptions = patientService.getPatientsPrescriptions(patientId);
         return ResponseEntity.ok(prescriptions.stream().map(PrescriptionDTO::new).collect(Collectors.toList()));
