@@ -45,6 +45,7 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}/doneAppointments")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<PatientsDoneVisitDTO>> getPatientsDoneAppointments(@PathVariable long patientId){
         List<Appointment> appointments = patientService.getPatientsDoneAppointments(patientId);
         return ResponseEntity.ok(appointments.stream().map(PatientsDoneVisitDTO::new).collect(Collectors.toList()));
