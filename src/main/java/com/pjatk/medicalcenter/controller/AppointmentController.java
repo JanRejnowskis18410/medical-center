@@ -11,6 +11,7 @@ import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.service.ReferralService;
 import jakarta.validation.Valid;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,8 +50,8 @@ public class AppointmentController {
     public ResponseEntity<List<AvailableAppointmentDTO>> getAvailableAppointments(
             @RequestParam(name = "medicalServiceId", required = true) Long medicalServiceId,
             @RequestParam(name = "doctorId", required = false) Long doctorId,
-            @RequestParam(name = "dateFrom", required = false) LocalDateTime dateFrom,
-            @RequestParam(name = "dateTo", required = false) LocalDateTime dateTo,
+            @RequestParam(name = "dateFrom", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateFrom,
+            @RequestParam(name = "dateTo", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo,
             @RequestParam(name = "language", required = true) Doctor.Language language) {
         AvailableAppointmentsRequestDTO aarDTO = new AvailableAppointmentsRequestDTO(medicalServiceId,doctorId,dateFrom,dateTo,language);
         List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(aarDTO);
