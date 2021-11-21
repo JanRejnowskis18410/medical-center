@@ -83,6 +83,7 @@ public class AppointmentController {
 
     //TODO: Validation does not work
     @PatchMapping("{id}/reserve")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
                                                    @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {
         Appointment appointment = appointmentService.getAppointmentById(id);
@@ -109,6 +110,7 @@ public class AppointmentController {
     }
 
     @PatchMapping("{id}/confirm")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> confirmAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
