@@ -56,6 +56,7 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}/referrals")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<ReferralDTO>> getAvailablePatientsReferrals(@PathVariable long patientId) {
         List<Referral> referrals = patientService.getAvailablePatientsReferrals(patientId);
         return ResponseEntity.ok(referrals.stream().map(ReferralDTO::new).collect(Collectors.toList()));
