@@ -31,9 +31,18 @@ public class DoctorController {
         return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
     }
 
+//    @GetMapping("/services")
+//    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestBody GetDoctorsByMedicalServiceIdAndLanguagesDTO dto){
+//        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(dto.getMedicalServiceId(),dto.getLanguage())
+//                .stream().map(DoctorDTO::new).collect(Collectors.toList()));
+//    }
+
     @GetMapping("/services")
-    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestBody GetDoctorsByMedicalServiceIdAndLanguagesDTO dto){
-        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(dto.getMedicalServiceId(),dto.getLanguage())
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(/*@RequestBody GetDoctorsByMedicalServiceIdAndLanguagesDTO dto,*/
+            @PathVariable("language") Doctor.Language language,
+            @PathVariable("medicalServiceId") Long medicalServiceId){
+        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(medicalServiceId,language)
                 .stream().map(DoctorDTO::new).collect(Collectors.toList()));
     }
 
