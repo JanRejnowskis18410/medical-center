@@ -40,9 +40,9 @@ public class DoctorController {
     @GetMapping("/services")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(/*@RequestBody GetDoctorsByMedicalServiceIdAndLanguagesDTO dto,*/
-            @PathVariable("language") Doctor.Language language,
-            @PathVariable("medicalServiceId") Long medicalServiceId){
-        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(medicalServiceId,language)
+            @RequestParam("language") String language,
+            @RequestParam("medicalServiceId") Long medicalServiceId){
+        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(medicalServiceId, Doctor.Language.valueOf(language))
                 .stream().map(DoctorDTO::new).collect(Collectors.toList()));
     }
 
