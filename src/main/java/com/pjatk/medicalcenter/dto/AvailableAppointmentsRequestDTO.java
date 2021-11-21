@@ -1,8 +1,7 @@
 package com.pjatk.medicalcenter.dto;
 
-import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Doctor;
-import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class AvailableAppointmentsRequestDTO {
 
     private Long medicalServiceId;
