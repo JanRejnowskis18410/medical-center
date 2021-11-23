@@ -2,6 +2,7 @@ package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.Doctor;
+import com.pjatk.medicalcenter.model.Schedule;
 import com.pjatk.medicalcenter.service.DoctorService;
 import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +32,25 @@ public class DoctorController {
         return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
     }
 
+    @GetMapping("/specialization")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<List<DoctorDTO>> getDoctorsBySpecialization(@RequestParam("id") Long id){
+        return ResponseEntity.ok(doctorService.getDoctorsBySpecializationId(id)
+                .stream().map(DoctorDTO::new).collect(Collectors.toList()));
+    }
+
     @GetMapping("/services")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestParam("language") String language, @RequestParam("medicalServiceId") Long medicalServiceId){
-        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceId(medicalServiceId, Doctor.Language.valueOf(language))
+    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestParam("medicalServiceId") Long medicalServiceId, @RequestParam(value = "language", required = false) String language){
+        return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceIdAndLanguage(medicalServiceId, Doctor.Language.valueOf(language))
                 .stream().map(DoctorDTO::new).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}/schedule")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<DoctorWeeklyScheduleDTO> getDoctorWeeklySchedule(@PathVariable("id") Long id, @RequestParam("specializationId") Long specializationId){
+        List<ScheduleDTO> scheduleDTOS = doctorService.getDoctorsSchedules(id,specializationId).stream().map(ScheduleDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(new DoctorWeeklyScheduleDTO(scheduleDTOS));
     }
 
     @PostMapping

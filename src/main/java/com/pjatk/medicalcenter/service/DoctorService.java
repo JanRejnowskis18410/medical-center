@@ -100,9 +100,22 @@ public class DoctorService {
         return specializationWithSchedulesDTOS;
     }
 
-    public List<Doctor> getDoctorsByMedicalServiceId(long serviceId, Doctor.Language language) {
+    public List<Doctor> getDoctorsByMedicalServiceIdAndLanguage(long serviceId, Doctor.Language language) {
         MedicalService medicalService = medicalServiceRepository.findById(serviceId).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exists"));
-        return doctorRepository.findDoctorsByMedicalServiceId(serviceId,language.toString());
+        return doctorRepository.findDoctorsByMedicalServiceIdAndLanguage(serviceId,language.toString());
+    }
+
+    public List<Doctor> getDoctorsBySpecializationId(long specializationId) {
+        Specialization specialization = specializationRepository.findById(specializationId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
+        return doctorRepository.findDoctorsBySpecializationId(specializationId);
+    }
+
+    public List<Schedule> getDoctorsSchedules(long doctorId, long specializationId) {
+        return getDoctorById(doctorId).getDoctorSpecializations().stream()
+                .filter(s -> s.getSpecialization().getId().equals(specializationId))
+                .map(DoctorSpecialization::getSchedules)
+                .findFirst().orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Specialization not found for this doctor"));
     }
 }
