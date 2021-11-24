@@ -120,6 +120,7 @@ public class AppointmentController {
     }
 
     @PatchMapping("{id}/cancel")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> cancelAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
