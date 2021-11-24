@@ -4,21 +4,21 @@ import com.pjatk.medicalcenter.dto.AvailableAppointmentDTO;
 import com.pjatk.medicalcenter.dto.AvailableAppointmentsRequestDTO;
 import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
 import com.pjatk.medicalcenter.dto.PatchAppointmentDTO;
-import com.pjatk.medicalcenter.model.Appointment;
-import com.pjatk.medicalcenter.model.MedicalService;
-import com.pjatk.medicalcenter.model.Patient;
-import com.pjatk.medicalcenter.model.Referral;
+import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.service.AppointmentService;
 import com.pjatk.medicalcenter.service.MedicalServiceService;
 import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.service.ReferralService;
 import jakarta.validation.Valid;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,8 +46,15 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AvailableAppointmentDTO>> getAvailableAppointments(@RequestBody AvailableAppointmentsRequestDTO availableAppointmentsRq) {
-        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(availableAppointmentsRq);
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<List<AvailableAppointmentDTO>> getAvailableAppointments(
+            @RequestParam(name = "medicalServiceId", required = true) Long medicalServiceId,
+            @RequestParam(name = "doctorId", required = false) Long doctorId,
+            @RequestParam(name = "dateFrom", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateFrom,
+            @RequestParam(name = "dateTo", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo,
+            @RequestParam(name = "language", required = true) Doctor.Language language) {
+        AvailableAppointmentsRequestDTO aarDTO = new AvailableAppointmentsRequestDTO(medicalServiceId,doctorId,dateFrom,dateTo,language);
+        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(aarDTO);
         return ResponseEntity.ok(availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
     }
 
@@ -76,6 +83,7 @@ public class AppointmentController {
 
     //TODO: Validation does not work
     @PatchMapping("{id}/reserve")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
                                                    @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {
         Appointment appointment = appointmentService.getAppointmentById(id);
@@ -102,6 +110,7 @@ public class AppointmentController {
     }
 
     @PatchMapping("{id}/confirm")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> confirmAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 

@@ -99,4 +99,10 @@ public class PatientService {
         Patient patient = getPatientById(patientId);
         return patient.getPrescriptions();
     }
+
+    public List<AppointmentCheckUp> getPatientsDiagnosticTests(long patientId) {
+        return getPatientsDoneAppointments(patientId).stream()
+                .flatMap(app -> app.getAppointmentCheckUps().stream())
+                .collect(Collectors.toList());
+    }
 }

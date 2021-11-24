@@ -29,6 +29,7 @@ public class MedicalServiceController {
     }
 
     @GetMapping()
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<MedicalServiceDTO>> getServices(@RequestParam(name = "type", required = false) Appointment.AppointmentType appointmentType) {
         if(appointmentType != null)
             return ResponseEntity.ok(medicalServiceService.getServicesByAppointmentType(appointmentType).stream()

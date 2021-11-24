@@ -19,5 +19,13 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             "JOIN medical_service ms on s.id=ms.specialization_id " +
             "WHERE ms.id= :serviceId AND l.doctor_language=:language",
             nativeQuery = true)
-    public List<Doctor> findDoctorsByMedicalServiceId(@Param("serviceId") long serviceId, @Param("language") String language);
+    List<Doctor> findDoctorsByMedicalServiceIdAndLanguage(@Param("serviceId") long serviceId, @Param("language") String language);
+
+    @Query(value = "SELECT * FROM doctor d " +
+            "JOIN person p ON d.id=p.id " +
+            "JOIN doctor_specialization ds ON d.id=ds.doctor_id " +
+            "JOIN specialization s ON ds.specialization_id=s.id " +
+            "WHERE s.id= :specializationId",
+            nativeQuery = true)
+    List<Doctor> findDoctorsBySpecializationId(@Param("specializationId") long specializationId);
 }
