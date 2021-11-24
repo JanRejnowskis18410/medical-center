@@ -109,4 +109,19 @@ public class AppointmentController {
         appointmentService.addAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("{id}/cancel")
+    public ResponseEntity<Void> cancelAppointment(@PathVariable("id") long id) {
+        Appointment appointment = appointmentService.getAppointmentById(id);
+
+        if (appointment.getReferral() != null) {
+            appointment.setReferral(null);
+        }
+        if (appointment.getPatient() != null) {
+            appointment.setPatient(null);
+        }
+
+        appointmentService.addAppointment(appointment);
+        return ResponseEntity.noContent().build();
+    }
 }

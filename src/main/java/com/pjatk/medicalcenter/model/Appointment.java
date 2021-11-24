@@ -44,7 +44,7 @@ public class Appointment {
     @OneToOne(mappedBy = "appointment")
     @Setter(AccessLevel.NONE)
     @Nullable
-    private Referral referral;
+    private Referral referral = null;
 
     @OneToMany(mappedBy = "issueAppointment")
     private List<Referral> issuedReferrals = new ArrayList<>();
@@ -84,8 +84,21 @@ public class Appointment {
     }
 
     public void setPatient(Patient patient) {
-        this.patient = patient;
-        patient.addAppointment(this);
+        if (this.patient != null) {
+            if(patient == null) {
+                this.patient.getAppointments().remove(this);
+                this.patient = null;
+            } else {
+                this.patient.getAppointments().remove(this);
+                this.patient = patient;
+                patient.addAppointment(this);
+            }
+        } else {
+            if (patient != null) {
+                this.patient = patient;
+                patient.addAppointment(this);
+            }
+        }
     }
 
     public void addIssuedReferral(Referral issuedReferral) {
@@ -93,8 +106,20 @@ public class Appointment {
     }
 
     public void setReferral(Referral referral) {
-        this.referral = referral;
-        referral.setAppointment(this);
+        if(this.referral != null) {
+            if (referral == null) {
+                this.referral.setAppointment(null);
+                this.referral = null;
+            } else {
+                this.referral = referral;
+                referral.setAppointment(this);
+            }
+        } else {
+            if (referral != null) {
+                this.referral = referral;
+                referral.setAppointment(this);
+            }
+        }
     }
 
     public void addPrescription(Prescription prescription) {
