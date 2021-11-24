@@ -91,6 +91,7 @@ public class PatientController {
     }
 
     @PutMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Patient> updatePatient(@RequestBody PatientDTO patientDTO){
         Patient updatedPatient = patientService.updatePatient(DTOsMapper.mapPatientDTOtoPatient(patientDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d", updatedPatient.getId()))).build();
