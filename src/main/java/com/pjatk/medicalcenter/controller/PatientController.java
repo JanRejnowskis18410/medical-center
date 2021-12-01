@@ -22,6 +22,7 @@ public class PatientController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<PatientDTO>> getPatients(){
         List<Patient> patients = patientService.getPatients();
         return ResponseEntity.ok(patients.stream().map(PatientDTO::new).collect(Collectors.toList()));
@@ -34,12 +35,14 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}/files")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<PatientsFileDTO>> getPatientsFiles(@PathVariable long patientId){
         List<PatientsFile> patientsFiles = patientService.getPatientsFile(patientId);
         return ResponseEntity.ok(patientsFiles.stream().map(PatientsFileDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{patientId}/files/{fileId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<PatientsFileDTO> getPatientsFileById(@PathVariable long patientId, @PathVariable long fileId){
         return ResponseEntity.ok(new PatientsFileDTO(patientService.getPatientsFileById(patientId,fileId)));
     }
@@ -80,11 +83,13 @@ public class PatientController {
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Patient> addPatient(@RequestBody PatientDTO patientDTO){
         Patient createdPatient = patientService.addPatient(DTOsMapper.mapPatientDTOtoPatient(patientDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d", createdPatient.getId()))).build();
     }
     @PostMapping("/{id}/files")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Patient> addPatientsFile(@PathVariable long id, @RequestBody PatientsFileDTO patientsFileDTO){
         PatientsFile createdPatientsFile = patientService.addPatientsFile(id,DTOsMapper.mapPatientFileDTOtoPatientFile(patientsFileDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d/files/%d",id,createdPatientsFile.getId()))).build();
@@ -98,12 +103,14 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> deletePatient(@PathVariable long id){
         patientService.deletePatientById(id);
         return ResponseEntity.ok("Success");
     }
 
     @DeleteMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> deleteAllPatients(){
         patientService.deleteAllPatients();
         return ResponseEntity.ok("Success");
