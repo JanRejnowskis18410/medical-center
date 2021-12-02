@@ -23,28 +23,33 @@ public class SpecializationController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<SpecializationWithDoctorsDTO>> getSpecializations(){
         return ResponseEntity.ok(specializationService.getSpecializations().stream().map(SpecializationWithDoctorsDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<SpecializationWithDoctorsDTO> getSpecializationById(@PathVariable long id){
         return ResponseEntity.ok(new SpecializationWithDoctorsDTO(specializationService.getSpecializationById(id)));
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<SpecializationDTO> addSpecialization(@RequestBody SpecializationDTO specializationDTO){
         Specialization createdSpecialization = specializationService.addSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
         return ResponseEntity.created(URI.create(String.format("/specializations/%d", createdSpecialization.getId()))).build();
     }
 
     @PutMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<SpecializationDTO> updateSpecialization(@RequestBody SpecializationDTO specializationDTO){
         Specialization updatedSpecialization = specializationService.updateSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
         return ResponseEntity.created(URI.create(String.format("/specializations/%d", updatedSpecialization.getId()))).build();
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> deleteSpecialization(@PathVariable long id){
         specializationService.deleteSpecializationById(id);
         return ResponseEntity.ok("Success");
