@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/checkups")
+@CrossOrigin
 public class CheckUpController {
 
     private final CheckUpService checkUpService;

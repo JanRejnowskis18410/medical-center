@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/specializations")
+@CrossOrigin
 public class SpecializationController {
 
     private final SpecializationService specializationService;

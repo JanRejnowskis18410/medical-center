@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/staffs")
+@CrossOrigin
 public class StaffController {
 
     private final StaffService staffService;
