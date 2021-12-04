@@ -9,10 +9,10 @@ INSERT INTO DOCTOR VALUES ('1234567', 2);
 INSERT INTO DOCTOR VALUES ('2564897', 3);
 INSERT INTO DOCTOR VALUES ('5698742', 4);
 
-insert into Person(birth_date, email, first_name, last_name, pesel) values ('1990-01-01', 'kowalski@gmail.com', 'Jan', 'Kowalski', '901232123');
-insert into Person(birth_date, email, first_name, last_name, pesel) values ('1999-01-01', 'tomasz@test.pl', 'Tomasz', 'Testowy', '385474234');
-insert into Patient values ('Warszawa', 'Polska', '05-207', 'Testowa', '88', '+48111222333', 1);
-insert into Doctor values ('3563432', 2);
+-- insert into Person(birth_date, email, first_name, last_name, pesel) values ('1990-01-01', 'kowalski@gmail.com', 'Jan', 'Kowalski', '901232123');
+-- insert into Person(birth_date, email, first_name, last_name, pesel) values ('1999-01-01', 'tomasz@test.pl', 'Tomasz', 'Testowy', '385474234');
+-- insert into Patient values ('Warszawa', 'Polska', '05-207', 'Testowa', '88', '+48111222333', 1);
+-- insert into Doctor values ('3563432', 2);
 --
 -- insert into Specialization(name) values ('test');
 -- insert into Specialization(name) values ('Radiolog');
