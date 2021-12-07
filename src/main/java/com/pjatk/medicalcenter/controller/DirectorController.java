@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/directors")
+@CrossOrigin
 public class DirectorController {
 
     private final DirectorService directorService;

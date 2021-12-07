@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/appointments")
+@CrossOrigin
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
@@ -46,7 +47,6 @@ public class AppointmentController {
     }
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<AvailableAppointmentDTO>> getAvailableAppointments(
             @RequestParam(name = "medicalServiceId", required = true) Long medicalServiceId,
             @RequestParam(name = "doctorId", required = false) Long doctorId,
@@ -83,7 +83,6 @@ public class AppointmentController {
 
     //TODO: Validation does not work
     @PatchMapping("{id}/reserve")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
                                                    @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {
         Appointment appointment = appointmentService.getAppointmentById(id);
@@ -110,7 +109,6 @@ public class AppointmentController {
     }
 
     @PatchMapping("{id}/confirm")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> confirmAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
@@ -120,7 +118,6 @@ public class AppointmentController {
     }
 
     @PatchMapping("{id}/cancel")
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Void> cancelAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
