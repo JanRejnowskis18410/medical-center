@@ -33,6 +33,15 @@ public class DoctorController {
         return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
     }
 
+    @GetMapping("/{id}/todaysVisits")
+    public ResponseEntity<List<AppointmentForDoctorDTO>> getDoctorsTodaysVisits(@PathVariable long id){
+        return ResponseEntity.ok(doctorService
+                                .getDoctorsTodaysVisit(id)
+                                .stream()
+                                .map(AppointmentForDoctorDTO::new)
+                                .collect(Collectors.toList()));
+    }
+
     @GetMapping("/specialization")
     public ResponseEntity<List<DoctorDTO>> getDoctorsBySpecialization(@RequestParam("id") Long id){
         return ResponseEntity.ok(doctorService.getDoctorsBySpecializationId(id)

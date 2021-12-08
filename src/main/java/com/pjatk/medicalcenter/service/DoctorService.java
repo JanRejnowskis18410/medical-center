@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -117,5 +118,12 @@ public class DoctorService {
                 .filter(s -> s.getSpecialization().getId().equals(specializationId))
                 .map(DoctorSpecialization::getSchedules)
                 .findFirst().orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Specialization not found for this doctor"));
+    }
+
+    public List<Appointment> getDoctorsTodaysVisit(long id) {
+        return getDoctorById(id)
+                .getAppointments()
+                .stream().filter(app -> app.getDate().toLocalDate().equals(LocalDate.now()))
+                .collect(Collectors.toList());
     }
 }

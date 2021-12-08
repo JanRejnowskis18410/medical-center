@@ -1,44 +1,137 @@
-INSERT INTO PERSON VALUES (1, '1998-11-10', 'jkowalski@wp.pl', 'Jan', 'Kowalski', '98111005406');
-INSERT INTO PERSON VALUES (2, '1998-11-10', 'anowak@wp.pl', 'Adam', 'Nowak', '98111005407');
-INSERT INTO PERSON VALUES (3, '1998-05-10', 'ak@wp.pl', 'Adam', 'Kochanowski', '98050505406');
-INSERT INTO PERSON VALUES (4, '1973-03-21', 'gosia2@gmail.com', 'Małgorzata', 'Janiak', '73032145689');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-11-10', 'jkowalski@wp.pl', 'Jan', 'Kowalski', '98111005407');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-11-10', 'anowak@wp.pl', 'Adam', 'Nowak', '98111005401');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'ak@wp.pl', 'Adam', 'Kochanowski', '98050505409');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'aldona@wp.pl', 'Aldona', 'Słowik', '98050591286');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1973-03-21', 'gosia2@gmail.com', 'Małgorzata', 'Janiak', '73032145682');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1978-01-30', 'adam.staszewskigmail.com', 'Adam', 'Staszewski', '78013078471');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1980-04-20', 'barbara.nowak@gmail.com', 'Barbara', 'Nowak', '80042067365');
+INSERT INTO PERSON (BIRTH_DATE, EMAIL, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-09-08', 'elzbieta.gos@gmail.com', 'Elżbieta', 'Gos', '75090823596');
 
-INSERT INTO PATIENT VALUES ('Lublin', 'Polska', '20-040', 'Sowińskiego', '18/20', '604456897', 1);
 
-INSERT INTO DOCTOR VALUES ('1234567', 2);
-INSERT INTO DOCTOR VALUES ('2564897', 3);
-INSERT INTO DOCTOR VALUES ('5698742', 4);
+INSERT INTO PATIENT (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Lublin', 'Polska', '20-040', 'Sowińskiego', '18/20', '604456897', 1);
+INSERT INTO PATIENT (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '01-172', 'Marszałkowska', '14/89', '503273947', 2);
+INSERT INTO PATIENT (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Piaseczno', 'Polska', '20-040', 'Nadarzyńska', '47/12', '726326900', 3);
+INSERT INTO PATIENT (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '02-128', 'Puławska', '67/16', '745927345', 4);
 
--- insert into Person(birth_date, email, first_name, last_name, pesel) values ('1990-01-01', 'kowalski@gmail.com', 'Jan', 'Kowalski', '901232123');
--- insert into Person(birth_date, email, first_name, last_name, pesel) values ('1999-01-01', 'tomasz@test.pl', 'Tomasz', 'Testowy', '385474234');
--- insert into Patient values ('Warszawa', 'Polska', '05-207', 'Testowa', '88', '+48111222333', 1);
--- insert into Doctor values ('3563432', 2);
---
--- insert into Specialization(name) values ('test');
--- insert into Specialization(name) values ('Radiolog');
--- insert into Specialization(name) values ('Dermatolog');
---
--- insert into Medical_Service(name, done_by_medical_staff, facility_service, specialization_id) values ('test', false, true, 1);
--- INSERT INTO MEDICAL_SERVICE(name, done_by_medical_staff, facility_service, specialization_id) values ('Badanie USG tarczycy', false, true, 2);
--- INSERT INTO MEDICAL_SERVICE(name, done_by_medical_staff, facility_service, specialization_id) values ('Badanie USG jamy brzusznej', false, true, 2);
--- INSERT INTO MEDICAL_SERVICE(name, done_by_medical_staff, facility_service, specialization_id) values ('Badanie jajników', false, true, 2);
--- INSERT INTO MEDICAL_SERVICE(name, done_by_medical_staff, facility_service, specialization_id) values ('Badanie RTG palca', false, true, 2);
--- INSERT INTO MEDICAL_SERVICE(name, done_by_medical_staff, facility_service, specialization_id) values ('Konsultacja dermatologa', false, false, 3);
--- INSERT INTO MEDICAL_SERVICE(name, done_by_medical_staff, facility_service, specialization_id) values ('Konsultacja internisty', false, true, 1);
--- INSERT INTO MEDICAL_SERVICE(name, done_by_medical_staff, facility_service, specialization_id) values ('Badanie krwi', true, true, 1);
---
--- insert into Appointment(confirmed, date, description, recommendations, type, medical_service_id) values (true, '2021-11-18T12:00:00', 'test', 'test', 'FACILITY', 2);
--- insert into Appointment(confirmed, date, description, recommendations, type, medical_service_id) values (false, '2021-11-18T12:00:00', 'test', 'test', 'FACILITY', 2);
--- insert into Appointment(confirmed, date, description, recommendations, type, doctor_id, medical_service_id) values (false, '2021-11-18T12:00:00', '', '', 'TELEPHONE', 2,  6);
--- insert into Appointment(confirmed, date, description, recommendations, type, doctor_id, medical_service_id) values (false, '2021-11-18T12:00:00', '', '', 'FACILITY', 2,  5);
--- insert into Appointment(confirmed, date, description, recommendations, type, doctor_id, medical_service_id) values (false, '2021-11-28T12:00:00', '', '', 'TELEPHONE', 4);
+
+INSERT INTO DOCTOR (PWZ, ID) VALUES ('2564897', 5);
+INSERT INTO DOCTOR (PWZ, ID) VALUES ('5698742', 6);
+INSERT INTO DOCTOR (PWZ, ID) VALUES ('7303243', 7);
+INSERT INTO DOCTOR (PWZ, ID) VALUES ('3534578', 8);
+
+
+insert into SPECIALIZATION (NAME) values ('Ginekolog'); --1
+insert into SPECIALIZATION (NAME) values ('Radiolog'); --2
+insert into SPECIALIZATION (NAME) values ('Dermatolog'); --3
+insert into SPECIALIZATION (NAME) values ('Internista'); --4
+insert into SPECIALIZATION (NAME) values ('Pediatra');
+insert into SPECIALIZATION (NAME) values ('Okulista');
+insert into SPECIALIZATION (NAME) values ('Ortopeda'); --7
+insert into SPECIALIZATION (NAME) values ('Endokrynolog');
+insert into SPECIALIZATION (NAME) values ('Kardiolog');
+insert into SPECIALIZATION (NAME) values ('Laryngolog'); --10
+insert into SPECIALIZATION (NAME) values ('Neurolog');
+insert into SPECIALIZATION (NAME) values ('Proktolog');
+insert into SPECIALIZATION (NAME) values ('Psychiatra'); --13
+insert into SPECIALIZATION (NAME) values ('Urolog');
+insert into SPECIALIZATION (NAME) values ('Immunolog');
+insert into SPECIALIZATION (NAME) values ('Diabetolog'); --16
+insert into SPECIALIZATION (NAME) values ('Chirurg ogólny');
+insert into SPECIALIZATION (NAME) values ('Chirurg naczyniowy'); --18
+insert into SPECIALIZATION (NAME) values ('Gastrolog'); --19
+
+
+INSERT INTO DOCTOR_SPECIALIZATION (DOCTOR_ID, SPECIALIZATION_ID) VALUES (8,1); --GINEKOLOG
+INSERT INTO DOCTOR_SPECIALIZATION (DOCTOR_ID, SPECIALIZATION_ID) VALUES (5,2); --RADIOLOG
+INSERT INTO DOCTOR_SPECIALIZATION (DOCTOR_ID, SPECIALIZATION_ID) VALUES (6,3); --DERMATOLOG
+INSERT INTO DOCTOR_SPECIALIZATION (DOCTOR_ID, SPECIALIZATION_ID) VALUES (7,4); --INTERNISTA
+
+
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja ginekologa', false , true, 1);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja ginekologa', false, false, 1);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja radiologa', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja radiologa', false, false, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja dermatologa', false , true, 3);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja dermatologa', false, false, 3);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja internisty', false , true, 4);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja internisty', false, false, 4);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja pediatry', false , true, 5);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja pediatry', false, false, 5);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja okulisty', false , true, 6);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja okulisty', false, false, 6);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja ortopedy', false , true, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja ortopedy', false, false, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja endokrynologa', false , true, 8);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja endokrynologa', false, false, 8);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja kardiologa', false , true, 9);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja kardiologa', false, false, 9);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja laryngologa', false , true, 10);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja laryngologa', false, false, 10);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja neurologa', false , true, 11);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja neurologa', false, false, 11);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja proktologa', false , true, 12);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja proktologa', false, false, 12);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja psychiatry', false , true, 13);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja psychiatry', false, false, 13);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja urologa', false , true, 14);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja urologa', false, false, 14);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja immunologa', false , true, 15);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja immunologa', false, false, 15);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja diabetologa', false , true, 16);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja diabetologa', false, false, 16);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja chirurga ogólnego', false , true, 17);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja chirurga ogólnego', false, false, 17);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja chirurga naczyniowego', false , true, 18);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja chirurga naczyniowego', false, false, 18);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja gastrologa', false , true, 19);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja gastrologa', false, false, 19);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG piersi', false, true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG jamy brzusznej',false, true, 19);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Gastroskopia', false , true, 19);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG nadgarstka', false, true, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu biodrowego', false , true, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu barkowego', false , true, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu kolanowego', false , true, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu łokciowego', false , true, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu skokowego', false , true, 7);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- nadgarstka', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- nadnerczy', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- podudzia', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- przedramienia', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- przysadki mózgowej', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- ręki', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- stawu biodrowego', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- stopy', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- uda', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- głowy', false , true, 2);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Soczewki kontaktowe- dobór', false , true, 6);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Komputerowe pole widzenia', false , true, 6);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Badanie EKG', false , true, 9);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Założenie Holtera EKG', false , true, 9);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE) VALUES ('Pobranie krwi i innych materiałów- na czczo', true , true);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE) VALUES ('Pobranie krwi i innych materiałów- nie na czczo', true , true);
+INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE) VALUES ('Cytologia szyjki macicy', true , true);
+
+
+--PULA WIZYT
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES (FALSE, '2021-12-18T12:00:00', 'FACILITY', 1, 8);
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES (FALSE, '2021-12-18T12:15:00', 'FACILITY', 1, 8);
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES (FALSE, '2021-12-18T12:30:00', 'FACILITY', 1, 8);
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES (FALSE, '2021-12-18T12:45:00', 'FACILITY', 1, 8);
+
+--POTWIERDZONE
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES (TRUE, CURRENT_TIMESTAMP(), 'FACILITY', 7, 7, 1);
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES (TRUE, CURRENT_TIMESTAMP(), 'FACILITY', 7, 7, 2);
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES (TRUE, CURRENT_TIMESTAMP(), 'TELEPHONE', 8, 7, 3);
+INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES (TRUE, CURRENT_TIMESTAMP(), 'TELEPHONE', 8, 7, 4);
+
+
 --
 -- insert into Referral(expiry_date, issue_date, issue_appointment_id, medical_service_id, patient_id) values ('2021-12-18', '2021-11-18', 1, 1, 1);
 -- insert into Referral(expiry_date, issue_date, issue_appointment_id, medical_service_id, patient_id) values ('2021-12-18', '2021-11-18', 2, 7, 1);
 -- insert into Referral(expiry_date, issue_date, issue_appointment_id, medical_service_id, patient_id) values ('2021-12-18', '2021-11-18', 3, 8, 1);
 --
 --
--- insert into doctor_specialization (doctor_id, specialization_id) values (2,2);
 -- insert into check_up values (1, 'Morfologia krwi');
 -- insert into check_up values (2, 'Biochemia');
 -- insert into check_up values (3, 'Badanie moczu');
