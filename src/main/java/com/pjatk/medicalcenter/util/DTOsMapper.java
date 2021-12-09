@@ -5,6 +5,7 @@ import com.pjatk.medicalcenter.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DTOsMapper {
@@ -21,8 +22,10 @@ public class DTOsMapper {
         patient.setAddress(patientDTO.getAddress());
 
         List<PatientsFile> patientsFiles = new ArrayList<>();
-        for(PatientsFileDTO patientsFileDTO: patientDTO.getPatientsFiles()){
-            patientsFiles.add(mapPatientFileDTOtoPatientFile(patientsFileDTO));
+        if(Objects.nonNull(patientDTO.getPatientsFiles())) {
+            for (PatientsFileDTO patientsFileDTO : patientDTO.getPatientsFiles()) {
+                patientsFiles.add(mapPatientFileDTOtoPatientFile(patientsFileDTO));
+            }
         }
         patient.setPatientsFiles(patientsFiles);
         return patient;

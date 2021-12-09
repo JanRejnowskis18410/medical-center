@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ReferralRepository extends JpaRepository<Referral, Long> {
 
-    public List<Referral> findByPatientIdAndAppointmentIsNullAndExpiryDateIsGreaterThanEqual(Long id, LocalDate now);
+    public List<Referral> findByPatientIdAndAppointmentIsNullAndExpiryDateGreaterThanEqual(Long id, LocalDate now);
 }

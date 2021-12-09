@@ -67,7 +67,7 @@ public class PatientController {
 
     @GetMapping("/{patientId}/referrals")
     public ResponseEntity<List<ReferralDTO>> getAvailablePatientsReferrals(@PathVariable long patientId) {
-        List<Referral> referrals = patientService.getAvailablePatientsReferrals(patientId);
+        List<Referral> referrals = patientService.getPatientsAvailableReferrals(patientId);
         return ResponseEntity.ok(referrals.stream().map(ReferralDTO::new).collect(Collectors.toList()));
     }
 
@@ -100,13 +100,6 @@ public class PatientController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<String> deletePatient(@PathVariable long id){
         patientService.deletePatientById(id);
-        return ResponseEntity.ok("Success");
-    }
-
-    @DeleteMapping
-    @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<String> deleteAllPatients(){
-        patientService.deleteAllPatients();
         return ResponseEntity.ok("Success");
     }
 }

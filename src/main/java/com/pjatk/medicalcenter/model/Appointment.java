@@ -2,6 +2,7 @@ package com.pjatk.medicalcenter.model;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
@@ -63,10 +64,10 @@ public class Appointment {
     @Type(type = "numeric_boolean")
     private boolean confirmed;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 500)
     private String recommendations;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 500)
     private String description;
 
     @Column(nullable = false)

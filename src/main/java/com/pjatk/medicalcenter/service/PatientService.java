@@ -11,6 +11,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,14 +87,13 @@ public class PatientService {
         return patientsFileRepository.save(patientsFile);
     }
 
-    //TODO do celow robocznych
-    public void deleteAllPatients() {
-        patientRepository.deleteAll();
-    }
-
-    public List<Referral> getAvailablePatientsReferrals(Long id) {
-        LocalDate now = LocalDate.now();
-        return referralRepository.findByPatientIdAndAppointmentIsNullAndExpiryDateIsGreaterThanEqual(id, now);
+    public List<Referral> getPatientsAvailableReferrals(Long id) {
+        List<Referral> refferals = getPatientById(id).getReferrals()
+                .stream()
+                .filter(ref -> ref.getExpiryDate().isAfter(LocalDate.now()))
+                .collect(Collectors.toList());
+        refferals.sort(Comparator.comparing(Referral::getExpiryDate));
+        return refferals;
     }
 
     public List<Prescription> getPatientsPrescriptions(long patientId) {

@@ -14,10 +14,11 @@ import java.util.List;
 public class Patient extends Person{
 
     @Embedded
-    @NotNull
+    @NotNull(message = "Address required")
     private Address address;
 
-    @Column(name = "phoneNumber", nullable = false)
+    @Column(name = "phoneNumber")
+    @NotNull(message = "Phone number required")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter @Setter @NoArgsConstructor
@@ -40,6 +41,7 @@ public class PatientDTO {
         this.email=patient.getEmail();
         this.birthDate= patient.getBirthDate();
         this.pesel=patient.getPesel();
-        this.patientsFiles=patient.getPatientsFiles().stream().map(PatientsFileDTO::new).collect(Collectors.toList());
+        if(Objects.nonNull(patientsFiles))
+            this.patientsFiles=patient.getPatientsFiles().stream().map(PatientsFileDTO::new).collect(Collectors.toList());
     }
 }
