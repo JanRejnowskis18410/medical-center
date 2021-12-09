@@ -15,7 +15,7 @@ import java.util.Set;
 public class Doctor extends Person{
 
     public enum Language {
-        PL, EN, DE, RU
+        PL, EN
     }
 
     @Column(name = "PWZ", nullable = false)

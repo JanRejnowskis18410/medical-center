@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -29,7 +30,8 @@ public class MedicalServiceDTO {
         this.name = medicalService.getName();
         this.facilityService = medicalService.isFacilityService();
         this.doneByMedicalStaff = medicalService.isDoneByMedicalStaff();
-        this.specializationId = medicalService.getSpecialization().getId();
+        if(!Objects.isNull(medicalService.getSpecialization()))
+            this.specializationId = medicalService.getSpecialization().getId();
     }
 
 }
