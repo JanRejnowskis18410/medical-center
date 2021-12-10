@@ -1,6 +1,5 @@
 package com.pjatk.medicalcenter.model;
 
-import jakarta.validation.constraints.Future;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +21,6 @@ public class Prescription {
     private int accessCode;
 
     @Column(nullable = false)
-    @Future
     private LocalDate expiryDate;
 
     @Column(nullable = false)
@@ -43,10 +41,6 @@ public class Prescription {
 
     @OneToMany(mappedBy = "prescription")
     private List<PrescriptionMedication> prescriptionMedications = new ArrayList<>();
-
-    @Lob
-    @Column(columnDefinition = "BLOB", nullable = false)
-    private byte[] binaryCode;
 
     public Prescription() {
         setCreationDate(LocalDate.now());

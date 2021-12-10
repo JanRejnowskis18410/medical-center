@@ -8,6 +8,7 @@ import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,13 +62,13 @@ public class DoctorController {
     }
 
     @PostMapping
-    public ResponseEntity<DoctorWithSpecializationDTO> addDoctor(@RequestBody DoctorDTO doctorDTO){
+    public ResponseEntity<DoctorWithSpecializationDTO> addDoctor(@Valid @RequestBody DoctorDTO doctorDTO){
         Doctor createdDoctor = doctorService.addDoctor(DTOsMapper.mapDoctorDTOtoDoctor(doctorDTO));
         return ResponseEntity.created(URI.create(String.format("/doctors/%d", createdDoctor.getId()))).build();
     }
 
     @PostMapping("/{doctorId}/specializations")
-    public ResponseEntity<DoctorWithSpecializationDTO> addDoctorSpecialization(@PathVariable long doctorId, @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
+    public ResponseEntity<DoctorWithSpecializationDTO> addDoctorSpecialization(@PathVariable long doctorId, @Valid @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
         Doctor updatedDoctor = doctorService.addDoctorSpecializationWithSchedule(doctorId, specializationWithScheduleRequestDTO);
         return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
     }

@@ -6,6 +6,7 @@ import com.pjatk.medicalcenter.service.CheckUpService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class CheckUpController {
     }
 
     @PostMapping
-    public ResponseEntity<CheckUp> addCheckUp(@RequestBody CheckUpDTO checkUpDTO) {
+    public ResponseEntity<CheckUp> addCheckUp(@Valid @RequestBody CheckUpDTO checkUpDTO) {
         CheckUp createdCheckUp = checkUpService.addCheckUp(mapCheckUpDTOToCheckUp(checkUpDTO));
 
         return ResponseEntity.created(URI.create(String.format("/checkups/%d", createdCheckUp.getId()))).build();
@@ -55,7 +56,7 @@ public class CheckUpController {
     private CheckUp mapCheckUpDTOToCheckUp(CheckUpDTO checkUpDTO) {
         CheckUp checkUp = new CheckUp();
         checkUp.setId(checkUpDTO.getId());
-        checkUp.setName(checkUp.getName());
+        checkUp.setName(checkUpDTO.getName());
 
         return checkUp;
     }

@@ -1,8 +1,9 @@
 package com.pjatk.medicalcenter.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.openapitools.jackson.nullable.JsonNullable;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class PatchAppointmentDTO {

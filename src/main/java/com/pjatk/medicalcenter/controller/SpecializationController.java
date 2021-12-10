@@ -37,6 +37,7 @@ public class SpecializationController {
 
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
+    //TODO: is it needed if admin inserts data to database?
     public ResponseEntity<SpecializationDTO> addSpecialization(@RequestBody SpecializationDTO specializationDTO){
         Specialization createdSpecialization = specializationService.addSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
         return ResponseEntity.created(URI.create(String.format("/specializations/%d", createdSpecialization.getId()))).build();

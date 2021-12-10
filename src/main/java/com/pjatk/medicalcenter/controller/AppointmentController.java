@@ -9,18 +9,16 @@ import com.pjatk.medicalcenter.service.AppointmentService;
 import com.pjatk.medicalcenter.service.MedicalServiceService;
 import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.service.ReferralService;
-import jakarta.validation.Valid;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -64,15 +62,9 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<AvailableAppointmentDTO> addAppointment(@RequestBody CreateAppointmentDTO createAppointmentDTO) {
+    public ResponseEntity<AvailableAppointmentDTO> addAppointment(@Valid @RequestBody CreateAppointmentDTO createAppointmentDTO) {
         Appointment createdAppointment = appointmentService.addAppointment(createAppointmentDTO);
         return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
-    }
-
-    @PostMapping("/addList")
-    public ResponseEntity<AvailableAppointmentDTO> addAppointments(@RequestBody List<CreateAppointmentDTO> createAppointmentDTOs) {
-        List<Appointment> createdAppointments = appointmentService.addAppointments(createAppointmentDTOs);
-        return ResponseEntity.created(URI.create(String.format("/appointments/"))).build();
     }
 
     @DeleteMapping("/{id}")
@@ -81,7 +73,7 @@ public class AppointmentController {
         return ResponseEntity.ok("Success");
     }
 
-    //TODO: Validation does not work
+    //TODO: check if validation works
     @PatchMapping("{id}/reserve")
     public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
                                                    @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {

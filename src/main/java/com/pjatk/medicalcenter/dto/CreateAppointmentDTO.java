@@ -1,15 +1,12 @@
 package com.pjatk.medicalcenter.dto;
 
-import com.pjatk.medicalcenter.model.Appointment;
-import com.pjatk.medicalcenter.model.Doctor;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,9 +14,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CreateAppointmentDTO {
 
-    @NotNull
+    @NotNull(message = "Appointment date required")
+    @Future(message = "Incorrect date")
     private LocalDateTime date;
-    @NotNull
+    @NotNull(message = "Medical service id required")
     private Long medicalServiceId;
     @Nullable
     private Long doctorId;

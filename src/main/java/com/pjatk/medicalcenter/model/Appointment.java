@@ -1,14 +1,10 @@
 package com.pjatk.medicalcenter.model;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.Type;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +53,6 @@ public class Appointment {
     private List<AppointmentCheckUp> appointmentCheckUps = new ArrayList<>();
 
     @Column(nullable = false)
-    @Future(message = "Incorrect date")
     private LocalDateTime date;
 
     @Column(nullable = false)

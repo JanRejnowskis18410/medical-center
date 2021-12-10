@@ -3,6 +3,7 @@ package com.pjatk.medicalcenter.util;
 import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +37,7 @@ public class DTOsMapper {
         patientsFile.setId(patientsFileDTO.getId());
         patientsFile.setFile(patientsFileDTO.getFile());
         patientsFile.setName(patientsFileDTO.getName());
-
+        patientsFile.setDescription(patientsFileDTO.getDescription());
         return patientsFile;
     }
 
@@ -80,22 +81,6 @@ public class DTOsMapper {
         return doctor;
     }
 
-//    public static Specialization mapSpecializationWithDoctorsDTOtoSpecialization(SpecializationWithDoctorsDTO specializationWithDoctorsDTO) {
-//        Specialization specialization = new Specialization();
-//        specialization.setId(specializationWithDoctorsDTO.getId());
-//        specialization.setName(specializationWithDoctorsDTO.getName());
-//
-//        List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
-//        for (DoctorDTO doctorDTO : specializationWithDoctorsDTO.getDoctorDTOs()) {
-//            Doctor doctor = DTOsMapper.mapDoctorDTOtoDoctor(doctorDTO);
-//            DoctorSpecialization doctorSpecialization = new DoctorSpecialization(doctor,specialization);
-//            doctorSpecializations.add(doctorSpecialization);
-//        }
-//        specialization.setDoctorSpecializations(doctorSpecializations);
-//
-//        return specialization;
-//    }
-
     public static Specialization mapSpecializationDTOtoSpecialization(SpecializationDTO specializationDTO) {
         Specialization specialization = new Specialization();
         specialization.setId(specializationDTO.getId());
@@ -113,13 +98,6 @@ public class DTOsMapper {
         return doctorSpecialization;
     }
 
-//    public static Specialization SpecializationWithSchedulesDTOtoSpecialization(SpecializationWithSchedulesDTO specializationWithSchedulesDTO){
-//        Specialization specialization = new Specialization();
-//        specialization.setId(specializationWithSchedulesDTO.getId());
-//        specialization.setName(specializationWithSchedulesDTO.getName());
-//        specialization.
-//    }
-
     public static Schedule mapScheduleDTOtoSchedule(ScheduleDTO scheduleDTO){
         Schedule schedule = new Schedule();
         if(scheduleDTO.getId()!=0)
@@ -135,8 +113,8 @@ public class DTOsMapper {
         MedicalService medicalService = new MedicalService();
         medicalService.setId(medicalServiceDTO.getId());
         medicalService.setName(medicalServiceDTO.getName());
-        medicalService.setFacilityService(medicalServiceDTO.isFacilityService());
-        medicalService.setDoneByMedicalStaff(medicalServiceDTO.isDoneByMedicalStaff());
+        medicalService.setFacilityService(medicalServiceDTO.getFacilityService());
+        medicalService.setDoneByMedicalStaff(medicalServiceDTO.getDoneByMedicalStaff());
         return medicalService;
     }
 

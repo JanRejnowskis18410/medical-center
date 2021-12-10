@@ -1,6 +1,5 @@
 package com.pjatk.medicalcenter.model;
 
-import jakarta.validation.constraints.Future;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +19,6 @@ public class Referral {
     private LocalDate issueDate;
 
     @Column(nullable = false)
-    @Future
     private LocalDate expiryDate;
 
     @OneToOne

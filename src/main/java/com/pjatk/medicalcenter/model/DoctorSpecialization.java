@@ -15,13 +15,12 @@ public class DoctorSpecialization {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
-    @NonNull
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false)
     private Doctor doctor;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "specialization_id", referencedColumnName = "id")
+    @JoinColumn(name = "specialization_id", referencedColumnName = "id", nullable = false)
     @NonNull
     private Specialization specialization;
 

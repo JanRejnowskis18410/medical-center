@@ -20,7 +20,10 @@ public class PatientsFile {
 
     @Lob
     @Column(name = "file", columnDefinition = "BLOB", nullable = false)
-    private byte[] file;
+    private Byte[] file;
+
+    @Column(name = "description", nullable = false, length = 100)
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)

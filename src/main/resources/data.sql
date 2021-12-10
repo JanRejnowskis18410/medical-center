@@ -136,14 +136,14 @@ INSERT INTO MEDICAL_SERVICE(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE) VALUE
 INSERT INTO APPOINTMENT (CONFIRMED, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES (TRUE, '2021-11-18T12:45:00', 'Pacjent zgłosił następujące objawy: ból gardła i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie', 'Syrop flugamin 2/dz, ibuprom w przypadku gorączki,','FACILITY', 7, 7, 1);
 INSERT INTO REFERRAL (EXPIRY_DATE, ISSUE_DATE, ISSUE_APPOINTMENT_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2022-01-31', '2021-11-18', 1, 7, 1);
-INSERT INTO PRESCRIPTION (ACCESS_CODE, BINARY_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, DOCTOR_ID, PATIENT_ID)
-VALUES (25689, '123', '2021-11-18', '2021-12-18', 1, 7, 1);
+INSERT INTO PRESCRIPTION (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, DOCTOR_ID, PATIENT_ID)
+VALUES (25689, '2021-11-18', '2021-12-18', 1, 7, 1);
 
 INSERT INTO APPOINTMENT (CONFIRMED, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES (TRUE, '2021-10-18T13:00:00', 'Delitakny trądzik na brodzie oraz czole. Po zakończeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 6, 5, 1);
 INSERT INTO REFERRAL (EXPIRY_DATE, ISSUE_DATE, ISSUE_APPOINTMENT_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-31', '2021-10-18', 2, 5, 1);
-INSERT INTO PRESCRIPTION (ACCESS_CODE, BINARY_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, DOCTOR_ID, PATIENT_ID)
-VALUES (25689, '123', '2021-10-18', '2021-12-18', 2, 6, 1);
+INSERT INTO PRESCRIPTION (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, DOCTOR_ID, PATIENT_ID)
+VALUES (25689, '2021-10-18', '2021-12-18', 2, 6, 1);
 
 --PULA WIZYT
 INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES (FALSE, '2021-12-18T12:00:00', 'FACILITY', 1, 8);
@@ -158,13 +158,16 @@ INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, P
 INSERT INTO APPOINTMENT (CONFIRMED, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES (TRUE, CURRENT_TIMESTAMP(), 'TELEPHONE', 8, 7, 4);
 
 --Ginekolog Elzbieta Gos
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-06T08:00:00', '2021-12-06T12:00:00', 0, 5,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-07T10:00:00', '2021-12-07T14:00:00', 1, 5,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-08T08:00:00', '2021-12-08T11:00:00', 2, 5,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-08T14:00:00', '2021-12-08T17:00:00', 2, 5,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-09T08:00:00', '2021-12-09T17:00:00', 3, 5,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-10T13:00:00', '2021-12-10T17:00:00', 4, 5,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-11T09:00:00', '2021-12-11T13:00:00', 5, 5,1);
+insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-06T08:00:00', '2021-12-06T12:00:00', 0, 8,1);
+insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-07T10:00:00', '2021-12-07T14:00:00', 1, 8,1);
+insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-08T08:00:00', '2021-12-08T11:00:00', 2, 8,1);
+insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-08T14:00:00', '2021-12-08T17:00:00', 2, 8,1);
+insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-09T08:00:00', '2021-12-09T17:00:00', 3, 8,1);
+insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-10T13:00:00', '2021-12-10T17:00:00', 4, 8,1);
+insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-11T09:00:00', '2021-12-11T13:00:00', 5, 8,1);
+
+
+INSERT INTO medication (NAME, UNIT, PAYMENT, QUANTITY) values ('Gynalgin', 'GRAMS', 0.8, 100);
 
 --
 -- insert into Referral(expiry_date, issue_date, issue_appointment_id, medical_service_id, patient_id) values ('2021-12-18', '2021-11-18', 2, 7, 1);
