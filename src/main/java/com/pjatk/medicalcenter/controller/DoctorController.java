@@ -73,12 +73,6 @@ public class DoctorController {
         return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
     }
 
-    @DeleteMapping("/{doctorId}/specializations")
-    public ResponseEntity<DoctorWithSpecializationDTO> deleteDoctorSpecializationSchedule(@PathVariable long doctorId, @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
-        Doctor updatedDoctor = doctorService.deleteDoctorSpecializationSchedules(doctorId, specializationWithScheduleRequestDTO);
-        return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
-    }
-
     @GetMapping("/{id}/specializations")
     public ResponseEntity<List<SpecializationWithSchedulesDTO>> getDoctorSpecializations(@PathVariable long id){
         return ResponseEntity.ok(doctorService.getDoctorSpecializations(id));

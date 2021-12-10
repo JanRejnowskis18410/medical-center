@@ -1,6 +1,7 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.CreateReferralDTO;
+import com.pjatk.medicalcenter.dto.ReferralDTO;
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.model.Patient;
@@ -12,8 +13,11 @@ import com.pjatk.medicalcenter.service.ReferralService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/referrals")
@@ -33,14 +37,18 @@ public class ReferralController {
     }
 
     @PostMapping
-    public ResponseEntity<Referral> addReferral(@RequestBody CreateReferralDTO createReferralDTO) {
+    public ResponseEntity<Referral> addReferral(@Valid @RequestBody CreateReferralDTO createReferralDTO) {
         Referral createdReferral = referralService.addReferral(mapCreateReferralDTOToReferral(createReferralDTO));
         return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdReferral.getId()))).build();
     }
+    @GetMapping
+    public ResponseEntity<List<ReferralDTO>> getReferrals() {
+        return ResponseEntity.ok(referralService.getReferrals().stream().map(ReferralDTO::new).collect(Collectors.toList()));
+    }
+
 
     private Referral mapCreateReferralDTOToReferral(CreateReferralDTO createReferralDTO) {
         Referral referral = new Referral();
-        referral.setId(createReferralDTO.getId());
         referral.setIssueDate(LocalDate.now());
         referral.setExpiryDate(createReferralDTO.getExpiryDate());
 

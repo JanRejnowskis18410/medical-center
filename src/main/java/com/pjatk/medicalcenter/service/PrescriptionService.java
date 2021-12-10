@@ -13,7 +13,7 @@ public class PrescriptionService {
 
     private final PrescriptionRepository prescriptionRepository;
 
-    public PrescriptionService(PrescriptionRepository prescriptionRepository, PrescriptionMedicationService prescriptionMedicationService) {
+    public PrescriptionService(PrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
     }
 
