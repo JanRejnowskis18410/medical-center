@@ -26,11 +26,13 @@ public class AppointmentForDoctorDTO {
     private String description;
     private Appointment.AppointmentType type;
     private String medicalServiceName;
+    private PatientDTO patient;
 
     public AppointmentForDoctorDTO(Appointment appointment){
         this.id = appointment.getId();
         this.date = appointment.getDate();
         this.type = appointment.getType();
         this.medicalServiceName = appointment.getMedicalService().getName();
+        this.patient = new PatientDTO(appointment.getPatient());
     }
 }
