@@ -3,6 +3,7 @@ package com.pjatk.medicalcenter.dto;
 import com.pjatk.medicalcenter.model.Schedule;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SpecializationWithScheduleRequestDTO {
 
-    @NonNull
+    @NotNull
     private long specializationId;
     private List<ScheduleDTO> schedules;
 

@@ -72,25 +72,6 @@ public class DoctorService {
         return doctor;
     }
 
-    public Doctor deleteDoctorSpecializationSchedules(long doctorId, SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO) {
-        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
-        Specialization specialization = specializationRepository.findById(specializationWithScheduleRequestDTO.getSpecializationId())
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
-
-        DoctorSpecialization foundSpecializationForThisDoctor = doctor.getDoctorSpecializations().stream()
-                .filter(docSpec -> docSpec.getSpecialization().getId() == specialization.getId())
-                .findFirst()
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("Specialization with id %s does not exists for doctor for id %s", specializationWithScheduleRequestDTO.getSpecializationId(),doctorId)));
-
-        List<Schedule> schedules = specializationWithScheduleRequestDTO.getSchedules().stream().map(DTOsMapper::mapScheduleDTOtoSchedule).collect(Collectors.toList());
-        for(Schedule schedule: schedules)
-            scheduleRepository.delete(schedule);
-
-
-        return doctor;
-    }
-
     public List<SpecializationWithSchedulesDTO> getDoctorSpecializations(long id) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));

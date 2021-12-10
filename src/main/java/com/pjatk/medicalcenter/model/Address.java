@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -12,10 +13,18 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 public class Address {
 
+    @Column(name="street", nullable = false)
     private String street;
-    private String streetNumber;
-    private String postCode;
-    private String city;
-    private String country;
 
+    @Column(name="streetNumber", nullable = false)
+    private String streetNumber;
+
+    @Column(name="postCode", nullable = false)
+    private String postCode;
+
+    @Column(name="city", nullable = false)
+    private String city;
+
+    @Column(name="country", nullable = false)
+    private String country;
 }

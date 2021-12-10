@@ -4,6 +4,8 @@ import com.pjatk.medicalcenter.model.PrescriptionMedication;
 import com.pjatk.medicalcenter.repository.PrescriptionMedicationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PrescriptionMedicationService {
 
@@ -13,7 +15,7 @@ public class PrescriptionMedicationService {
         this.prescriptionMedicationRepository = prescriptionMedicationRepository;
     }
 
-    public PrescriptionMedication addPrescriptionMedication(PrescriptionMedication prescriptionMedication) {
-        return prescriptionMedicationRepository.save(prescriptionMedication);
+    public List<PrescriptionMedication> addPrescriptionMedications(List<PrescriptionMedication> prescriptionMedications) {
+        return prescriptionMedicationRepository.saveAll(prescriptionMedications);
     }
 }

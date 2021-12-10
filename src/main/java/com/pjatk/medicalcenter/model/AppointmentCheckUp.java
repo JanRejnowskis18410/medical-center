@@ -21,7 +21,7 @@ public class AppointmentCheckUp {
     @MapsId("checkUpId")
     private CheckUp checkUp;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String result;
 
     @Column(nullable = true)

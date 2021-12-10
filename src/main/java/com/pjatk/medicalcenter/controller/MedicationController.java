@@ -57,7 +57,6 @@ public class MedicationController {
         medication.setUnit(medicationDTO.getUnit());
         medication.setPayment(medicationDTO.getPayment());
         medicationDTO.setQuantity(medicationDTO.getQuantity());
-        medication.setExtendable(medicationDTO.isExtendable());
 
         return medication;
     }

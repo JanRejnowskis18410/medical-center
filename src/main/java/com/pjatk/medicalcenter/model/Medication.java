@@ -17,7 +17,7 @@ public class Medication {
 
     public enum Unit {
 
-        MILLILITERS("ML"), LITERS("L"), GRAMS("G"), MILLIGRAMS("MG");
+        MILLILITERS("ML"), LITERS("L"), GRAMS("G"), MILLIGRAMS("MG"), PILL("PILL");
 
         private String code;
 
@@ -55,10 +55,6 @@ public class Medication {
 
     @Column(nullable = false)
     private int quantity;
-
-    @Column(nullable = false)
-    @Type(type = "numeric_boolean")
-    private boolean extendable;
 
     public void addPrescriptionMedication(PrescriptionMedication prescriptionMedication) {
         prescriptionMedications.add(prescriptionMedication);

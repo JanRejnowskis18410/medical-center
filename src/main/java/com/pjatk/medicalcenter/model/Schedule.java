@@ -27,7 +27,10 @@ public class Schedule {
     })
     private DoctorSpecialization doctorSpecialization;
 
+    @Column(name = "dayOfWeek", nullable = false)
     private DayOfWeek dayOfWeek;
+    @Column(name = "dateFrom", nullable = false)
     private LocalDateTime dateFrom;
+    @Column(name = "dateTo", nullable = false)
     private LocalDateTime dateTo;
 }

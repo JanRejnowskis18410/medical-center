@@ -7,6 +7,7 @@ import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,13 +80,13 @@ public class PatientController {
 
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<Patient> addPatient(@RequestBody PatientDTO patientDTO){
+    public ResponseEntity<Patient> addPatient(@Valid @RequestBody PatientDTO patientDTO){
         Patient createdPatient = patientService.addPatient(DTOsMapper.mapPatientDTOtoPatient(patientDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d", createdPatient.getId()))).build();
     }
     @PostMapping("/{id}/files")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<Patient> addPatientsFile(@PathVariable long id, @RequestBody PatientsFileDTO patientsFileDTO){
+    public ResponseEntity<Patient> addPatientsFile(@PathVariable long id, @Valid @RequestBody PatientsFileDTO patientsFileDTO){
         PatientsFile createdPatientsFile = patientService.addPatientsFile(id,DTOsMapper.mapPatientFileDTOtoPatientFile(patientsFileDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d/files/%d",id,createdPatientsFile.getId()))).build();
     }

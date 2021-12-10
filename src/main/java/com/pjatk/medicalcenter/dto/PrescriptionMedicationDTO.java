@@ -34,7 +34,6 @@ public class PrescriptionMedicationDTO {
         this.unit = medication.getUnit();
         this.payment = medication.getPayment();
         this.quantity = medication.getQuantity();
-        this.extendable = medication.isExtendable();
         this.numberOfPackages = prescriptionMedication.getNumberOfPackages();
         this.dosing = prescriptionMedication.getDosing();
     }

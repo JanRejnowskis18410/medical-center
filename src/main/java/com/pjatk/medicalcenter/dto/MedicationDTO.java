@@ -20,7 +20,6 @@ public class MedicationDTO {
 
     private int quantity;
 
-    private boolean extendable;
 
     public MedicationDTO(Medication medication) {
         this.id = medication.getId();
@@ -28,6 +27,5 @@ public class MedicationDTO {
         this.unit = medication.getUnit();
         this.payment = medication.getPayment();
         this.quantity = medication.getQuantity();
-        this.extendable = medication.isExtendable();
     }
 }

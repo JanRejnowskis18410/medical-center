@@ -1,13 +1,10 @@
 package com.pjatk.medicalcenter.dto;
 
 import com.pjatk.medicalcenter.model.MedicalService;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -16,14 +13,10 @@ import java.util.Objects;
 public class MedicalServiceDTO {
 
     private Long id;
-    @NotNull
     private String name;
-    @NotNull
-    private boolean facilityService;
-    @NotNull
-    private boolean doneByMedicalStaff;
-    private long specializationId;
-
+    private Boolean facilityService;
+    private Boolean doneByMedicalStaff;
+    private Long specializationId;
 
     public MedicalServiceDTO(MedicalService medicalService) {
         this.id = medicalService.getId();
