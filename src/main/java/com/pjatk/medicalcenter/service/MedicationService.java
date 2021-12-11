@@ -2,6 +2,7 @@ package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.model.Medication;
 import com.pjatk.medicalcenter.repository.MedicationRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,7 +20,7 @@ public class MedicationService {
     }
 
     public List<Medication> getMedications() {
-        return medicationRepository.findAll();
+        return medicationRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     public Optional<Medication> findMedicationById(long id) {

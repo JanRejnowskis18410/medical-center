@@ -2,6 +2,7 @@ package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.model.CheckUp;
 import com.pjatk.medicalcenter.repository.CheckUpRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,7 +19,7 @@ public class CheckUpService {
     }
 
     public List<CheckUp> getCheckUps() {
-        return checkUpRepository.findAll();
+        return checkUpRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     public CheckUp getCheckUpById(long id) {
