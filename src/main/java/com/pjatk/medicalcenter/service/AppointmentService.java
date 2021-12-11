@@ -8,7 +8,6 @@ import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.repository.AppointmentRepository;
 import com.pjatk.medicalcenter.specifications.AppointmentSpecification;
 import com.pjatk.medicalcenter.specifications.AppointmentSpecificationBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -104,6 +103,7 @@ public class AppointmentService {
         appointment.setMedicalService(medicalService);
         appointment.setDate(newAppointment.getDate());
         appointment.setType(medicalService.isFacilityService() ? Appointment.AppointmentType.FACILITY : Appointment.AppointmentType.TELEPHONE);
+        appointment.setState(Appointment.AppointmentState.AVAILABLE);
 
         return appointment;
     }

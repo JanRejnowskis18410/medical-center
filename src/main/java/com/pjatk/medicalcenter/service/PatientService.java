@@ -62,7 +62,7 @@ public class PatientService {
     public List<Appointment> getPatientsDoneAppointments(long patientId) {
         Patient patient = getPatientById(patientId);
         return patient.getAppointments().stream()
-                .filter(apmt -> apmt.getDate().isBefore(LocalDate.now().atStartOfDay()))
+                .filter(apmt -> apmt.getState().equals(Appointment.AppointmentState.DONE))
                 .collect(Collectors.toList());
     }
 
@@ -70,7 +70,8 @@ public class PatientService {
     public List<Appointment> getPatientsPlannedAppointments(long patientId) {
         Patient patient = getPatientById(patientId);
         return patient.getAppointments().stream()
-                .filter(apmt -> apmt.getDate().isAfter(LocalDate.now().atStartOfDay()))
+                .filter(apmt -> apmt.getState().equals(Appointment.AppointmentState.RESERVED) ||
+                        apmt.getState().equals(Appointment.AppointmentState.CONFIRMED))
                 .collect(Collectors.toList());
     }
 

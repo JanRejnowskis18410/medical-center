@@ -1,8 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
 import lombok.*;
-import org.hibernate.annotations.Type;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,13 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Appointment {
 
     public enum AppointmentType {
         TELEPHONE, FACILITY
+    }
+
+    public enum AppointmentState {
+        AVAILABLE, RESERVED, CONFIRMED, DONE
     }
 
     @Id
@@ -40,7 +41,6 @@ public class Appointment {
 
     @OneToOne(mappedBy = "appointment")
     @Setter(AccessLevel.NONE)
-    @Nullable
     private Referral referral = null;
 
     @OneToMany(mappedBy = "issueAppointment")
@@ -55,19 +55,23 @@ public class Appointment {
     @Column(nullable = false)
     private LocalDateTime date;
 
-    @Column(nullable = false)
-    @Type(type = "numeric_boolean")
-    private boolean confirmed;
-
     @Column(nullable = true, length = 500)
     private String recommendations;
 
     @Column(nullable = true, length = 500)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     private AppointmentType type;
+
+    @Column(name = "state", nullable = false, columnDefinition = "varchar(255) default 'AVAILABLE'")
+    @Enumerated(EnumType.STRING)
+    private AppointmentState state;
+
+    public Appointment(){
+        this.state = AppointmentState.AVAILABLE;
+    }
 
     public void setMedicalService(MedicalService medicalService) {
         this.medicalService = medicalService;

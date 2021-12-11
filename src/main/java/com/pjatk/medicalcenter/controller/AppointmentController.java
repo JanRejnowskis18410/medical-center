@@ -11,8 +11,10 @@ import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.service.ReferralService;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -93,7 +95,9 @@ public class AppointmentController {
 
         LocalDate appointmentDate = appointment.getDate().toLocalDate();
         if (LocalDate.now().isEqual(appointmentDate)) {
-            appointment.setConfirmed(true);
+            appointment.setState(Appointment.AppointmentState.CONFIRMED);
+        } else {
+            appointment.setState(Appointment.AppointmentState.RESERVED);
         }
 
         appointmentService.addAppointment(appointment);
@@ -104,7 +108,7 @@ public class AppointmentController {
     public ResponseEntity<Void> confirmAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
-        appointment.setConfirmed(true);
+        appointment.setState(Appointment.AppointmentState.CONFIRMED);
         appointmentService.addAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
@@ -113,6 +117,9 @@ public class AppointmentController {
     public ResponseEntity<Void> cancelAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
+        if(appointment.getState().equals(Appointment.AppointmentState.CONFIRMED)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment confirmed- cannot cancel");
+        }
         if (appointment.getReferral() != null) {
             appointment.setReferral(null);
         }
@@ -120,6 +127,7 @@ public class AppointmentController {
             appointment.setPatient(null);
         }
 
+        appointment.setState(Appointment.AppointmentState.AVAILABLE);
         appointmentService.addAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
