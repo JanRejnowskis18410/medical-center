@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface MedicalServiceRepository extends JpaRepository<MedicalService, Long> {
-    List<MedicalService> findMedicalServicesByFacilityServiceIsFalse();
-    List<MedicalService> findMedicalServicesByFacilityServiceIsTrue();
+    List<MedicalService> findMedicalServicesByFacilityServiceIsFalseOrderByNameAsc();
+    List<MedicalService> findMedicalServicesByFacilityServiceIsTrueOrderByNameAsc();
 }

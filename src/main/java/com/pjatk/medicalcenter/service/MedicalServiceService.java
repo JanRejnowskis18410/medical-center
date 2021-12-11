@@ -6,6 +6,7 @@ import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.model.Specialization;
 import com.pjatk.medicalcenter.repository.MedicalServiceRepository;
 import com.pjatk.medicalcenter.repository.SpecializationRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,13 +25,13 @@ public class MedicalServiceService {
     }
 
     public List<MedicalService> getServices() {
-        return medicalServiceRepository.findAll();
+        return medicalServiceRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     public List<MedicalService> getServicesByAppointmentType(Appointment.AppointmentType appointmentType) {
         return appointmentType.equals(Appointment.AppointmentType.FACILITY) ?
-                medicalServiceRepository.findMedicalServicesByFacilityServiceIsTrue() :
-                medicalServiceRepository.findMedicalServicesByFacilityServiceIsFalse();
+                medicalServiceRepository.findMedicalServicesByFacilityServiceIsTrueOrderByNameAsc() :
+                medicalServiceRepository.findMedicalServicesByFacilityServiceIsFalseOrderByNameAsc();
     }
 
     public MedicalService getServiceById(long id) {
