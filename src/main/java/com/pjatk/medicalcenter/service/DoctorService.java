@@ -113,7 +113,7 @@ public class DoctorService {
                 .getAppointments()
                 .stream()
                 .flatMap(app -> app.getAppointmentCheckUps().stream())
-                .filter(appCh -> appCh.getResult()==null)
+                .filter(appCh -> appCh.getResult()==null && appCh.getAppointment().getState().equals(Appointment.AppointmentState.DONE))
                 .map(AppointmentCheckUp::getAppointment)
                 .collect(Collectors.toList());
 
