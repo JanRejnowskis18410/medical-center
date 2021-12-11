@@ -50,7 +50,7 @@ public class DoctorController {
     }
 
     @GetMapping("/services")
-    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestParam("medicalServiceId") Long medicalServiceId, @RequestParam(value = "language", required = false) String language){
+    public ResponseEntity<List<DoctorDTO>> getDoctorsByMedicalServiceIdAndLanguages(@RequestParam("medicalServiceId") Long medicalServiceId, @RequestParam(value = "language") String language){
         return ResponseEntity.ok(doctorService.getDoctorsByMedicalServiceIdAndLanguage(medicalServiceId, Doctor.Language.valueOf(language))
                 .stream().map(DoctorDTO::new).collect(Collectors.toList()));
     }
