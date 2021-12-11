@@ -27,7 +27,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             "JOIN doctor_specialization ds ON d.id=ds.doctor_id " +
             "JOIN specialization s ON ds.specialization_id=s.id " +
             "WHERE s.id= :specializationId " +
-            "ORDER BY d.last_name",
+            "ORDER BY p.last_name",
             nativeQuery = true)
     List<Doctor> findDoctorsBySpecializationId(@Param("specializationId") long specializationId);
 }
