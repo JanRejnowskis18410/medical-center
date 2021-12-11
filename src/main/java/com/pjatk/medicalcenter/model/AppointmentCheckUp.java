@@ -21,13 +21,13 @@ public class AppointmentCheckUp {
     @MapsId("checkUpId")
     private CheckUp checkUp;
 
-    @Column(nullable = false, length = 1000)
+    @Column(length = 1000)
     private String result;
 
     @Column(nullable = true)
     private String description;
 
     @Lob
-    @Column(columnDefinition = "BLOB", nullable = false)
+    @Column(columnDefinition = "BLOB")
     private byte[] file;
 }

@@ -1,6 +1,7 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
+import com.pjatk.medicalcenter.model.AppointmentCheckUp;
 import com.pjatk.medicalcenter.model.Doctor;
 import com.pjatk.medicalcenter.model.Schedule;
 import com.pjatk.medicalcenter.service.DoctorService;
@@ -38,6 +39,15 @@ public class DoctorController {
     public ResponseEntity<List<AppointmentForDoctorDTO>> getDoctorsTodaysVisits(@PathVariable long id){
         return ResponseEntity.ok(doctorService
                                 .getDoctorsTodaysVisit(id)
+                                .stream()
+                                .map(AppointmentForDoctorDTO::new)
+                                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{id}/testsWithoutResults")
+    public ResponseEntity<List<AppointmentForDoctorDTO>> getDoctorsAppointmentWithCheckupsWithoutResult(@PathVariable long id){
+        return ResponseEntity.ok(doctorService
+                                .getDoctorsAppointmentWithCheckupsWithoutResult(id)
                                 .stream()
                                 .map(AppointmentForDoctorDTO::new)
                                 .collect(Collectors.toList()));

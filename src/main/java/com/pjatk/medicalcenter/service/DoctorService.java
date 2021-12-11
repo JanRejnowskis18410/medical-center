@@ -107,4 +107,15 @@ public class DoctorService {
                 .stream().filter(app -> app.getDate().toLocalDate().equals(LocalDate.now()))
                 .collect(Collectors.toList());
     }
+
+    public List<Appointment> getDoctorsAppointmentWithCheckupsWithoutResult(long doctorId){
+        return getDoctorById(doctorId)
+                .getAppointments()
+                .stream()
+                .flatMap(app -> app.getAppointmentCheckUps().stream())
+                .filter(appCh -> appCh.getResult()==null)
+                .map(AppointmentCheckUp::getAppointment)
+                .collect(Collectors.toList());
+
+    }
 }

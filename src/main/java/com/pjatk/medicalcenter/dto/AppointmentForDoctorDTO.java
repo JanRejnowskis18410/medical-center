@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -18,8 +19,8 @@ import java.util.List;
 public class AppointmentForDoctorDTO {
 
     private Long id;
-    private List<Referral> issuedReferrals = new ArrayList<>();
-    private List<Prescription> prescriptions = new ArrayList<>();
+    private List<ReferralDTO> issuedReferrals = new ArrayList<>();
+    private List<PrescriptionDTO> prescriptions = new ArrayList<>();
     private List<AppointmentTestDTO> appointmentCheckUps = new ArrayList<>();
     private LocalDateTime date;
     private String recommendations;
@@ -34,5 +35,10 @@ public class AppointmentForDoctorDTO {
         this.type = appointment.getType();
         this.medicalServiceName = appointment.getMedicalService().getName();
         this.patient = new PatientDTO(appointment.getPatient());
+        this.appointmentCheckUps = appointment.getAppointmentCheckUps().stream().map(AppointmentTestDTO::new).collect(Collectors.toList());
+        this.recommendations = appointment.getRecommendations();
+        this.description = appointment.getDescription();
+        this.prescriptions = appointment.getPrescriptions().stream().map(PrescriptionDTO::new).collect(Collectors.toList());
+        this.issuedReferrals = appointment.getIssuedReferrals().stream().map(ReferralDTO::new).collect(Collectors.toList());
     }
 }
