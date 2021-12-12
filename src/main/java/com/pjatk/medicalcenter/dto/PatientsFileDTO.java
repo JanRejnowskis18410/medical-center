@@ -25,6 +25,7 @@ public class PatientsFileDTO {
     public PatientsFileDTO(PatientsFile patientsFile) {
         this.id=patientsFile.getId();
         this.name=patientsFile.getName();
+        this.description=patientsFile.getDescription();
         this.file=patientsFile.getFile();
     }
 }
