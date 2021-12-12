@@ -28,6 +28,7 @@ public class AppointmentForDoctorDTO {
     private Appointment.AppointmentType type;
     private String medicalServiceName;
     private PatientDTO patient;
+    private Appointment.AppointmentState state;
 
     public AppointmentForDoctorDTO(Appointment appointment){
         this.id = appointment.getId();
@@ -40,5 +41,6 @@ public class AppointmentForDoctorDTO {
         this.description = appointment.getDescription();
         this.prescriptions = appointment.getPrescriptions().stream().map(PrescriptionDTO::new).collect(Collectors.toList());
         this.issuedReferrals = appointment.getIssuedReferrals().stream().map(ReferralDTO::new).collect(Collectors.toList());
+        this.state = appointment.getState();
     }
 }
