@@ -17,7 +17,7 @@ public class PatientsFileDTO {
     @NotEmpty(message = "Field name is required")
     private String name;
     @NotEmpty(message = "Description is required")
-    @Size(max = 2, message = "At least 100 characters are required")
+    @Size(max = 100, message = "At least 100 characters are required")
     private String description;
     @NotEmpty(message = "File attachment is required")
     private Byte[] file;

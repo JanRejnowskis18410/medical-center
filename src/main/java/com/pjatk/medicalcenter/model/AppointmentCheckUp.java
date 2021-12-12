@@ -28,6 +28,6 @@ public class AppointmentCheckUp {
     private String description;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] file;
 }

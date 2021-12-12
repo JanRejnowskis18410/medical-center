@@ -19,7 +19,7 @@ public class PatientsFile {
     private String name;
 
     @Lob
-    @Column(name = "file", columnDefinition = "BLOB", nullable = false)
+    @Column(name = "file", columnDefinition = "LONGBLOB", nullable = false )
     private Byte[] file;
 
     @Column(name = "description", nullable = false, length = 100)
