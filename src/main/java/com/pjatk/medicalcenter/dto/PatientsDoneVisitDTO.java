@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PatientsDoneVisitDTO {
 
+    private Long id;
     private String serviceName;
     private DoctorDTO doctor;
     private LocalDateTime date;
@@ -27,6 +28,7 @@ public class PatientsDoneVisitDTO {
     private List<AppointmentTestDTO> diagnosticTests;
 
     public PatientsDoneVisitDTO(Appointment appointment) {
+        this.id = appointment.getId();
         this.serviceName = appointment.getMedicalService().getName();
         this.doctor = new DoctorDTO(appointment.getDoctor());
         this.date = appointment.getDate();
