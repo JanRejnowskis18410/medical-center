@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -21,11 +22,14 @@ public class PatientsFileDTO {
     private String description;
     @NotEmpty(message = "File attachment is required")
     private Byte[] file;
+    @NotEmpty(message = "File type is required")
+    private String type;
 
     public PatientsFileDTO(PatientsFile patientsFile) {
         this.id=patientsFile.getId();
         this.name=patientsFile.getName();
         this.description=patientsFile.getDescription();
         this.file=patientsFile.getFile();
+        this.type=patientsFile.getType();
     }
 }

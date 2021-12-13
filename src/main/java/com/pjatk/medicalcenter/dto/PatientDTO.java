@@ -54,7 +54,7 @@ public class PatientDTO {
         this.email=patient.getEmail();
         this.birthDate= patient.getBirthDate();
         this.pesel=patient.getPesel();
-        if(Objects.nonNull(patientsFiles))
+        if(Objects.nonNull(patient.getPatientsFiles()))
             this.patientsFiles=patient.getPatientsFiles().stream().map(PatientsFileDTO::new).collect(Collectors.toList());
     }
 }

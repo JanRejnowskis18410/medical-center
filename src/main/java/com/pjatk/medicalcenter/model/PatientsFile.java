@@ -30,6 +30,9 @@ public class PatientsFile {
     @Column(name = "uploadDate", nullable = false)
     private LocalDate uploadDate = LocalDate.now();
 
+    @Column(name = "type", nullable = false)
+    private String type;
+
     @ManyToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
     private Patient patient;

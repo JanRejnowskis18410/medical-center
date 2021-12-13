@@ -82,7 +82,7 @@ public class PatientService {
                                         .findFirst()
                                         .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"File does not exists"));
     }
-    //TODO czy nie trzbe dodac w pacjencie do listy plikow?
+
     public PatientsFile addPatientsFile(long id, PatientsFile patientsFile){
         patientsFile.setPatient(getPatientById(id));
         return patientsFileRepository.save(patientsFile);
