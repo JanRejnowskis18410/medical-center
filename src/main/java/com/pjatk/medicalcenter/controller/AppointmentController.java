@@ -1,9 +1,6 @@
 package com.pjatk.medicalcenter.controller;
 
-import com.pjatk.medicalcenter.dto.AvailableAppointmentDTO;
-import com.pjatk.medicalcenter.dto.AvailableAppointmentsRequestDTO;
-import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
-import com.pjatk.medicalcenter.dto.PatchAppointmentDTO;
+import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.service.AppointmentService;
 import com.pjatk.medicalcenter.service.MedicalServiceService;
@@ -78,16 +75,16 @@ public class AppointmentController {
     //TODO: check if validation works
     @PatchMapping("{id}/reserve")
     public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
-                                                   @Valid @RequestBody PatchAppointmentDTO patchAppointmentDTO) {
+                                                   @Valid @RequestBody ConfirmAppointmentDTO confirmAppointmentDTO) {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
-        JsonNullable<Long> patientId = patchAppointmentDTO.getPatientId();
+        JsonNullable<Long> patientId = confirmAppointmentDTO.getPatientId();
         if (patientId.isPresent()) {
             Patient patient = patientService.getPatientById(patientId.get());
             appointment.setPatient(patient);
         }
 
-        JsonNullable<Long> referralId = patchAppointmentDTO.getReferralId();
+        JsonNullable<Long> referralId = confirmAppointmentDTO.getReferralId();
         if (referralId.isPresent()) {
             Referral referral = referralService.getReferralById(referralId.get());
             appointment.setReferral(referral);
@@ -131,4 +128,19 @@ public class AppointmentController {
         appointmentService.addAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
+
+//    @PatchMapping("{id}/done")
+//    public ResponseEntity<Void> doneAppointment(@PathVariable("id") long id,
+//                                                @Valid @RequestBody DoneAppointmentDTO doneAppointmentDTO) {
+//        Appointment appointment = appointmentService.getAppointmentById(id);
+//
+//        if (!appointment.getState().equals(Appointment.AppointmentState.CONFIRMED)) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment was not confirmed");
+//        }
+//
+//        JsonNullable<String> description = doneAppointmentDTO.getDescription();
+//        if (description.isPresent()) {
+//            appointment.setDescription(description.get());
+//        }
+//    }
 }
