@@ -11,5 +11,4 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>, JpaSpecificationExecutor<Appointment> {
 
-//    List<Appointment> findByTypeAndPatientIsNullAndDateAfter(Appointment.AppointmentType appointmentType,LocalDateTime localDateTime);
 }

@@ -10,6 +10,10 @@ import com.pjatk.medicalcenter.service.MedicalServiceService;
 import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.service.ReferralService;
 import org.openapitools.jackson.nullable.JsonNullable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +24,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,15 +53,26 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AvailableAppointmentDTO>> getAvailableAppointments(
-            @RequestParam(name = "medicalServiceId", required = true) Long medicalServiceId,
-            @RequestParam(name = "doctorId", required = false) Long doctorId,
-            @RequestParam(name = "dateFrom", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateFrom,
-            @RequestParam(name = "dateTo", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo,
-            @RequestParam(name = "language", required = true) Doctor.Language language) {
+    public ResponseEntity<Map<String,Object>> getAvailableAppointments(
+                @RequestParam(name = "medicalServiceId", required = true) Long medicalServiceId,
+                @RequestParam(name = "doctorId", required = false) Long doctorId,
+                @RequestParam(name = "dateFrom", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateFrom,
+                @RequestParam(name = "dateTo", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTo,
+                @RequestParam(name = "language", required = true) Doctor.Language language,
+                @RequestParam(name = "page", defaultValue = "0") int page,
+                @RequestParam(name = "size", defaultValue = "1") int size) {
+
+        Pageable paging = PageRequest.of(page, size, Sort.by("date").ascending());
         AvailableAppointmentsRequestDTO aarDTO = new AvailableAppointmentsRequestDTO(medicalServiceId,doctorId,dateFrom,dateTo,language);
-        List<Appointment> availableAppointments = appointmentService.getAvailableAppointments(aarDTO);
-        return ResponseEntity.ok(availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
+        Page<Appointment> availableAppointments = appointmentService.getAvailableAppointments(aarDTO, paging);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("appointments", availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
+        response.put("currentPage", availableAppointments.getNumber());
+        response.put("totalItems", availableAppointments.getTotalElements());
+        response.put("totalPages", availableAppointments.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
