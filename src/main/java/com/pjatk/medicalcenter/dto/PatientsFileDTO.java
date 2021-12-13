@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -24,6 +25,7 @@ public class PatientsFileDTO {
     private Byte[] file;
     @NotEmpty(message = "File type is required")
     private String type;
+    private LocalDate uploadDate;
 
     public PatientsFileDTO(PatientsFile patientsFile) {
         this.id=patientsFile.getId();
@@ -31,5 +33,6 @@ public class PatientsFileDTO {
         this.description=patientsFile.getDescription();
         this.file=patientsFile.getFile();
         this.type=patientsFile.getType();
+        this.uploadDate=patientsFile.getUploadDate();
     }
 }
