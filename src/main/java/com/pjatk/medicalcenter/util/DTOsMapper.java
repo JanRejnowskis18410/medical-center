@@ -37,6 +37,7 @@ public class DTOsMapper {
         patientsFile.setId(patientsFileDTO.getId());
         patientsFile.setFile(patientsFileDTO.getFile());
         patientsFile.setName(patientsFileDTO.getName());
+        patientsFile.setType(patientsFileDTO.getType());
         patientsFile.setDescription(patientsFileDTO.getDescription());
         return patientsFile;
     }
