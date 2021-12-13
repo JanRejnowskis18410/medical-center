@@ -1,8 +1,10 @@
 package com.pjatk.medicalcenter.model;
 
 import lombok.*;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Entity
@@ -24,6 +26,9 @@ public class PatientsFile {
 
     @Column(name = "description", nullable = false, length = 100)
     private String description;
+
+    @Column(name = "uploadDate", nullable = false)
+    private LocalDate uploadDate = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
