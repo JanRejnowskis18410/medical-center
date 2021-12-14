@@ -25,7 +25,7 @@ public class PatientsDoneVisitDTO {
     private Appointment.AppointmentType type;
     private List<ReferralDTO> issuedReferrals;
     private List<PrescriptionDTO> prescriptions;
-    private List<AppointmentTestDTO> diagnosticTests;
+    private List<AppointmentCheckUpDTO> diagnosticTests;
 
     public PatientsDoneVisitDTO(Appointment appointment) {
         this.id = appointment.getId();

@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,15 +51,16 @@ public class PatientService {
 
     public List<PatientsFile> getPatientsFile(long patientsId){
         Patient patient = getPatientById(patientsId);
-        List<PatientsFile> patientsFiles = patientsFileRepository.getPatientsFileByPatientId(patientsId);
-
-        return patientsFiles;
+        return patientsFileRepository.getPatientsFileByPatientId(patientsId)
+                .stream().sorted((o1, o2) -> o2.getUploadDate().compareTo(o1.getUploadDate()))
+                .collect(Collectors.toList());
     }
 
     public List<Appointment> getPatientsDoneAppointments(long patientId) {
         Patient patient = getPatientById(patientId);
         return patient.getAppointments().stream()
                 .filter(apmt -> apmt.getState().equals(Appointment.AppointmentState.DONE))
+                .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate()))
                 .collect(Collectors.toList());
     }
 
@@ -72,6 +70,7 @@ public class PatientService {
         return patient.getAppointments().stream()
                 .filter(apmt -> apmt.getState().equals(Appointment.AppointmentState.RESERVED) ||
                         apmt.getState().equals(Appointment.AppointmentState.CONFIRMED))
+                .sorted(Comparator.comparing(Appointment::getDate))
                 .collect(Collectors.toList());
     }
 
@@ -88,12 +87,16 @@ public class PatientService {
         return patientsFileRepository.save(patientsFile);
     }
 
+    public void deletePatientsFile(long patientsFileId){
+        patientsFileRepository.deleteById(patientsFileId);
+    }
+
     public List<Referral> getPatientsAvailableReferrals(Long id) {
         List<Referral> refferals = getPatientById(id).getReferrals()
                 .stream()
-                .filter(ref -> ref.getExpiryDate().isAfter(LocalDate.now()))
+                .filter(ref -> ref.getAppointment() == null)
+                .sorted(Comparator.comparing(Referral::getExpiryDate))
                 .collect(Collectors.toList());
-        refferals.sort(Comparator.comparing(Referral::getExpiryDate));
         return refferals;
     }
 
@@ -105,6 +108,7 @@ public class PatientService {
     public List<AppointmentCheckUp> getPatientsDiagnosticTests(long patientId) {
         return getPatientsDoneAppointments(patientId).stream()
                 .flatMap(app -> app.getAppointmentCheckUps().stream())
+                .sorted((o1,o2) -> o2.getAppointment().getDate().compareTo(o1.getAppointment().getDate()))
                 .collect(Collectors.toList());
     }
 }

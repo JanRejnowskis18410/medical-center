@@ -2,10 +2,7 @@ package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
-import com.pjatk.medicalcenter.service.AppointmentService;
-import com.pjatk.medicalcenter.service.MedicalServiceService;
-import com.pjatk.medicalcenter.service.PatientService;
-import com.pjatk.medicalcenter.service.ReferralService;
+import com.pjatk.medicalcenter.service.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,6 +15,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,15 +24,18 @@ import java.util.stream.Collectors;
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
-    private final MedicalServiceService medicalServiceService;
     private final PatientService patientService;
     private final ReferralService referralService;
+    private final AppointmentCheckUpService appointmentCheckUpService;
 
-    public AppointmentController(AppointmentService appointmentService, MedicalServiceService medicalServiceService, PatientService patientService, ReferralService referralService) {
+    public AppointmentController(AppointmentService appointmentService,
+                                 PatientService patientService,
+                                 ReferralService referralService,
+                                 AppointmentCheckUpService appointmentCheckUpService) {
         this.appointmentService = appointmentService;
-        this.medicalServiceService = medicalServiceService;
         this.patientService = patientService;
         this.referralService = referralService;
+        this.appointmentCheckUpService = appointmentCheckUpService;
     }
 
     @GetMapping("/all")
@@ -56,13 +57,18 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AvailableAppointmentDTO> getAppointmentById(@PathVariable long id){
-        return ResponseEntity.ok(new AvailableAppointmentDTO(appointmentService.getAppointmentById(id)));
+    public ResponseEntity<PatientsDoneVisitDTO> getAppointmentById(@PathVariable long id){
+        return ResponseEntity.ok(new PatientsDoneVisitDTO(appointmentService.getAppointmentById(id)));
+    }
+
+    @GetMapping("/diagnosticTests")
+    public ResponseEntity<AppointmentCheckUpDTO> getAppointmentCheckUpById(@PathVariable long appointmentId, @PathVariable long checkUpId){
+        return ResponseEntity.ok(new AppointmentCheckUpDTO(appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId)));
     }
 
     @PostMapping
     public ResponseEntity<AvailableAppointmentDTO> addAppointment(@Valid @RequestBody CreateAppointmentDTO createAppointmentDTO) {
-        Appointment createdAppointment = appointmentService.addAppointment(createAppointmentDTO);
+        Appointment createdAppointment = appointmentService.saveAppointment(createAppointmentDTO);
         return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
     }
 
@@ -97,7 +103,7 @@ public class AppointmentController {
             appointment.setState(Appointment.AppointmentState.RESERVED);
         }
 
-        appointmentService.addAppointment(appointment);
+        appointmentService.saveAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
 
@@ -106,7 +112,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
         appointment.setState(Appointment.AppointmentState.CONFIRMED);
-        appointmentService.addAppointment(appointment);
+        appointmentService.saveAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
 
@@ -125,7 +131,24 @@ public class AppointmentController {
         }
 
         appointment.setState(Appointment.AppointmentState.AVAILABLE);
-        appointmentService.addAppointment(appointment);
+        appointmentService.saveAppointment(appointment);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("{appointmentId}/testResult/{checkUpId}")
+    public ResponseEntity<Void> addCheckupResult(@PathVariable("appointmentId") long appointmentId,
+                                                 @PathVariable("appointmentId") long checkUpId,
+                                                 @Valid @RequestBody PatchAppointmentCheckUpDTO patchAppointmentCheckUpDTO) {
+
+        AppointmentCheckUp appointmentCheckUp = appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId);
+
+        appointmentCheckUp.setResult(patchAppointmentCheckUpDTO.getResult().get());
+        appointmentCheckUp.setFile(patchAppointmentCheckUpDTO.getFile().get());
+        if (Objects.nonNull(patchAppointmentCheckUpDTO.getDoctorsDescription().get())) {
+            appointmentCheckUp.setDoctorsDescription(patchAppointmentCheckUpDTO.getDoctorsDescription().get());
+        }
+
+        appointmentCheckUpService.saveAppointmentCheckUp(appointmentCheckUp);
         return ResponseEntity.noContent().build();
     }
 
@@ -143,4 +166,6 @@ public class AppointmentController {
 //            appointment.setDescription(description.get());
 //        }
 //    }
+
+
 }

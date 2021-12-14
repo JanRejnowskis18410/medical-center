@@ -27,7 +27,7 @@ public class PatientsFile {
     @Column(name = "description", nullable = false, length = 100)
     private String description;
 
-    @Column(name = "uploadDate", nullable = false)
+    @Column(name = "upload_date", nullable = false)
     private LocalDate uploadDate = LocalDate.now();
 
     @Column(name = "type", nullable = false)

@@ -73,22 +73,22 @@ INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (12,'PL');
 INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (12,'EN');
 
 
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja ginekologa', false , true, 1);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja ginekologa', false , true, 1); --1
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja ginekologa', false, false, 1);
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja radiologa', false , true, 2);
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja radiologa', false, false, 2);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja radiologa', false, false, 2); --4
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja dermatologa', false , true, 3);
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja dermatologa', false, false, 3);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja dermatologa', false, false, 3); --6
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja internisty', false , true, 4);
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja internisty', false, false, 4);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja internisty', false, false, 4); --8
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja pediatry', false , true, 5);
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja pediatry', false, false, 5);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja pediatry', false, false, 5); --10
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja okulisty', false , true, 6);
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja okulisty', false, false, 6);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja okulisty', false, false, 6); --12
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja ortopedy', false , true, 7);
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja ortopedy', false, false, 7);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja ortopedy', false, false, 7); --14
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja endokrynologa', false , true, 8);
-INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja endokrynologa', false, false, 8);
+INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja endokrynologa', false, false, 8); --16
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja kardiologa', false , true, 9);
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja kardiologa', false, false, 9);
 INSERT INTO medical_service(NAME, DONE_BY_MEDICAL_STAFF, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja laryngologa', false , true, 10);
@@ -142,19 +142,27 @@ INSERT INTO check_up (NAME) VALUES ('Rezonans czaszki');
 INSERT INTO check_up (NAME) VALUES ('Posiew moczu');
 
 --ODBYTE WIZYTY
+--Konsultacja ginekologa - Elżbieta Gos, Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES ('DONE', '2021-11-18T12:45:00', 'Pacjent zgłosił następujące objawy: ból gardła i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie', 'Syrop flugamin 2/dz, ibuprom w przypadku gorączki,','FACILITY', 7, 7, 1);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2022-01-31', '2021-11-18', 1, 7, 1);
 INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, DOCTOR_ID, PATIENT_ID)
 VALUES (25689, '2021-11-18', '2021-12-18', 1, 7, 1);
-INSERT INTO appointment_check_up (description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 1,1);
+INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 1,1);
 
+--Konsultacja dermatologa, Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
-VALUES ('DONE', '2021-10-18T13:00:00', 'Delitakny trądzik na brodzie oraz czole. Po zakończeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 7, 5, 1);
+VALUES ('DONE', '2021-10-18T13:00:00', 'Delitakny trądzik na brodzie oraz czole. Po zakończeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 6, 5, 1);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-31', '2021-10-18', 2, 5, 1);
 INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, DOCTOR_ID, PATIENT_ID)
 VALUES (25689, '2021-10-18', '2021-12-18', 2, 6, 1);
-INSERT INTO appointment_check_up (description, appointment_id, check_up_id) VALUES ('Badanie w celu wykrycia bakterii odpowiedzialnej za trądzik',2,2);
+INSERT INTO appointment_check_up (appointment_id, check_up_id) VALUES (2,2);
+
+--Konsultacja dermatologa, Pacjent id 1
+INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
+VALUES ('DONE', '2021-09-18T13:00:00', 'Wizyta kontrolna z trądzikiem', 'Koniec przyjmowania antybiotyku','FACILITY', 6, 5, 1);
+INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-18', '2021-12-01', 2, 5, 1);
+
 
 
 --PULA WIZYT
@@ -180,6 +188,8 @@ insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization
 
 
 INSERT INTO medication (NAME, UNIT, PAYMENT, QUANTITY) values ('Gynalgin', 'GRAMS', 0.8, 100);
+
+insert into patients_file (name, file, description, type, upload_date, patient_id) values ('zdj1', '123', 'lala', '.png', CURRENT_TIMESTAMP(),1);
 
 --
 -- insert into Referral(expiry_date, issue_date, issue_appointment_id, medical_service_id, patient_id) values ('2021-12-18', '2021-11-18', 2, 7, 1);
