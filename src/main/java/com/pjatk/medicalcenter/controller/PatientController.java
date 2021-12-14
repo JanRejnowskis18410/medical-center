@@ -61,9 +61,9 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}/diagnosticTests")
-    public ResponseEntity<List<AppointmentTestDTO>> getPatientsDiagnosticTests(@PathVariable long patientId){
+    public ResponseEntity<List<AppointmentCheckUpDTO>> getPatientsDiagnosticTests(@PathVariable long patientId){
         List<AppointmentCheckUp> appointments = patientService.getPatientsDiagnosticTests(patientId);
-        return ResponseEntity.ok(appointments.stream().map(AppointmentTestDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(appointments.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{patientId}/referrals")
@@ -89,6 +89,13 @@ public class PatientController {
     public ResponseEntity<Patient> addPatientsFile(@PathVariable long id, @Valid @RequestBody PatientsFileDTO patientsFileDTO){
         PatientsFile createdPatientsFile = patientService.addPatientsFile(id,DTOsMapper.mapPatientFileDTOtoPatientFile(patientsFileDTO));
         return ResponseEntity.created(URI.create(String.format("/patients/%d/files/%d",id,createdPatientsFile.getId()))).build();
+    }
+
+    @DeleteMapping("/{id}/files/{patientsFileId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> deletePatientsFile(@PathVariable long id, @PathVariable long patientsFileId){
+        patientService.deletePatientsFile(patientsFileId);
+        return ResponseEntity.ok("Success");
     }
 
     @PutMapping

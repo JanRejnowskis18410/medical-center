@@ -3,7 +3,6 @@ package com.pjatk.medicalcenter.util;
 import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +36,7 @@ public class DTOsMapper {
         patientsFile.setId(patientsFileDTO.getId());
         patientsFile.setFile(patientsFileDTO.getFile());
         patientsFile.setName(patientsFileDTO.getName());
+        patientsFile.setType(patientsFileDTO.getType());
         patientsFile.setDescription(patientsFileDTO.getDescription());
         return patientsFile;
     }
@@ -127,15 +127,15 @@ public class DTOsMapper {
         return medicalService;
     }
 
-    public static AppointmentTestDTO mapAppointmentTestDTOToAppointmentTest(AppointmentCheckUp aCU){
-        AppointmentTestDTO appointmentTestDTO = new AppointmentTestDTO();
-        appointmentTestDTO.setAppointmentId(aCU.getAppointment().getId());
-        appointmentTestDTO.setCheckUpId(aCU.getCheckUp().getId());
-        appointmentTestDTO.setDiagnosticTestName(aCU.getCheckUp().getName());
-        appointmentTestDTO.setResult(aCU.getResult());
-        appointmentTestDTO.setDescription(aCU.getDescription());
-        appointmentTestDTO.setFile(aCU.getFile());
-        return appointmentTestDTO;
+    public static AppointmentCheckUpDTO mapAppointmentTestDTOToAppointmentTest(AppointmentCheckUp aCU){
+        AppointmentCheckUpDTO appointmentCheckUpDTO = new AppointmentCheckUpDTO();
+        appointmentCheckUpDTO.setAppointmentId(aCU.getAppointment().getId());
+        appointmentCheckUpDTO.setCheckUpId(aCU.getCheckUp().getId());
+        appointmentCheckUpDTO.setDiagnosticTestName(aCU.getCheckUp().getName());
+        appointmentCheckUpDTO.setResult(aCU.getResult());
+        appointmentCheckUpDTO.setDoctorsDescription(aCU.getDoctorsDescription());
+        appointmentCheckUpDTO.setFile(aCU.getFile());
+        return appointmentCheckUpDTO;
     }
 
 //    public static PatientsDoneVisitDTO mapAppointmentToPatientsDoneVisitDTO(Appointment apmt){

@@ -45,11 +45,11 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}/testsWithoutResults")
-    public ResponseEntity<List<AppointmentForDoctorDTO>> getDoctorsAppointmentWithCheckupsWithoutResult(@PathVariable long id){
+    public ResponseEntity<List<AppointmentCheckUpDTO>> getDoctorsAppointmentWithCheckupsWithoutResult(@PathVariable long id){
         return ResponseEntity.ok(doctorService
                                 .getDoctorsAppointmentWithCheckupsWithoutResult(id)
                                 .stream()
-                                .map(AppointmentForDoctorDTO::new)
+                                .map(AppointmentCheckUpDTO::new)
                                 .collect(Collectors.toList()));
     }
 
@@ -100,5 +100,4 @@ public class DoctorController {
         return ResponseEntity.ok("Success");
     }
 
-    //TODO -> update doctor's specialization, delete doctor's specialization (delete object DoctorSpecialization)
 }

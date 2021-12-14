@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,19 +16,31 @@ public class AppointmentCheckUp {
 
     @ManyToOne
     @MapsId("appointmentId")
+    @Setter(AccessLevel.NONE)
     private Appointment appointment;
 
     @ManyToOne
     @MapsId("checkUpId")
+    @Setter(AccessLevel.NONE)
     private CheckUp checkUp;
 
     @Column(length = 1000)
     private String result;
 
     @Column(nullable = true)
-    private String description;
+    private String doctorsDescription;
 
     @Lob
     @Column(columnDefinition = "LONGBLOB")
-    private byte[] file;
+    private Byte[] file;
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+        appointment.addAppointmentCheckUp(this);
+    }
+
+    public void setCheckUp(CheckUp checkUp) {
+        this.checkUp = checkUp;
+        checkUp.addAppointmentCheckUp(this);
+    }
 }

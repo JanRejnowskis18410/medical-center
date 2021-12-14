@@ -1,14 +1,8 @@
 package com.pjatk.medicalcenter.controller;
 
-import com.pjatk.medicalcenter.dto.AvailableAppointmentDTO;
-import com.pjatk.medicalcenter.dto.AvailableAppointmentsRequestDTO;
-import com.pjatk.medicalcenter.dto.CreateAppointmentDTO;
-import com.pjatk.medicalcenter.dto.PatchAppointmentDTO;
+import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
-import com.pjatk.medicalcenter.service.AppointmentService;
-import com.pjatk.medicalcenter.service.MedicalServiceService;
-import com.pjatk.medicalcenter.service.PatientService;
-import com.pjatk.medicalcenter.service.ReferralService;
+import com.pjatk.medicalcenter.service.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -76,13 +70,18 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AvailableAppointmentDTO> getAppointmentById(@PathVariable long id){
-        return ResponseEntity.ok(new AvailableAppointmentDTO(appointmentService.getAppointmentById(id)));
+    public ResponseEntity<PatientsDoneVisitDTO> getAppointmentById(@PathVariable long id){
+        return ResponseEntity.ok(new PatientsDoneVisitDTO(appointmentService.getAppointmentById(id)));
+    }
+
+    @GetMapping("/diagnosticTests")
+    public ResponseEntity<AppointmentCheckUpDTO> getAppointmentCheckUpById(@RequestParam("appointmentId") long appointmentId, @RequestParam("checkUpId") long checkUpId){
+        return ResponseEntity.ok(new AppointmentCheckUpDTO(appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId)));
     }
 
     @PostMapping
     public ResponseEntity<AvailableAppointmentDTO> addAppointment(@Valid @RequestBody CreateAppointmentDTO createAppointmentDTO) {
-        Appointment createdAppointment = appointmentService.addAppointment(createAppointmentDTO);
+        Appointment createdAppointment = appointmentService.saveAppointment(createAppointmentDTO);
         return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
     }
 
@@ -117,7 +116,7 @@ public class AppointmentController {
             appointment.setState(Appointment.AppointmentState.RESERVED);
         }
 
-        appointmentService.addAppointment(appointment);
+        appointmentService.saveAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
 
@@ -126,7 +125,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.getAppointmentById(id);
 
         appointment.setState(Appointment.AppointmentState.CONFIRMED);
-        appointmentService.addAppointment(appointment);
+        appointmentService.saveAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
 
