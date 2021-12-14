@@ -21,4 +21,8 @@ public class CheckUp {
 
     @OneToMany(mappedBy = "checkUp")
     private List<AppointmentCheckUp> appointmentCheckUps = new ArrayList<>();
+
+    public void addAppointmentCheckUp(AppointmentCheckUp appointmentCheckUp) {
+        appointmentCheckUps.add(appointmentCheckUp);
+    }
 }

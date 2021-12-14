@@ -125,4 +125,8 @@ public class Appointment {
     public void addPrescription(Prescription prescription) {
         prescriptions.add(prescription);
     }
+
+    public void addAppointmentCheckUp(AppointmentCheckUp appointmentCheckUp) {
+        appointmentCheckUps.add(appointmentCheckUp);
+    }
 }
