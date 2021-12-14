@@ -91,7 +91,7 @@ public class PatientService {
     public List<Referral> getPatientsAvailableReferrals(Long id) {
         List<Referral> refferals = getPatientById(id).getReferrals()
                 .stream()
-                .filter(ref -> ref.getExpiryDate().isAfter(LocalDate.now()))
+                .filter(ref -> ref.getAppointment() == null)
                 .collect(Collectors.toList());
         refferals.sort(Comparator.comparing(Referral::getExpiryDate));
         return refferals;
