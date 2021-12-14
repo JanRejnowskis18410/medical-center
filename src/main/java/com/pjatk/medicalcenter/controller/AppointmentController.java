@@ -61,6 +61,11 @@ public class AppointmentController {
         return ResponseEntity.ok(new PatientsDoneVisitDTO(appointmentService.getAppointmentById(id)));
     }
 
+    @GetMapping("/diagnosticTests")
+    public ResponseEntity<AppointmentCheckUpDTO> getAppointmentCheckUpById(@PathVariable long appointmentId, @PathVariable long checkUpId){
+        return ResponseEntity.ok(new AppointmentCheckUpDTO(appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId)));
+    }
+
     @PostMapping
     public ResponseEntity<AvailableAppointmentDTO> addAppointment(@Valid @RequestBody CreateAppointmentDTO createAppointmentDTO) {
         Appointment createdAppointment = appointmentService.saveAppointment(createAppointmentDTO);
