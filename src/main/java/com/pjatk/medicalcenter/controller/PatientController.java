@@ -91,6 +91,13 @@ public class PatientController {
         return ResponseEntity.created(URI.create(String.format("/patients/%d/files/%d",id,createdPatientsFile.getId()))).build();
     }
 
+    @DeleteMapping("/{id}/files/{patientsFileId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> deletePatientsFile(@PathVariable long id, @PathVariable long patientsFileId){
+        patientService.deletePatientsFile(patientsFileId);
+        return ResponseEntity.ok("Success");
+    }
+
     @PutMapping
     public ResponseEntity<Patient> updatePatient(@RequestBody PatientDTO patientDTO){
         Patient updatedPatient = patientService.updatePatient(DTOsMapper.mapPatientDTOtoPatient(patientDTO));

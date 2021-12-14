@@ -88,6 +88,10 @@ public class PatientService {
         return patientsFileRepository.save(patientsFile);
     }
 
+    public void deletePatientsFile(long patientsFileId){
+        patientsFileRepository.deleteById(patientsFileId);
+    }
+
     public List<Referral> getPatientsAvailableReferrals(Long id) {
         List<Referral> refferals = getPatientById(id).getReferrals()
                 .stream()
