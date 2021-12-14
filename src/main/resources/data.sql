@@ -147,14 +147,14 @@ VALUES ('DONE', '2021-11-18T12:45:00', 'Pacjent zgłosił następujące objawy: 
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2022-01-31', '2021-11-18', 1, 7, 1);
 INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, DOCTOR_ID, PATIENT_ID)
 VALUES (25689, '2021-11-18', '2021-12-18', 1, 7, 1);
-INSERT INTO appointment_check_up (description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 1,1);
+INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 1,1);
 
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES ('DONE', '2021-10-18T13:00:00', 'Delitakny trądzik na brodzie oraz czole. Po zakończeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 7, 5, 1);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-31', '2021-10-18', 2, 5, 1);
 INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, DOCTOR_ID, PATIENT_ID)
 VALUES (25689, '2021-10-18', '2021-12-18', 2, 6, 1);
-INSERT INTO appointment_check_up (description, appointment_id, check_up_id) VALUES ('Badanie w celu wykrycia bakterii odpowiedzialnej za trądzik',2,2);
+INSERT INTO appointment_check_up (appointment_id, check_up_id) VALUES (2,2);
 
 
 --PULA WIZYT

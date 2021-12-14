@@ -64,12 +64,12 @@ public class AppointmentService {
         return appointmentRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment does not exists"));
     }
 
-    public Appointment addAppointment(CreateAppointmentDTO newAppointment) {
+    public Appointment saveAppointment(CreateAppointmentDTO newAppointment) {
         Appointment appointment = mapCreateNewAppointmentToAppointment(newAppointment);
         return appointmentRepository.save(appointment);
     }
 
-    public Appointment addAppointment(Appointment appointment) {
+    public Appointment saveAppointment(Appointment appointment) {
         return appointmentRepository.save(appointment);
     }
 

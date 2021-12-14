@@ -108,13 +108,12 @@ public class DoctorService {
                 .collect(Collectors.toList());
     }
 
-    public List<Appointment> getDoctorsAppointmentWithCheckupsWithoutResult(long doctorId){
+    public List<AppointmentCheckUp> getDoctorsAppointmentWithCheckupsWithoutResult(long doctorId){
         return getDoctorById(doctorId)
                 .getAppointments()
                 .stream()
                 .flatMap(app -> app.getAppointmentCheckUps().stream())
                 .filter(appCh -> appCh.getResult()==null && appCh.getAppointment().getState().equals(Appointment.AppointmentState.DONE))
-                .map(AppointmentCheckUp::getAppointment)
                 .collect(Collectors.toList());
 
     }

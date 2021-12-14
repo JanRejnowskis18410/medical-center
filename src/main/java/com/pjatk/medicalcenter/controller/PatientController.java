@@ -61,9 +61,9 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}/diagnosticTests")
-    public ResponseEntity<List<AppointmentTestDTO>> getPatientsDiagnosticTests(@PathVariable long patientId){
+    public ResponseEntity<List<AppointmentCheckUpDTO>> getPatientsDiagnosticTests(@PathVariable long patientId){
         List<AppointmentCheckUp> appointments = patientService.getPatientsDiagnosticTests(patientId);
-        return ResponseEntity.ok(appointments.stream().map(AppointmentTestDTO::new).collect(Collectors.toList()));
+        return ResponseEntity.ok(appointments.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{patientId}/referrals")
