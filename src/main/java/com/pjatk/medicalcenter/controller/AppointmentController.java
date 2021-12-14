@@ -2,6 +2,7 @@ package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
+import com.pjatk.medicalcenter.repository.MedicalServiceRepository;
 import com.pjatk.medicalcenter.service.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,15 +28,21 @@ public class AppointmentController {
     private final PatientService patientService;
     private final ReferralService referralService;
     private final AppointmentCheckUpService appointmentCheckUpService;
+    private final MedicalServiceService medicalServiceService;
+    private final PrescriptionService prescriptionService;
+    private final MedicationService medicationService;
 
-    public AppointmentController(AppointmentService appointmentService,
-                                 PatientService patientService,
-                                 ReferralService referralService,
-                                 AppointmentCheckUpService appointmentCheckUpService) {
+    public AppointmentController(AppointmentService appointmentService, PatientService patientService,
+                                 ReferralService referralService, AppointmentCheckUpService appointmentCheckUpService,
+                                 MedicalServiceService medicalServiceService, PrescriptionService prescriptionService,
+                                 MedicationService medicationService) {
         this.appointmentService = appointmentService;
         this.patientService = patientService;
         this.referralService = referralService;
         this.appointmentCheckUpService = appointmentCheckUpService;
+        this.medicalServiceService = medicalServiceService;
+        this.prescriptionService = prescriptionService;
+        this.medicationService = medicationService;
     }
 
     @GetMapping("/all")
@@ -152,20 +159,61 @@ public class AppointmentController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PatchMapping("{id}/done")
-//    public ResponseEntity<Void> doneAppointment(@PathVariable("id") long id,
-//                                                @Valid @RequestBody DoneAppointmentDTO doneAppointmentDTO) {
-//        Appointment appointment = appointmentService.getAppointmentById(id);
-//
-//        if (!appointment.getState().equals(Appointment.AppointmentState.CONFIRMED)) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment was not confirmed");
+    @PatchMapping("{id}/done")
+    public ResponseEntity<Void> doneAppointment(@PathVariable("id") long id,
+                                                @Valid @RequestBody DoneAppointmentDTO doneAppointmentDTO) {
+        Appointment appointment = appointmentService.getAppointmentById(id);
+        Patient patient = appointment.getPatient();
+
+        if (!appointment.getState().equals(Appointment.AppointmentState.CONFIRMED)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment was not confirmed");
+        }
+
+        JsonNullable<String> description = doneAppointmentDTO.getDescription();
+        if (description.isPresent()) {
+            appointment.setDescription(description.get());
+        }
+        JsonNullable<String> recommendations = doneAppointmentDTO.getRecommendations();
+        if (recommendations.isPresent()) {
+            appointment.setRecommendations(recommendations.get());
+        }
+        JsonNullable<List<AppointmentCreateReferralDTO>> referrals = doneAppointmentDTO.getReferrals();
+        if (referrals.isPresent()) {
+            referrals.get().forEach(referral -> {
+                referralService.addReferral(mapAppointmentCreateReferralDTOToReferral(referral, patient, appointment));
+            });
+        }
+//        JsonNullable<List<AppointmentCreatePrescriptionDTO>> prescriptions = doneAppointmentDTO.getPrescriptions();
+//        if (prescriptions.isPresent()) {
+//            prescriptions.get().forEach(prescription -> {
+//                prescriptionService.addPrescription()
+//            });
 //        }
-//
-//        JsonNullable<String> description = doneAppointmentDTO.getDescription();
-//        if (description.isPresent()) {
-//            appointment.setDescription(description.get());
-//        }
+        appointmentService.saveAppointment(appointment);
+        return ResponseEntity.noContent().build();
+    }
+
+    private Referral mapAppointmentCreateReferralDTOToReferral(AppointmentCreateReferralDTO appointmentCreateReferralDTO,
+                                                               Patient patient, Appointment appointment) {
+        Referral referral = new Referral();
+        referral.setExpiryDate(appointmentCreateReferralDTO.getExpiryDate());
+        referral.setMedicalService(medicalServiceService.getServiceById(appointmentCreateReferralDTO.getMedicalServiceId()));
+        referral.setPatient(patient);
+        referral.setIssueAppointment(appointment);
+        return referral;
+    }
+
+//    private Prescription mapAppointmentCreatePrescriptionDTOToPrescription(AppointmentCreatePrescriptionDTO appointmentCreatePrescriptionDTO,
+//                                                                           Patient patient, Appointment appointment, Doctor doctor) {
+//        Prescription prescription = new Prescription();
+//        prescription.setCreationDate(LocalDate.now());
+//        prescription.setExpiryDate(appointmentCreatePrescriptionDTO.getExpiryDate());
+//        prescription.setAccessCode(appointmentCreatePrescriptionDTO.getAccessCode());
 //    }
-
-
+//
+//    private PrescriptionMedication mapCreatePrescriptionMedicationDTOToPrescriptionMedication(CreatePrescriptionMedicationDTO createPrescriptionMedicationDTO,
+//                                                                                              Prescription prescription) {
+//        PrescriptionMedication prescriptionMedication = new PrescriptionMedication();
+//        Medication medication = medicationService.getMedicationById(createPrescriptionMedicationDTO.)
+//    }
 }
