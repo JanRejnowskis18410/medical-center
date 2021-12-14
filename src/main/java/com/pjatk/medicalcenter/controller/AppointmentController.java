@@ -62,7 +62,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/diagnosticTests")
-    public ResponseEntity<AppointmentCheckUpDTO> getAppointmentCheckUpById(@PathVariable long appointmentId, @PathVariable long checkUpId){
+    public ResponseEntity<AppointmentCheckUpDTO> getAppointmentCheckUpById(@RequestParam("appointmentId") long appointmentId, @RequestParam("checkUpId") long checkUpId){
         return ResponseEntity.ok(new AppointmentCheckUpDTO(appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId)));
     }
 
