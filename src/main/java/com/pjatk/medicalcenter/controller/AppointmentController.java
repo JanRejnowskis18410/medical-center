@@ -32,12 +32,14 @@ public class AppointmentController {
     private final MedicalServiceService medicalServiceService;
     private final PatientService patientService;
     private final ReferralService referralService;
+    private final AppointmentCheckUpService appointmentCheckUpService;
 
-    public AppointmentController(AppointmentService appointmentService, MedicalServiceService medicalServiceService, PatientService patientService, ReferralService referralService) {
+    public AppointmentController(AppointmentService appointmentService, MedicalServiceService medicalServiceService, PatientService patientService, ReferralService referralService, AppointmentCheckUpService appointmentCheckUpService) {
         this.appointmentService = appointmentService;
         this.medicalServiceService = medicalServiceService;
         this.patientService = patientService;
         this.referralService = referralService;
+        this.appointmentCheckUpService = appointmentCheckUpService;
     }
 
     @GetMapping("/all")
@@ -144,7 +146,7 @@ public class AppointmentController {
         }
 
         appointment.setState(Appointment.AppointmentState.AVAILABLE);
-        appointmentService.addAppointment(appointment);
+        appointmentService.saveAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
 }
