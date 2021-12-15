@@ -111,9 +111,21 @@ public class PatientController {
     }
 
     @GetMapping("/{patientId}/referrals")
-    public ResponseEntity<List<ReferralDTO>> getAvailablePatientsReferrals(@PathVariable long patientId) {
-        List<Referral> referrals = patientService.getPatientsAvailableReferrals(patientId);
-        return ResponseEntity.ok(referrals.stream().map(ReferralDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<Map<String,Object>> getAvailablePatientsReferrals(
+            @PathVariable long patientId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "1") int size) {
+
+        Pageable paging = PageRequest.of(page, size, Sort.by("expiryDate").ascending());
+        Page<Referral> referrals = patientService.getPatientsAvailableReferrals(patientId, paging);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("referrals", referrals.stream().map(ReferralDTO::new).collect(Collectors.toList()));
+        response.put("currentPage", referrals.getNumber());
+        response.put("totalItems", referrals.getTotalElements());
+        response.put("totalPages", referrals.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{patientId}/prescriptions")

@@ -97,13 +97,8 @@ public class PatientService {
         patientsFileRepository.deleteById(patientsFileId);
     }
 
-    public List<Referral> getPatientsAvailableReferrals(Long id) {
-        List<Referral> refferals = getPatientById(id).getReferrals()
-                .stream()
-                .filter(ref -> ref.getAppointment() == null)
-                .sorted(Comparator.comparing(Referral::getExpiryDate))
-                .collect(Collectors.toList());
-        return refferals;
+    public Page<Referral> getPatientsAvailableReferrals(Long id, Pageable pageable) {
+        return referralRepository.findByPatientIdAndAppointmentIsNull(id, pageable);
     }
 
     public List<Prescription> getPatientsPrescriptions(long patientId) {
