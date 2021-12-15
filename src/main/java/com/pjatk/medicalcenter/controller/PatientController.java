@@ -102,7 +102,7 @@ public class PatientController {
         Page<AppointmentCheckUp> diagnosticTests = patientService.getPatientsDiagnosticTests(patientId, paging);
 
         Map<String,Object> response = new HashMap<>();
-        response.put("appointments", diagnosticTests.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
+        response.put("diagnosticTests", diagnosticTests.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
         response.put("currentPage", diagnosticTests.getNumber());
         response.put("totalItems", diagnosticTests.getTotalElements());
         response.put("totalPages", diagnosticTests.getTotalPages());
