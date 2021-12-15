@@ -59,6 +59,9 @@ public class AppointmentService {
                     .addSpecification(AppointmentSpecification.languageEqual(availableAppointmentsRq.getLanguage()));
         }
 
+        appointmentSpecificationBuilder
+                .addSpecification(AppointmentSpecification.appointmentStateEqualTo(Appointment.AppointmentState.AVAILABLE));
+
         return appointmentRepository.findAll(appointmentSpecificationBuilder.build(), paging);
     }
 

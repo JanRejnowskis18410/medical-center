@@ -20,6 +20,11 @@ public class AppointmentSpecification {
                 -> criteriaBuilder.equal(root.get("doctor"), doctorId);
     }
 
+    public static Specification<Appointment> appointmentStateEqualTo(Appointment.AppointmentState state){
+        return (root, query, criteriaBuilder)
+                -> criteriaBuilder.equal(root.get("state"), state);
+    }
+
     public static Specification<Appointment> dateGreaterThanOrEqual(LocalDateTime date){
         return (root, query, criteriaBuilder)
                 -> criteriaBuilder.greaterThanOrEqualTo(root.get("date"), date);
