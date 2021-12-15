@@ -23,6 +23,7 @@ public class PatientsDoneVisitDTO {
     private LocalDateTime date;
     private String recommendations;
     private Appointment.AppointmentType type;
+    private Appointment.AppointmentState state;
     private List<ReferralDTO> issuedReferrals;
     private List<PrescriptionDTO> prescriptions;
     private List<AppointmentCheckUpDTO> diagnosticTests;
@@ -34,6 +35,7 @@ public class PatientsDoneVisitDTO {
         this.date = appointment.getDate();
         this.recommendations = appointment.getRecommendations();
         this.type = appointment.getType();
+        this.state = appointment.getState();
         this.issuedReferrals = appointment.getIssuedReferrals().stream()
                                 .map(ReferralDTO::new)
                                 .collect(Collectors.toList());
