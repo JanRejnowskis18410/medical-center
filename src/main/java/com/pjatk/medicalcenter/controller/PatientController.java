@@ -4,12 +4,15 @@ import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.util.DTOsMapper;
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,22 +51,63 @@ public class PatientController {
         return ResponseEntity.ok(new PatientsFileDTO(patientService.getPatientsFileById(patientId,fileId)));
     }
 
+    @GetMapping("/{patientId}/appointments")
+    public ResponseEntity<Map<String,Object>> getPatientsAppointments(
+            @PathVariable long patientId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "1") int size ){
+
+        Pageable paging = PageRequest.of(page, size, Sort.by("date").descending());
+        Page<Appointment> doneAppointments = patientService.getPatientsAppointments(patientId, paging);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("appointments", doneAppointments.stream().map(PatientsDoneVisitDTO::new).collect(Collectors.toList()));
+        response.put("currentPage", doneAppointments.getNumber());
+        response.put("totalItems", doneAppointments.getTotalElements());
+        response.put("totalPages", doneAppointments.getTotalPages());
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{patientId}/doneAppointments")
-    public ResponseEntity<List<PatientsDoneVisitDTO>> getPatientsDoneAppointments(@PathVariable long patientId){
-        List<Appointment> appointments = patientService.getPatientsDoneAppointments(patientId);
-        return ResponseEntity.ok(appointments.stream().map(PatientsDoneVisitDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<Map<String,Object>> getPatientsDoneAppointments(
+            @PathVariable long patientId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "1") int size ){
+
+        Pageable paging = PageRequest.of(page, size, Sort.by("date").descending());
+        Page<Appointment> doneAppointments = patientService.getPatientsDoneAppointments(patientId, paging);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("appointments", doneAppointments.stream().map(PatientsDoneVisitDTO::new).collect(Collectors.toList()));
+        response.put("currentPage", doneAppointments.getNumber());
+        response.put("totalItems", doneAppointments.getTotalElements());
+        response.put("totalPages", doneAppointments.getTotalPages());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{patientId}/plannedAppointments")
-    public ResponseEntity<List<AvailableAppointmentDTO>> getPatientsPlannedAppointments(@PathVariable long patientId){
+    public ResponseEntity<List<AvailableAppointmentDTO>> getPatientsPlannedAppointments(
+            @PathVariable long patientId){
         List<Appointment> appointments = patientService.getPatientsPlannedAppointments(patientId);
         return ResponseEntity.ok(appointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping("/{patientId}/diagnosticTests")
-    public ResponseEntity<List<AppointmentCheckUpDTO>> getPatientsDiagnosticTests(@PathVariable long patientId){
-        List<AppointmentCheckUp> appointments = patientService.getPatientsDiagnosticTests(patientId);
-        return ResponseEntity.ok(appointments.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
+    public ResponseEntity<Map<String, Object>> getPatientsDiagnosticTests(
+            @PathVariable long patientId,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "1") int size){
+
+        Pageable paging = PageRequest.of(page, size, Sort.by("appointment.date").descending());
+        Page<AppointmentCheckUp> diagnosticTests = patientService.getPatientsDiagnosticTests(patientId, paging);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("appointments", diagnosticTests.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
+        response.put("currentPage", diagnosticTests.getNumber());
+        response.put("totalItems", diagnosticTests.getTotalElements());
+        response.put("totalPages", diagnosticTests.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{patientId}/referrals")

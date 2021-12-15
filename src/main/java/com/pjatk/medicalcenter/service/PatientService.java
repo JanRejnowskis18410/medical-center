@@ -1,10 +1,10 @@
 package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.model.*;
-import com.pjatk.medicalcenter.repository.PatientRepository;
-import com.pjatk.medicalcenter.repository.PatientsFileRepository;
+import com.pjatk.medicalcenter.repository.*;
 
-import com.pjatk.medicalcenter.repository.ReferralRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,11 +19,15 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final PatientsFileRepository patientsFileRepository;
     private final ReferralRepository referralRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final AppointmentCheckUpRepository appointmentCheckUpRepository;
 
-    public PatientService(PatientRepository patientRepository, PatientsFileRepository patientsFileRepository, ReferralRepository referralRepository) {
+    public PatientService(PatientRepository patientRepository, PatientsFileRepository patientsFileRepository, ReferralRepository referralRepository, AppointmentRepository appointmentRepository, AppointmentCheckUpRepository appointmentCheckUpRepository) {
         this.patientRepository = patientRepository;
         this.patientsFileRepository = patientsFileRepository;
         this.referralRepository = referralRepository;
+        this.appointmentRepository = appointmentRepository;
+        this.appointmentCheckUpRepository = appointmentCheckUpRepository;
     }
 
     public List<Patient> getPatients(){
@@ -56,12 +60,14 @@ public class PatientService {
                 .collect(Collectors.toList());
     }
 
-    public List<Appointment> getPatientsDoneAppointments(long patientId) {
+    public Page<Appointment> getPatientsAppointments(long patientId, Pageable paging) {
         Patient patient = getPatientById(patientId);
-        return patient.getAppointments().stream()
-                .filter(apmt -> apmt.getState().equals(Appointment.AppointmentState.DONE))
-                .sorted((o1, o2) -> o2.getDate().compareTo(o1.getDate()))
-                .collect(Collectors.toList());
+        return appointmentRepository.findAppointmentsByPatientId(patientId, paging);
+    }
+
+    public Page<Appointment> getPatientsDoneAppointments(long patientId, Pageable paging) {
+        Patient patient = getPatientById(patientId);
+        return appointmentRepository.findAppointmentsByPatientIdAndState(patientId, Appointment.AppointmentState.DONE, paging);
     }
 
     // returns today's and future visits
@@ -105,10 +111,7 @@ public class PatientService {
         return patient.getPrescriptions();
     }
 
-    public List<AppointmentCheckUp> getPatientsDiagnosticTests(long patientId) {
-        return getPatientsDoneAppointments(patientId).stream()
-                .flatMap(app -> app.getAppointmentCheckUps().stream())
-                .sorted((o1,o2) -> o2.getAppointment().getDate().compareTo(o1.getAppointment().getDate()))
-                .collect(Collectors.toList());
+    public Page<AppointmentCheckUp> getPatientsDiagnosticTests(long patientId, Pageable pageable) {
+        return appointmentCheckUpRepository.findAppointmentCheckUpByAppointmentPatientIdAndResultIsNotNull(patientId, pageable);
     }
 }

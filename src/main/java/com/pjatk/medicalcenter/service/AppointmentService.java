@@ -8,6 +8,8 @@ import com.pjatk.medicalcenter.model.MedicalService;
 import com.pjatk.medicalcenter.repository.AppointmentRepository;
 import com.pjatk.medicalcenter.specifications.AppointmentSpecification;
 import com.pjatk.medicalcenter.specifications.AppointmentSpecificationBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -32,7 +34,7 @@ public class AppointmentService {
         return appointmentRepository.findAll();
     }
 
-    public List<Appointment> getAvailableAppointments(AvailableAppointmentsRequestDTO availableAppointmentsRq) {
+    public Page<Appointment> getAvailableAppointments(AvailableAppointmentsRequestDTO availableAppointmentsRq, Pageable paging) {
 
         AppointmentSpecificationBuilder appointmentSpecificationBuilder = new AppointmentSpecificationBuilder();
 
@@ -57,7 +59,7 @@ public class AppointmentService {
                     .addSpecification(AppointmentSpecification.languageEqual(availableAppointmentsRq.getLanguage()));
         }
 
-        return appointmentRepository.findAll(appointmentSpecificationBuilder.build());
+        return appointmentRepository.findAll(appointmentSpecificationBuilder.build(), paging);
     }
 
     public Appointment getAppointmentById(long id){
