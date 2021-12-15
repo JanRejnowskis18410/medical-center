@@ -2,7 +2,6 @@ package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
-import com.pjatk.medicalcenter.repository.MedicalServiceRepository;
 import com.pjatk.medicalcenter.service.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,11 +30,12 @@ public class AppointmentController {
     private final MedicalServiceService medicalServiceService;
     private final PrescriptionService prescriptionService;
     private final MedicationService medicationService;
+    private final CheckUpService checkUpService;
 
     public AppointmentController(AppointmentService appointmentService, PatientService patientService,
                                  ReferralService referralService, AppointmentCheckUpService appointmentCheckUpService,
                                  MedicalServiceService medicalServiceService, PrescriptionService prescriptionService,
-                                 MedicationService medicationService) {
+                                 MedicationService medicationService, CheckUpService checkUpService) {
         this.appointmentService = appointmentService;
         this.patientService = patientService;
         this.referralService = referralService;
@@ -43,6 +43,7 @@ public class AppointmentController {
         this.medicalServiceService = medicalServiceService;
         this.prescriptionService = prescriptionService;
         this.medicationService = medicationService;
+        this.checkUpService = checkUpService;
     }
 
     @GetMapping("/all")
@@ -183,12 +184,19 @@ public class AppointmentController {
                 referralService.addReferral(mapAppointmentCreateReferralDTOToReferral(referral, patient, appointment));
             });
         }
-//        JsonNullable<List<AppointmentCreatePrescriptionDTO>> prescriptions = doneAppointmentDTO.getPrescriptions();
-//        if (prescriptions.isPresent()) {
-//            prescriptions.get().forEach(prescription -> {
-//                prescriptionService.addPrescription()
-//            });
-//        }
+        JsonNullable<List<AppointmentCreatePrescriptionDTO>> prescriptions = doneAppointmentDTO.getPrescriptions();
+        if (prescriptions.isPresent()) {
+            prescriptions.get().forEach(prescription -> {
+                prescriptionService.addPrescription(mapAppointmentCreatePrescriptionDTOToPrescription(prescription, patient, appointment, appointment.getDoctor()));
+            });
+        }
+        JsonNullable<List<AppointmentCreateAppointmentCheckUpDTO>> checkUps = doneAppointmentDTO.getCheckUps();
+        if (checkUps.isPresent()) {
+            checkUps.get().forEach(checkUp -> {
+                appointmentCheckUpService.saveAppointmentCheckUp(mapCreateAppointmentCheckUpDTOToAppointmentCheckUp(checkUp, appointment));
+            });
+        }
+        appointment.setState(Appointment.AppointmentState.DONE);
         appointmentService.saveAppointment(appointment);
         return ResponseEntity.noContent().build();
     }
@@ -203,17 +211,41 @@ public class AppointmentController {
         return referral;
     }
 
-//    private Prescription mapAppointmentCreatePrescriptionDTOToPrescription(AppointmentCreatePrescriptionDTO appointmentCreatePrescriptionDTO,
-//                                                                           Patient patient, Appointment appointment, Doctor doctor) {
-//        Prescription prescription = new Prescription();
-//        prescription.setCreationDate(LocalDate.now());
-//        prescription.setExpiryDate(appointmentCreatePrescriptionDTO.getExpiryDate());
-//        prescription.setAccessCode(appointmentCreatePrescriptionDTO.getAccessCode());
-//    }
-//
-//    private PrescriptionMedication mapCreatePrescriptionMedicationDTOToPrescriptionMedication(CreatePrescriptionMedicationDTO createPrescriptionMedicationDTO,
-//                                                                                              Prescription prescription) {
-//        PrescriptionMedication prescriptionMedication = new PrescriptionMedication();
-//        Medication medication = medicationService.getMedicationById(createPrescriptionMedicationDTO.)
-//    }
+    private Prescription mapAppointmentCreatePrescriptionDTOToPrescription(AppointmentCreatePrescriptionDTO appointmentCreatePrescriptionDTO,
+                                                                           Patient patient, Appointment appointment, Doctor doctor) {
+        Prescription prescription = new Prescription();
+        prescription.setCreationDate(LocalDate.now());
+        prescription.setExpiryDate(appointmentCreatePrescriptionDTO.getExpiryDate());
+        prescription.setAccessCode(appointmentCreatePrescriptionDTO.getAccessCode());
+        prescription.setDoctor(doctor);
+        prescription.setPatient(patient);
+        prescription.setAppointment(appointment);
+        appointmentCreatePrescriptionDTO.getMedications().forEach(createPrescriptionMedication -> {
+            PrescriptionMedication prescriptionMedication = new PrescriptionMedication();
+            Medication medication = medicationService.getMedicationById(createPrescriptionMedication.getMedicationId());
+            prescriptionMedication.setMedication(medication);
+            prescriptionMedication.setPrescription(prescription);
+            prescriptionMedication.setDosing(createPrescriptionMedication.getDosing());
+            prescriptionMedication.setNumberOfPackages(createPrescriptionMedication.getNumberOfPackages());
+        });
+        return prescription;
+    }
+
+    private AppointmentCheckUp mapCreateAppointmentCheckUpDTOToAppointmentCheckUp(AppointmentCreateAppointmentCheckUpDTO appointmentCreateAppointmentCheckUpDTO,
+                                                                                  Appointment appointment) {
+        AppointmentCheckUp appointmentCheckUp = new AppointmentCheckUp();
+        CheckUp checkUp = checkUpService.getCheckUpById(appointmentCreateAppointmentCheckUpDTO.getCheckUpId());
+        appointmentCheckUp.setAppointment(appointment);
+        appointmentCheckUp.setCheckUp(checkUp);
+        if (appointmentCreateAppointmentCheckUpDTO.getFile().isPresent()) {
+            appointmentCheckUp.setFile(appointmentCreateAppointmentCheckUpDTO.getFile().get());
+        }
+        if (appointmentCreateAppointmentCheckUpDTO.getResult().isPresent()) {
+            appointmentCheckUp.setResult(appointmentCreateAppointmentCheckUpDTO.getResult().get());
+        }
+        if (appointmentCreateAppointmentCheckUpDTO.getDescription().isPresent()) {
+            appointmentCheckUp.setDoctorsDescription(appointmentCreateAppointmentCheckUpDTO.getDescription().get());
+        }
+        return appointmentCheckUp;
+    }
 }

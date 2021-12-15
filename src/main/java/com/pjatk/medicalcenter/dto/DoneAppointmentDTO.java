@@ -22,5 +22,5 @@ public class DoneAppointmentDTO {
 
     JsonNullable<List<AppointmentCreatePrescriptionDTO>> prescriptions = JsonNullable.undefined();
 
-    JsonNullable<List<AppointmentCreateCheckUpDTO>> checkUps = JsonNullable.undefined();
+    JsonNullable<List<AppointmentCreateAppointmentCheckUpDTO>> checkUps = JsonNullable.undefined();
 }
