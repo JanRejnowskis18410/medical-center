@@ -2,6 +2,7 @@ package com.pjatk.medicalcenter.service;
 
 import com.pjatk.medicalcenter.model.AppointmentCheckUp;
 import com.pjatk.medicalcenter.repository.AppointmentCheckUpRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 

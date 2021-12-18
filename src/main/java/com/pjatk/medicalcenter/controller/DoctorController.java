@@ -64,7 +64,7 @@ public class DoctorController {
         Page<Appointment> todaysVisits = doctorService.getDoctorsTodaysVisit(id, paging);
 
         Map<String,Object> response = new HashMap<>();
-        response.put("diagnosticTests", todaysVisits.stream().map(AppointmentForDoctorDTO::new).collect(Collectors.toList()));
+        response.put("appointments", todaysVisits.stream().map(AppointmentForDoctorDTO::new).collect(Collectors.toList()));
         response.put("currentPage", todaysVisits.getNumber());
         response.put("totalItems", todaysVisits.getTotalElements());
         response.put("totalPages", todaysVisits.getTotalPages());
@@ -80,6 +80,18 @@ public class DoctorController {
                                 .map(AppointmentCheckUpDTO::new)
                                 .collect(Collectors.toList()));
     }
+
+//    @GetMapping("/{id}/testsWithoutResults")
+//    public ResponseEntity<Map<String, Object>> getDoctorsAppointmentWithCheckupsWithoutResult(
+//            @PathVariable long id,
+//            @RequestParam(name = "page", defaultValue = "0") int page,
+//            @RequestParam(name = "size", defaultValue = "1") int size) {
+//        return ResponseEntity.ok(doctorService
+//                .getDoctorsAppointmentWithCheckupsWithoutResult(id)
+//                .stream()
+//                .map(AppointmentCheckUpDTO::new)
+//                .collect(Collectors.toList()));
+//    }
 
 //    @GetMapping("/{id}/testsWithoutResults")
 //    public ResponseEntity<Map<String, Object>> getDoctorsAppointmentWithCheckupsWithoutResult(
