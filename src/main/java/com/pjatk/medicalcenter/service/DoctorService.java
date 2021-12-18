@@ -5,11 +5,15 @@ import com.pjatk.medicalcenter.dto.SpecializationWithSchedulesDTO;
 import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.repository.*;
 import com.pjatk.medicalcenter.util.DTOsMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,13 +26,15 @@ public class DoctorService {
     private final SpecializationRepository specializationRepository;
     private final ScheduleRepository scheduleRepository;
     private final MedicalServiceRepository medicalServiceRepository;
+    private final AppointmentRepository appointmentRepository;
 
-    public DoctorService(DoctorRepository doctorRepository, DoctorSpecializationRepository doctorSpecializationRepository, SpecializationRepository specializationRepository, ScheduleRepository scheduleRepository, MedicalServiceRepository medicalServiceRepository) {
+    public DoctorService(DoctorRepository doctorRepository, DoctorSpecializationRepository doctorSpecializationRepository, SpecializationRepository specializationRepository, ScheduleRepository scheduleRepository, MedicalServiceRepository medicalServiceRepository, AppointmentRepository appointmentRepository) {
         this.doctorRepository = doctorRepository;
         this.doctorSpecializationRepository = doctorSpecializationRepository;
         this.specializationRepository = specializationRepository;
         this.scheduleRepository = scheduleRepository;
         this.medicalServiceRepository = medicalServiceRepository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     public List<Doctor> getDoctors(){
@@ -101,12 +107,18 @@ public class DoctorService {
                 .findFirst().orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Specialization not found for this doctor"));
     }
 
-    public List<Appointment> getDoctorsTodaysVisit(long id) {
-        return getDoctorById(id)
-                .getAppointments()
-                .stream().filter(app -> app.getDate().toLocalDate().equals(LocalDate.now()))
-                .collect(Collectors.toList());
+//    public List<Appointment> getDoctorsTodaysVisit(long id) {
+//        return getDoctorById(id)
+//                .getAppointments()
+//                .stream().filter(app -> app.getDate().toLocalDate().equals(LocalDate.now()))
+//                .collect(Collectors.toList());
+//    }
+
+    public Page<Appointment> getDoctorsTodaysVisit(long id, Pageable paging) {
+        LocalDate today = LocalDate.now();
+        return appointmentRepository.findAppointmentsByDoctorIdAndDateBetween(id, today.atStartOfDay(), today.atTime(LocalTime.MAX), paging);
     }
+
 
     public List<AppointmentCheckUp> getDoctorsAppointmentWithCheckupsWithoutResult(long doctorId){
         return getDoctorById(doctorId)
@@ -117,4 +129,8 @@ public class DoctorService {
                 .collect(Collectors.toList());
 
     }
+
+//    public Page<Appointment> getDoctorsDoneAppointments(long doctorId, Pageable pageable) {
+//        return appointmentRepository.findAppointmentsByDoctorIdAndState(doctorId, Appointment.AppointmentState.DONE, pageable);
+//    }
 }

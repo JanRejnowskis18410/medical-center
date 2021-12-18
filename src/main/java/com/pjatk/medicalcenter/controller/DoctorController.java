@@ -1,17 +1,27 @@
 package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
+import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.AppointmentCheckUp;
 import com.pjatk.medicalcenter.model.Doctor;
 import com.pjatk.medicalcenter.model.Schedule;
 import com.pjatk.medicalcenter.service.DoctorService;
 import com.pjatk.medicalcenter.util.DTOsMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -35,13 +45,31 @@ public class DoctorController {
         return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
     }
 
+//    @GetMapping("/{id}/todaysVisits")
+//    public ResponseEntity<List<AppointmentForDoctorDTO>> getDoctorsTodaysVisits(@PathVariable long id){
+//        return ResponseEntity.ok(doctorService
+//                                .getDoctorsTodaysVisit(id)
+//                                .stream()
+//                                .map(AppointmentForDoctorDTO::new)
+//                                .collect(Collectors.toList()));
+//    }
+
     @GetMapping("/{id}/todaysVisits")
-    public ResponseEntity<List<AppointmentForDoctorDTO>> getDoctorsTodaysVisits(@PathVariable long id){
-        return ResponseEntity.ok(doctorService
-                                .getDoctorsTodaysVisit(id)
-                                .stream()
-                                .map(AppointmentForDoctorDTO::new)
-                                .collect(Collectors.toList()));
+    public ResponseEntity<Map<String, Object>> getDoctorsTodaysVisits(
+            @PathVariable long id,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "1") int size) {
+
+        Pageable paging = PageRequest.of(page, size, Sort.by("date").ascending());
+        Page<Appointment> todaysVisits = doctorService.getDoctorsTodaysVisit(id, paging);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("diagnosticTests", todaysVisits.stream().map(AppointmentForDoctorDTO::new).collect(Collectors.toList()));
+        response.put("currentPage", todaysVisits.getNumber());
+        response.put("totalItems", todaysVisits.getTotalElements());
+        response.put("totalPages", todaysVisits.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}/testsWithoutResults")
@@ -52,6 +80,18 @@ public class DoctorController {
                                 .map(AppointmentCheckUpDTO::new)
                                 .collect(Collectors.toList()));
     }
+
+//    @GetMapping("/{id}/testsWithoutResults")
+//    public ResponseEntity<Map<String, Object>> getDoctorsAppointmentWithCheckupsWithoutResult(
+//            @PathVariable long doctorId,
+//            @RequestParam(name = "page", defaultValue = "0") int page,
+//            @RequestParam(name = "size", defaultValue = "1") int size) {
+//
+//        Pageable paging = PageRequest.of(page, size, Sort.by("date").descending());
+//        Page<Appointment> appointments = doctorService.getDoctorsDoneAppointments()
+//        Page<AppointmentCheckUp> diagnosticTests = doctorService.getDoctorsAppointmentWithCheckupsWithoutResult(doctorId, paging);
+//
+//    }
 
     @GetMapping("/specialization")
     public ResponseEntity<List<DoctorDTO>> getDoctorsBySpecialization(@RequestParam("id") Long id){

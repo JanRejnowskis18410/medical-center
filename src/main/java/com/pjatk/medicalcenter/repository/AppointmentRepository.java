@@ -7,10 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>, JpaSpecificationExecutor<Appointment> {
 
     Page<Appointment> findAppointmentsByPatientIdAndState(long patientId, Appointment.AppointmentState state, Pageable pageable);
 
     Page<Appointment> findAppointmentsByPatientId(long patientId, Pageable paging);
+
+    Page<Appointment> findAppointmentsByDoctorIdAndDateBetween(long doctorId, LocalDateTime localDateTime1, LocalDateTime localDateTime2, Pageable paging);
 }
