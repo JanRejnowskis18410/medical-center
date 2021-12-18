@@ -113,18 +113,7 @@ public class DoctorService {
         return appointmentRepository.findAppointmentsByDoctorIdAndDateBetween(id, today.atStartOfDay(), today.atTime(LocalTime.MAX), paging);
     }
 
-
-    public List<AppointmentCheckUp> getDoctorsAppointmentWithCheckupsWithoutResult(long doctorId){
-        return getDoctorById(doctorId)
-                .getAppointments()
-                .stream()
-                .flatMap(app -> app.getAppointmentCheckUps().stream())
-                .filter(appCh -> appCh.getResult()==null && appCh.getAppointment().getState().equals(Appointment.AppointmentState.DONE))
-                .collect(Collectors.toList());
-
+    public Page<AppointmentCheckUp> getDoctorsAppointmentsWithCheckupsWithoutResult(long id, Pageable paging) {
+        return appointmentCheckUpRepository.findDoctorAppointmentCheckUpsWithoutResult(id, paging);
     }
-
-//    public Page<AppointmentCheckUp> getDoctorsAppointmentsWithCheckupsWithoutResult(long id, Pageable paging) {
-//        return appointmentCheckUpRepository.findDoctorAppointmentCheckUpsWithoutResult(id, paging)
-//    }
 }

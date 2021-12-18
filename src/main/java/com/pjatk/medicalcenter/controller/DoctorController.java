@@ -45,15 +45,6 @@ public class DoctorController {
         return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
     }
 
-//    @GetMapping("/{id}/todaysVisits")
-//    public ResponseEntity<List<AppointmentForDoctorDTO>> getDoctorsTodaysVisits(@PathVariable long id){
-//        return ResponseEntity.ok(doctorService
-//                                .getDoctorsTodaysVisit(id)
-//                                .stream()
-//                                .map(AppointmentForDoctorDTO::new)
-//                                .collect(Collectors.toList()));
-//    }
-
     @GetMapping("/{id}/todaysVisits")
     public ResponseEntity<Map<String, Object>> getDoctorsTodaysVisits(
             @PathVariable long id,
@@ -73,37 +64,22 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}/testsWithoutResults")
-    public ResponseEntity<List<AppointmentCheckUpDTO>> getDoctorsAppointmentWithCheckupsWithoutResult(@PathVariable long id){
-        return ResponseEntity.ok(doctorService
-                                .getDoctorsAppointmentWithCheckupsWithoutResult(id)
-                                .stream()
-                                .map(AppointmentCheckUpDTO::new)
-                                .collect(Collectors.toList()));
+    public ResponseEntity<Map<String, Object>> getDoctorsAppointmentWithCheckupsWithoutResult(
+            @PathVariable long id,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "1") int size) {
+
+        Pageable paging = PageRequest.of(page, size, Sort.by("date").descending());
+        Page<AppointmentCheckUp> appointmentCheckUps = doctorService.getDoctorsAppointmentsWithCheckupsWithoutResult(id, paging);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("appointments", appointmentCheckUps.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
+        response.put("currentPage", appointmentCheckUps.getNumber());
+        response.put("totalItems", appointmentCheckUps.getTotalElements());
+        response.put("totalPages", appointmentCheckUps.getTotalPages());
+
+        return ResponseEntity.ok(response);
     }
-
-//    @GetMapping("/{id}/testsWithoutResults")
-//    public ResponseEntity<Map<String, Object>> getDoctorsAppointmentWithCheckupsWithoutResult(
-//            @PathVariable long id,
-//            @RequestParam(name = "page", defaultValue = "0") int page,
-//            @RequestParam(name = "size", defaultValue = "1") int size) {
-//        return ResponseEntity.ok(doctorService
-//                .getDoctorsAppointmentWithCheckupsWithoutResult(id)
-//                .stream()
-//                .map(AppointmentCheckUpDTO::new)
-//                .collect(Collectors.toList()));
-//    }
-
-//    @GetMapping("/{id}/testsWithoutResults")
-//    public ResponseEntity<Map<String, Object>> getDoctorsAppointmentWithCheckupsWithoutResult(
-//            @PathVariable long doctorId,
-//            @RequestParam(name = "page", defaultValue = "0") int page,
-//            @RequestParam(name = "size", defaultValue = "1") int size) {
-//
-//        Pageable paging = PageRequest.of(page, size, Sort.by("date").descending());
-//        Page<Appointment> appointments = doctorService.getDoctorsDoneAppointments()
-//        Page<AppointmentCheckUp> diagnosticTests = doctorService.getDoctorsAppointmentWithCheckupsWithoutResult(doctorId, paging);
-//
-//    }
 
     @GetMapping("/specialization")
     public ResponseEntity<List<DoctorDTO>> getDoctorsBySpecialization(@RequestParam("id") Long id){
