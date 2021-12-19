@@ -69,7 +69,7 @@ public class DoctorController {
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "1") int size) {
 
-        Pageable paging = PageRequest.of(page, size, Sort.by("date").descending());
+        Pageable paging = PageRequest.of(page, size, Sort.by("a.date").descending());
         Page<AppointmentCheckUp> appointmentCheckUps = doctorService.getDoctorsAppointmentsWithCheckupsWithoutResult(id, paging);
 
         Map<String,Object> response = new HashMap<>();
