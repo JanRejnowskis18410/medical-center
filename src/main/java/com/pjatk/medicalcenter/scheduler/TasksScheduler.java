@@ -13,8 +13,13 @@ public class TasksScheduler {
         this.referalService = referalService;
     }
 
-    @Scheduled(cron = "00 00 00 * * ?")
+    @Scheduled(cron = "00 33 14 * * ?")
     public void scheduleDeleteReferralsExpiredOneMonthAgo() {
         referalService.deleteReferralsExpiredOneMonthAgo();
+    }
+
+    @Scheduled(cron = "00 00 00 * * ?")
+    public void scheduleDeleteUsedReferralsAfterVisit() {
+        referalService.deleteUsedReferrals();
     }
 }

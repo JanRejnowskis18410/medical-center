@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.service;
 
+import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Referral;
 import com.pjatk.medicalcenter.repository.ReferralRepository;
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,12 @@ public class ReferralService {
     }
 
     public void deleteReferralsExpiredOneMonthAgo(){
-        List<Referral> expiredReferrals = referralRepository
-                                            .findAll()
-                                            .stream()
-                                            .filter(ref -> ref.getExpiryDate().plusMonths(1).equals(LocalDate.now()))
-                                            .collect(Collectors.toList());
+        List<Referral> expiredReferrals = referralRepository.findByExpiryDate(LocalDate.now().minusMonths(1));
         referralRepository.deleteAll(expiredReferrals);
+    }
+
+    public void deleteUsedReferrals(){
+        List<Referral> usedReferrals = referralRepository.findByAppointmentIsNotNullAndAppointmentState(Appointment.AppointmentState.DONE);
+        referralRepository.deleteAll(usedReferrals);
     }
 }

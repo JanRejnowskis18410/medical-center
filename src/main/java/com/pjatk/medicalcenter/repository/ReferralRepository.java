@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.repository;
 
+import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.Referral;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,4 +14,6 @@ import java.util.List;
 public interface ReferralRepository extends JpaRepository<Referral, Long> {
 
     Page<Referral> findByPatientIdAndAppointmentIsNull(Long id, Pageable pageable);
+    List<Referral> findByAppointmentIsNotNullAndAppointmentState(Appointment.AppointmentState state);
+    List<Referral> findByExpiryDate(LocalDate expiryDate);
 }
