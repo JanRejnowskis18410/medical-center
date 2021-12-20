@@ -73,7 +73,7 @@ public class DoctorController {
         Page<AppointmentCheckUp> appointmentCheckUps = doctorService.getDoctorsAppointmentsWithCheckupsWithoutResult(id, paging);
 
         Map<String,Object> response = new HashMap<>();
-        response.put("appointments", appointmentCheckUps.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
+        response.put("checkUps", appointmentCheckUps.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
         response.put("currentPage", appointmentCheckUps.getNumber());
         response.put("totalItems", appointmentCheckUps.getTotalElements());
         response.put("totalPages", appointmentCheckUps.getTotalPages());
