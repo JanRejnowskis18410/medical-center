@@ -130,11 +130,13 @@ public class DTOsMapper {
     public static AppointmentCheckUpDTO mapAppointmentTestDTOToAppointmentTest(AppointmentCheckUp aCU){
         AppointmentCheckUpDTO appointmentCheckUpDTO = new AppointmentCheckUpDTO();
         appointmentCheckUpDTO.setAppointmentId(aCU.getAppointment().getId());
+        appointmentCheckUpDTO.setAppointmentDate(aCU.getAppointment().getDate());
         appointmentCheckUpDTO.setCheckUpId(aCU.getCheckUp().getId());
         appointmentCheckUpDTO.setDiagnosticTestName(aCU.getCheckUp().getName());
         appointmentCheckUpDTO.setResult(aCU.getResult());
         appointmentCheckUpDTO.setDoctorsDescription(aCU.getDoctorsDescription());
         appointmentCheckUpDTO.setFile(aCU.getFile());
+        appointmentCheckUpDTO.setPatient(new PatientDTO(aCU.getAppointment().getPatient()));
         return appointmentCheckUpDTO;
     }
 
