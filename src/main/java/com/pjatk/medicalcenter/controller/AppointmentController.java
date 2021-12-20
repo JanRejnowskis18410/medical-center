@@ -162,15 +162,15 @@ public class AppointmentController {
 
     @PatchMapping("{appointmentId}/testResult/{checkUpId}")
     public ResponseEntity<Void> addCheckupResult(@PathVariable("appointmentId") long appointmentId,
-                                                 @PathVariable("appointmentId") long checkUpId,
-                                                 @Valid @RequestBody PatchAppointmentCheckUpDTO patchAppointmentCheckUpDTO) {
+                                                 @PathVariable("checkUpId") long checkUpId,
+                                                 @Valid @RequestBody AddCheckUpResultDTO addCheckupResultDTO) {
 
         AppointmentCheckUp appointmentCheckUp = appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId);
 
-        appointmentCheckUp.setResult(patchAppointmentCheckUpDTO.getResult().get());
-        appointmentCheckUp.setFile(patchAppointmentCheckUpDTO.getFile().get());
-        if (Objects.nonNull(patchAppointmentCheckUpDTO.getDoctorsDescription().get())) {
-            appointmentCheckUp.setDoctorsDescription(patchAppointmentCheckUpDTO.getDoctorsDescription().get());
+        appointmentCheckUp.setResult(addCheckupResultDTO.getResult().get());
+        appointmentCheckUp.setFile(addCheckupResultDTO.getFile().get());
+        if (Objects.nonNull(addCheckupResultDTO.getDoctorsDescription().get())) {
+            appointmentCheckUp.setDoctorsDescription(addCheckupResultDTO.getDoctorsDescription().get());
         }
 
         appointmentCheckUpService.saveAppointmentCheckUp(appointmentCheckUp);

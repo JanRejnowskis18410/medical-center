@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PatchAppointmentCheckUpDTO {
+public class AddCheckUpResultDTO {
 
     @NotNull
     private JsonNullable<@NotEmpty String> result = JsonNullable.undefined();
