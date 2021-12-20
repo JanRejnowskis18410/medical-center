@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -88,6 +89,12 @@ public class AppointmentService {
 
     public void deleteAppointmentById(long id){
         appointmentRepository.delete(appointmentRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment does not exists")));
+    }
+
+    public void confirmAppointment(){
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByPatientIsNotNullAndDateAndState(LocalDate.now());
+        appointments.forEach(appointment -> appointment.setState(Appointment.AppointmentState.CONFIRMED));
+        appointmentRepository.saveAll(appointments);
     }
 
     private Appointment mapCreateNewAppointmentToAppointment(CreateAppointmentDTO newAppointment){
