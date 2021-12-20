@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReferralService {
@@ -25,5 +27,14 @@ public class ReferralService {
 
     public List<Referral> getReferrals(){
         return referralRepository.findAll();
+    }
+
+    public void deleteReferralsExpiredOneMonthAgo(){
+        List<Referral> expiredReferrals = referralRepository
+                                            .findAll()
+                                            .stream()
+                                            .filter(ref -> ref.getExpiryDate().plusMonths(1).equals(LocalDate.now()))
+                                            .collect(Collectors.toList());
+        referralRepository.deleteAll(expiredReferrals);
     }
 }
