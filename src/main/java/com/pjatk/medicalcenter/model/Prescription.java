@@ -39,7 +39,7 @@ public class Prescription {
     @Setter(AccessLevel.NONE)
     private Appointment appointment;
 
-    @OneToMany(mappedBy = "prescription")
+    @OneToMany(mappedBy = "prescription", cascade = CascadeType.PERSIST)
     private List<PrescriptionMedication> prescriptionMedications = new ArrayList<>();
 
     public Prescription() {
