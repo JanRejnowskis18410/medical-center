@@ -141,6 +141,8 @@ INSERT INTO check_up (NAME) VALUES ('Rezonans przysadki mózgowej');
 INSERT INTO check_up (NAME) VALUES ('Rezonans czaszki');
 INSERT INTO check_up (NAME) VALUES ('Posiew moczu');
 
+
+
 --ODBYTE WIZYTY
 --Konsultacja ginekologa - Elżbieta Gos, Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
@@ -150,19 +152,19 @@ INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_I
 VALUES (25689, '2021-11-18', '2021-12-18', 1, 7, 1);
 INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 1,1);
 
---Konsultacja dermatologa, Pacjent id 1
+--Konsultacja dermatologa - Adam Staszewski, Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES ('DONE', '2021-10-18T13:00:00', 'Delitakny trądzik na brodzie oraz czole. Po zakończeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 6, 5, 1);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-31', '2021-10-18', 2, 5, 1);
-INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, DOCTOR_ID, PATIENT_ID)
+INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, DOCTOR_ID, PATIENT_ID)
 VALUES (23241, '2021-10-18', '2021-12-18', 2, 6, 1);
 INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykrycia baktorii odpowiedzialnej za trądzik', 'Nie wykryto bakterii',2,2);
 
---Konsultacja dermatologa, Pacjent id 1
+--Konsultacja dermatologa - Adam Staszewski, Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES ('DONE', '2021-09-18T13:00:00', 'Wizyta kontrolna z trądzikiem', 'Koniec przyjmowania antybiotyku','FACILITY', 6, 5, 1);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-18', '2021-12-01', 2, 5, 1);
-
+UPDATE referral SET APPOINTMENT_ID=3 WHERE ID=2; --WYKORZYSTANIE SKIEROWANIA Z POPRZEDNIEJ WIZYTY
 
 --PULA WIZYT
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2021-12-28T18:00:00', 'FACILITY', 1, 8);
