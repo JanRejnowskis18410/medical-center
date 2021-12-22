@@ -28,4 +28,25 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>,
                    "AND state='RESERVED'"
                    ,nativeQuery = true)
     List<Appointment> findAppointmentsByPatientIsNotNullAndDateAndState(@Param("date") LocalDate date);
+
+    @Query(value = "SELECT * FROM appointment a " +
+            "WHERE DATE(a.date)=:date " +
+            "AND a.patient_id IS NOT NULL " +
+            "AND state='RESERVED'"
+            ,nativeQuery = true)
+    List<Appointment> findReservedAppointmentsVisitIn2days(@Param("date") LocalDate date);
+
+    @Query(value = "SELECT * FROM appointment a " +
+            "WHERE DATE(a.date)=:date " +
+            "AND a.patient_id IS NOT NULL " +
+            "AND state='CONFIRMED'"
+            ,nativeQuery = true)
+    List<Appointment> findConfirmedAppointmentsVisitIn2days(@Param("date") LocalDate date);
+
+    @Query(value = "SELECT * FROM appointment a " +
+            "WHERE DATE(a.date)=:date " +
+            "AND a.patient_id IS NOT NULL " +
+            "AND (state='CONFIRMED' OR state='RESERVED')"
+            ,nativeQuery = true)
+    List<Appointment> findConfirmedAndReservedAppointmentsVisitIn2days(@Param("date") LocalDate date);
 }
