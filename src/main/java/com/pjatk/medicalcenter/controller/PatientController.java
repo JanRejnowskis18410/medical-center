@@ -116,7 +116,7 @@ public class PatientController {
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "1") int size) {
 
-        Pageable paging = PageRequest.of(page, size, Sort.by("expiryDate").ascending());
+        Pageable paging = PageRequest.of(page, size, Sort.by("expiryDate").ascending().and(Sort.by("medicalService.name")));
         Page<Referral> referrals = patientService.getPatientsAvailableReferrals(patientId, paging);
 
         Map<String,Object> response = new HashMap<>();
