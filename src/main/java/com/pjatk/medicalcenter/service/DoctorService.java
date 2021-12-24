@@ -110,7 +110,7 @@ public class DoctorService {
 
     public Page<Appointment> getDoctorsTodaysVisit(long id, Pageable paging) {
         LocalDate today = LocalDate.now();
-        return appointmentRepository.findAppointmentsByDoctorIdAndDateBetween(id, today.atStartOfDay(), today.atTime(LocalTime.MAX), paging);
+        return appointmentRepository.findAppointmentsByDoctorIdAndDateBetweenAndStateEquals(id, today.atStartOfDay(), today.atTime(LocalTime.MAX), Appointment.AppointmentState.CONFIRMED, paging);
     }
 
     public Page<AppointmentCheckUp> getDoctorsAppointmentsWithCheckupsWithoutResult(long id, Pageable paging) {
