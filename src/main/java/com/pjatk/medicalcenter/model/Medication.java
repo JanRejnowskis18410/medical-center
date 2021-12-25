@@ -16,24 +16,7 @@ import java.util.stream.Stream;
 public class Medication {
 
     public enum Unit {
-
-        MILLILITERS("ML"), LITERS("L"), GRAMS("G"), MILLIGRAMS("MG"), PILL("PILL");
-
-        private String code;
-
-        Unit(String code) {
-            this.code = code;
-        }
-
-        @JsonCreator
-        public static Unit decode(final String code) {
-            return Stream.of(Unit.values()).filter(targetEnum -> targetEnum.code.equals(code)).findFirst().orElse(null);
-        }
-
-        @JsonValue
-        public String getCode() {
-            return code;
-        }
+        MILLILITERS, LITERS, GRAMS, MILLIGRAMS, PILL
     }
 
     @OneToMany(mappedBy = "medication")
