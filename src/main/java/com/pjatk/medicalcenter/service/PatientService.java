@@ -107,6 +107,6 @@ public class PatientService {
     }
 
     public Page<AppointmentCheckUp> getPatientsDiagnosticTests(long patientId, Pageable pageable) {
-        return appointmentCheckUpRepository.findAppointmentCheckUpByAppointmentPatientIdAndResultIsNotNull(patientId, pageable);
+        return appointmentCheckUpRepository.findAppointmentCheckUpByAppointmentPatientId(patientId, pageable);
     }
 }
