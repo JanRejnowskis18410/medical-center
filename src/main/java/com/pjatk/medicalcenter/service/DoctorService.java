@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -110,7 +111,8 @@ public class DoctorService {
 
     public Page<Appointment> getDoctorsTodaysVisit(long id, Pageable paging) {
         LocalDate today = LocalDate.now();
-        return appointmentRepository.findAppointmentsByDoctorIdAndDateBetweenAndStateEquals(id, today.atStartOfDay(), today.atTime(LocalTime.MAX), Appointment.AppointmentState.CONFIRMED, paging);
+        List<Appointment.AppointmentState> states = new ArrayList<>(Arrays.asList(Appointment.AppointmentState.CONFIRMED, Appointment.AppointmentState.DONE));
+        return appointmentRepository.findAppointmentsByDoctorIdAndDateBetweenAndStateIn(id, today.atStartOfDay(), today.atTime(LocalTime.MAX), states, paging);
     }
 
     public Page<AppointmentCheckUp> getDoctorsAppointmentsWithCheckupsWithoutResult(long id, Pageable paging) {
