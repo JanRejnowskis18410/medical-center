@@ -35,25 +35,25 @@ public class SpecializationController {
         return ResponseEntity.ok(new SpecializationWithDoctorsDTO(specializationService.getSpecializationById(id)));
     }
 
-//    @PostMapping
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    //TODO: is it needed if admin inserts data to database?
-//    public ResponseEntity<SpecializationDTO> addSpecialization(@RequestBody SpecializationDTO specializationDTO){
-//        Specialization createdSpecialization = specializationService.addSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
-//        return ResponseEntity.created(URI.create(String.format("/specializations/%d", createdSpecialization.getId()))).build();
-//    }
+    @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000")
+    //TODO: is it needed if admin inserts data to database?
+    public ResponseEntity<SpecializationDTO> addSpecialization(@RequestBody SpecializationDTO specializationDTO){
+        Specialization createdSpecialization = specializationService.addSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
+        return ResponseEntity.created(URI.create(String.format("/specializations/%d", createdSpecialization.getId()))).build();
+    }
 
-//    @PutMapping
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    public ResponseEntity<SpecializationDTO> updateSpecialization(@RequestBody SpecializationDTO specializationDTO){
-//        Specialization updatedSpecialization = specializationService.updateSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
-//        return ResponseEntity.created(URI.create(String.format("/specializations/%d", updatedSpecialization.getId()))).build();
-//    }
+    @PutMapping
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<SpecializationDTO> updateSpecialization(@RequestBody SpecializationDTO specializationDTO){
+        Specialization updatedSpecialization = specializationService.updateSpecialization(DTOsMapper.mapSpecializationDTOtoSpecialization(specializationDTO));
+        return ResponseEntity.created(URI.create(String.format("/specializations/%d", updatedSpecialization.getId()))).build();
+    }
 
-//    @DeleteMapping("/{id}")
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    public ResponseEntity<String> deleteSpecialization(@PathVariable long id){
-//        specializationService.deleteSpecializationById(id);
-//        return ResponseEntity.ok("Success");
-//    }
+    @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> deleteSpecialization(@PathVariable long id){
+        specializationService.deleteSpecializationById(id);
+        return ResponseEntity.ok("Success");
+    }
 }

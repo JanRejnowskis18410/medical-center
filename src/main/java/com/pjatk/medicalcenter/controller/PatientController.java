@@ -6,6 +6,7 @@ import com.pjatk.medicalcenter.service.PatientService;
 import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -55,10 +56,11 @@ public class PatientController {
     public ResponseEntity<Map<String,Object>> getPatientsAppointments(
             @PathVariable long patientId,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "1") int size ){
+            @RequestParam(name = "size", defaultValue = "1") int size,
+            Authentication auth){
 
         Pageable paging = PageRequest.of(page, size, Sort.by("date").descending());
-        Page<Appointment> doneAppointments = patientService.getPatientsAppointments(patientId, paging);
+        Page<Appointment> doneAppointments = patientService.getPatientsAppointments(patientId, paging, auth);
 
         Map<String,Object> response = new HashMap<>();
         response.put("appointments", doneAppointments.stream().map(PatientsDoneVisitDTO::new).collect(Collectors.toList()));

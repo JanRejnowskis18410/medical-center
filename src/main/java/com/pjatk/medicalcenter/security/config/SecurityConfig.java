@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.pjatk.medicalcenter.security.model.AppRole.DOCTOR;
+import static com.pjatk.medicalcenter.security.model.AppRole.PATIENT;
 import static org.springframework.http.HttpMethod.GET;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
@@ -33,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/login/**").permitAll();
-        http.authorizeRequests().antMatchers(GET, "/appointments").hasAnyAuthority("PATIENT");
-        http.authorizeRequests().antMatchers(GET, "/appointments/**").hasAnyAuthority("DOCTOR", "PATIENT");
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().antMatchers(GET, "/appointments").hasAnyAuthority(PATIENT.getName());
+        http.authorizeRequests().antMatchers(GET, "/appointments/**").hasAnyAuthority(DOCTOR.getName(), PATIENT.getName());
+//        http.authorizeRequests().anyRequest().permitAll();
         http.addFilter(new AuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

@@ -25,6 +25,7 @@ public class AppUser {
     private AppRole role;
 
     @OneToOne(mappedBy = "user")
+    @MapsId
     private Person person;
 
     public AppUser(Long id, String email, String password, AppRole role) {

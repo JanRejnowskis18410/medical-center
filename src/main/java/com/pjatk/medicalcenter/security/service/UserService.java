@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public AppUser getUser(String email){
+    public AppUser getUserByEmail(String email){
         log.info("Fetching user {}", email);
         return userRepository.findAppUserByEmail(email);
     }

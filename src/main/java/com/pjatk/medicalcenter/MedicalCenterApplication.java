@@ -30,8 +30,8 @@ public class MedicalCenterApplication {
     @Bean
     CommandLineRunner run(UserService userService) {
         return args -> {
-            userService.addUser(new AppUser(null, "kasia@gmail.com", "Kasia123", AppRole.DOCTOR));
-            userService.addUser(new AppUser(null, "karol@gmail.com", "Karol123", AppRole.PATIENT));
+            userService.addUser(new AppUser(1l, "kasia@gmail.com", "Kasia123", AppRole.DOCTOR));
+            userService.addUser(new AppUser(2l, "karol@gmail.com", "Karol123", AppRole.PATIENT));
         };
     }
 

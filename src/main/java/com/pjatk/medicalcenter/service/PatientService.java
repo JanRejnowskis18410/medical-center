@@ -3,9 +3,11 @@ package com.pjatk.medicalcenter.service;
 import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.repository.*;
 
+import com.pjatk.medicalcenter.security.service.AccessService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,13 +23,15 @@ public class PatientService {
     private final ReferralRepository referralRepository;
     private final AppointmentRepository appointmentRepository;
     private final AppointmentCheckUpRepository appointmentCheckUpRepository;
+    private final AccessService accessService;
 
-    public PatientService(PatientRepository patientRepository, PatientsFileRepository patientsFileRepository, ReferralRepository referralRepository, AppointmentRepository appointmentRepository, AppointmentCheckUpRepository appointmentCheckUpRepository) {
+    public PatientService(PatientRepository patientRepository, PatientsFileRepository patientsFileRepository, ReferralRepository referralRepository, AppointmentRepository appointmentRepository, AppointmentCheckUpRepository appointmentCheckUpRepository, AccessService accessService) {
         this.patientRepository = patientRepository;
         this.patientsFileRepository = patientsFileRepository;
         this.referralRepository = referralRepository;
         this.appointmentRepository = appointmentRepository;
         this.appointmentCheckUpRepository = appointmentCheckUpRepository;
+        this.accessService = accessService;
     }
 
     public List<Patient> getPatients(){
@@ -60,8 +64,9 @@ public class PatientService {
                 .collect(Collectors.toList());
     }
 
-    public Page<Appointment> getPatientsAppointments(long patientId, Pageable paging) {
+    public Page<Appointment> getPatientsAppointments(long patientId, Pageable paging, Authentication auth) {
         Patient patient = getPatientById(patientId);
+//        if(auth)
         return appointmentRepository.findAppointmentsByPatientId(patientId, paging);
     }
 

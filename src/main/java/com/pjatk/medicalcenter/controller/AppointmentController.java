@@ -52,11 +52,11 @@ public class AppointmentController {
         this.checkUpService = checkUpService;
     }
 
-//    @GetMapping("/all")
-//    public ResponseEntity<List<AvailableAppointmentDTO>> getAppointments() {
-//        List<Appointment> availableAppointments = appointmentService.getAllAppointments();
-//        return ResponseEntity.ok(availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
-//    }
+    @GetMapping("/all")
+    public ResponseEntity<List<AvailableAppointmentDTO>> getAppointments() {
+        List<Appointment> availableAppointments = appointmentService.getAllAppointments();
+        return ResponseEntity.ok(availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
+    }
 
     @GetMapping
     public ResponseEntity<Map<String,Object>> getAvailableAppointments(
