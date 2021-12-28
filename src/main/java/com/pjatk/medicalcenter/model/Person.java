@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
+import com.pjatk.medicalcenter.security.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +34,8 @@ public class Person {
 
     @Column(name = "PESEL",unique = true)
     private String pesel;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private AppUser user;
 }
