@@ -166,4 +166,5 @@ public class PatientController {
         patientService.deletePatientById(id);
         return ResponseEntity.ok("Success");
     }
+
 }
