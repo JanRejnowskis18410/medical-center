@@ -32,4 +32,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>,
                    "AND state='RESERVED'"
                    ,nativeQuery = true)
     List<Appointment> findAppointmentsByPatientIsNotNullAndDateAndState(@Param("date") LocalDate date);
+
+    List<Appointment> findAppointmentsByDateBeforeAndStateEquals(LocalDateTime date, Appointment.AppointmentState appointmentState);
 }

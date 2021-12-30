@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -95,6 +96,11 @@ public class AppointmentService {
         List<Appointment> appointments = appointmentRepository.findAppointmentsByPatientIsNotNullAndDateAndState(LocalDate.now());
         appointments.forEach(appointment -> appointment.setState(Appointment.AppointmentState.CONFIRMED));
         appointmentRepository.saveAll(appointments);
+    }
+
+    public void deleteUnusedAppointments() {
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByDateBeforeAndStateEquals(LocalDateTime.now(), Appointment.AppointmentState.AVAILABLE);
+        appointmentRepository.deleteAll(appointments);
     }
 
     private Appointment mapCreateNewAppointmentToAppointment(CreateAppointmentDTO newAppointment){
