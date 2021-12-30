@@ -30,10 +30,6 @@ public class Prescription {
     @Setter(AccessLevel.NONE)
     private Patient patient;
 
-    @ManyToOne(optional = false)
-    @Setter(AccessLevel.NONE)
-    private Doctor doctor;
-
     @ManyToOne
     @JoinColumn(name = "appointment_id", referencedColumnName = "id")
     @Setter(AccessLevel.NONE)
@@ -58,10 +54,5 @@ public class Prescription {
     public void setPatient(Patient patient) {
         this.patient = patient;
         patient.addPrescription(this);
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-        doctor.addPrescription(this);
     }
 }

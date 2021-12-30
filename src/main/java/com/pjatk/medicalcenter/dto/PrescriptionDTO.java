@@ -34,8 +34,8 @@ public class PrescriptionDTO {
         this.expiryDate = prescription.getExpiryDate();
         this.creationDate = prescription.getCreationDate();
         this.medications = prescription.getPrescriptionMedications().stream().map(PrescriptionMedicationDTO::new).collect(Collectors.toList());
-        this.doctorFirstName = prescription.getDoctor().getFirstName();
-        this.doctorLastName = prescription.getDoctor().getLastName();
-        this.doctorPwz = prescription.getDoctor().getPWZ();
+        this.doctorFirstName = prescription.getAppointment().getDoctor().getFirstName();
+        this.doctorLastName = prescription.getAppointment().getDoctor().getLastName();
+        this.doctorPwz = prescription.getAppointment().getDoctor().getPWZ();
     }
 }

@@ -30,7 +30,7 @@ public class Appointment {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false)
     @Setter(AccessLevel.NONE)
     private Doctor doctor;
 

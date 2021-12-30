@@ -234,7 +234,6 @@ public class AppointmentController {
         prescription.setCreationDate(LocalDate.now());
         prescription.setExpiryDate(appointmentCreatePrescriptionDTO.getExpiryDate());
         prescription.setAccessCode(appointmentCreatePrescriptionDTO.getAccessCode());
-        prescription.setDoctor(doctor);
         prescription.setPatient(patient);
         prescription.setAppointment(appointment);
         appointmentCreatePrescriptionDTO.getMedications().forEach(createPrescriptionMedication -> {

@@ -83,7 +83,6 @@ public class PrescriptionController {
         Prescription prescription = new Prescription();
         prescription.setAccessCode(createPrescriptionDTO.getAccessCode());
         prescription.setExpiryDate(createPrescriptionDTO.getExpiryDate());
-        prescription.setDoctor(doctorService.getDoctorById(createPrescriptionDTO.getDoctorId()));
         prescription.setPatient(patientService.getPatientById(createPrescriptionDTO.getPatientId()));
         prescription.setAppointment(appointmentService.getAppointmentById(createPrescriptionDTO.getAppointmentId()));
         prescription.setPrescriptionMedications(addMedicationsToPrescription(createPrescriptionDTO.getMedications(), prescription));

@@ -27,9 +27,6 @@ public class Doctor extends Person{
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "doctor")
-    private List<Prescription> prescriptions = new ArrayList<>();
-
     @ElementCollection(targetClass = Language.class)
     @CollectionTable(name = "language", joinColumns = @JoinColumn(name = "doctor_id"))
     @Enumerated(EnumType.STRING)
@@ -46,9 +43,5 @@ public class Doctor extends Person{
 
     public void addAppointment(Appointment appointment){
         this.appointments.add(appointment);
-    }
-
-    public void addPrescription(Prescription prescription) {
-        prescriptions.add(prescription);
     }
 }

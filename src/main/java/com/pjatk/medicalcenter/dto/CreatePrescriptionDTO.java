@@ -23,9 +23,6 @@ public class CreatePrescriptionDTO {
     @NotNull(message = "Acccess code is required")
     private Integer accessCode;
 
-    @NotNull(message = "Doctor is required")
-    private Long doctorId;
-
     @NotNull(message = "Patient is required")
     private Long patientId;
 
