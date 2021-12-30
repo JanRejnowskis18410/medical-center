@@ -1,5 +1,6 @@
 package com.pjatk.medicalcenter.security.service;
 
+import com.pjatk.medicalcenter.security.model.AppRole;
 import com.pjatk.medicalcenter.security.model.AppUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -23,5 +24,16 @@ public class AccessService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot authenticate.");
 
         return Objects.equals(user.getId(), personId);
+    }
+
+    public void authenticatePerson(Authentication auth, Long personId){
+        if(!isHimself(auth, personId)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Forbidden");
+        }
+    }
+
+    public AppRole checkRole(Authentication auth){
+        AppUser user = userService.getUserByEmail((String) auth.getPrincipal());
+        return user.getRole();
     }
 }

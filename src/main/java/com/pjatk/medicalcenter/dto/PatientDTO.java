@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Getter @Setter @NoArgsConstructor
 public class PatientDTO {
 
+    @NotNull(message = "Id required")
     private Long id;
 
     private Address address;

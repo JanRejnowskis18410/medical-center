@@ -1,9 +1,7 @@
 package com.pjatk.medicalcenter.security.model;
 
 import com.pjatk.medicalcenter.model.Person;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -25,7 +23,7 @@ public class AppUser {
     private AppRole role;
 
     @OneToOne(mappedBy = "user")
-    @MapsId
+//    @MapsId
     private Person person;
 
     public AppUser(Long id, String email, String password, AppRole role) {
@@ -33,5 +31,10 @@ public class AppUser {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+        person.setUser(this);
     }
 }

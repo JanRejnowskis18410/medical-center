@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 public class DTOsMapper {
 
+    private DTOsMapper(){}
+
     public static Patient mapPatientDTOtoPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
         patient.setId(patientDTO.getId());
@@ -139,21 +141,4 @@ public class DTOsMapper {
         appointmentCheckUpDTO.setPatient(new PatientDTO(aCU.getAppointment().getPatient()));
         return appointmentCheckUpDTO;
     }
-
-//    public static PatientsDoneVisitDTO mapAppointmentToPatientsDoneVisitDTO(Appointment apmt){
-//        PatientsDoneVisitDTO patientsDoneVisitDTO = new PatientsDoneVisitDTO();
-//        patientsDoneVisitDTO.setServiceName(apmt.getMedicalService().getName());
-//        patientsDoneVisitDTO.setDoctor(new DoctorDTO(apmt.getDoctor()));
-//        patientsDoneVisitDTO.setDate(apmt.getDate());
-//        patientsDoneVisitDTO.setRecommendations(apmt.getRecommendations());
-//        patientsDoneVisitDTO.setType(apmt.getType());
-//        patientsDoneVisitDTO.setIssuedReferrals(apmt.getIssuedReferrals().stream()
-//                                                    .map(ReferralDTO::new)
-//                                                    .collect(Collectors.toList()));
-//        patientsDoneVisitDTO.setPrescriptions(apmt.getPrescriptions().stream()
-//                                                .map(PrescriptionDTO::new)
-//                                                .collect(Collectors.toList()));
-//        patientsDoneVisitDTO.setDiagnosticTests(apmt.);
-//        }
-//    }
 }

@@ -28,6 +28,6 @@ public class TasksScheduler {
 
     @Scheduled(cron = "00 00 00 * * ?")
     public void scheduleConfirmingAppointments() {
-        appointmentService.confirmAppointment();
+        appointmentService.confirmTodaysAppointment();
     }
 }

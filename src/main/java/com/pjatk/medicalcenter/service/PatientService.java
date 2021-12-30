@@ -3,6 +3,7 @@ package com.pjatk.medicalcenter.service;
 import com.pjatk.medicalcenter.model.*;
 import com.pjatk.medicalcenter.repository.*;
 
+import com.pjatk.medicalcenter.security.model.AppRole;
 import com.pjatk.medicalcenter.security.service.AccessService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.pjatk.medicalcenter.util.ErrorMessages.FILE_NOT_FOUND_ERROR_MESS;
+import static com.pjatk.medicalcenter.util.ErrorMessages.PATIENT_NOT_FOUND_ERROR_MESS;
 
 @Service
 public class PatientService {
@@ -34,44 +38,43 @@ public class PatientService {
         this.accessService = accessService;
     }
 
-    public List<Patient> getPatients(){
-        return patientRepository.findAll();
-    }
-
     public Patient getPatientById(long id){
-        return patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Patient does not exists"));
+        return patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,PATIENT_NOT_FOUND_ERROR_MESS));
     }
 
-    public Patient addPatient(Patient patient){
-        return patientRepository.save(patient);
+    public Patient getPatientById(long id, Authentication auth){
+        accessService.authenticatePerson(auth,id);
+        return patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,PATIENT_NOT_FOUND_ERROR_MESS));
     }
 
-    public Patient updatePatient(Patient patient){
-        if(patientRepository.findById(patient.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient does not exists")) != null)
+    public Patient updatePatient(Patient patient, Authentication auth){
+        accessService.authenticatePerson(auth, patient.getId());
+        if(patientRepository.findById(patient.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,PATIENT_NOT_FOUND_ERROR_MESS)) != null)
             return patientRepository.save(patient);
 
         return null;
     }
 
-    public void deletePatientById(long id){
-        patientRepository.delete(patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Patient does not exists")));
-    }
-
-    public List<PatientsFile> getPatientsFile(long patientsId){
-        Patient patient = getPatientById(patientsId);
-        return patientsFileRepository.getPatientsFileByPatientId(patientsId)
+    public List<PatientsFile> getPatientsFile(long patientId, Authentication auth){
+        if(accessService.checkRole(auth).equals(AppRole.PATIENT)){
+            accessService.authenticatePerson(auth,patientId);
+        }
+        getPatientById(patientId);
+        return patientsFileRepository.getPatientsFileByPatientId(patientId)
                 .stream().sorted((o1, o2) -> o2.getUploadDate().compareTo(o1.getUploadDate()))
                 .collect(Collectors.toList());
     }
 
     public Page<Appointment> getPatientsAppointments(long patientId, Pageable paging, Authentication auth) {
-        Patient patient = getPatientById(patientId);
-//        if(auth)
+        if(accessService.checkRole(auth).equals(AppRole.PATIENT)){
+            accessService.authenticatePerson(auth,patientId);
+        }
+        getPatientById(patientId);
         return appointmentRepository.findAppointmentsByPatientId(patientId, paging);
     }
 
     public Page<Appointment> getPatientsDoneAppointments(long patientId, Pageable paging) {
-        Patient patient = getPatientById(patientId);
+        getPatientById(patientId);
         return appointmentRepository.findAppointmentsByPatientIdAndState(patientId, Appointment.AppointmentState.DONE, paging);
     }
 
@@ -85,33 +88,43 @@ public class PatientService {
                 .collect(Collectors.toList());
     }
 
-    public PatientsFile getPatientsFileById(long id, long fileId){
+    public PatientsFile getPatientsFileById(long id, long fileId, Authentication auth){
+        if(accessService.checkRole(auth).equals(AppRole.PATIENT)){
+            accessService.authenticatePerson(auth,id);
+        }
         Patient patient = getPatientById(id);
         return patient.getPatientsFiles().stream()
                                         .filter(e -> e.getId() == fileId)
                                         .findFirst()
-                                        .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"File does not exists"));
+                                        .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,FILE_NOT_FOUND_ERROR_MESS));
     }
 
-    public PatientsFile addPatientsFile(long id, PatientsFile patientsFile){
+    public PatientsFile addPatientsFile(long id, PatientsFile patientsFile, Authentication auth){
+        accessService.authenticatePerson(auth, id);
         patientsFile.setPatient(getPatientById(id));
         return patientsFileRepository.save(patientsFile);
     }
 
-    public void deletePatientsFile(long patientsFileId){
+    public void deletePatientsFile(long patientId, long patientsFileId, Authentication auth){
+        accessService.authenticatePerson(auth, patientId);
         patientsFileRepository.deleteById(patientsFileId);
     }
 
-    public Page<Referral> getPatientsAvailableReferrals(Long id, Pageable pageable) {
+    public Page<Referral> getPatientsAvailableReferrals(Long id, Pageable pageable, Authentication auth) {
+        accessService.authenticatePerson(auth, id);
         return referralRepository.findByPatientIdAndAppointmentIsNull(id, pageable);
     }
 
-    public List<Prescription> getPatientsPrescriptions(long patientId) {
+    public List<Prescription> getPatientsPrescriptions(long patientId, Authentication auth) {
+        accessService.authenticatePerson(auth, patientId);
         Patient patient = getPatientById(patientId);
         return patient.getPrescriptions();
     }
 
-    public Page<AppointmentCheckUp> getPatientsDiagnosticTests(long patientId, Pageable pageable) {
+    public Page<AppointmentCheckUp> getPatientsDiagnosticTests(long patientId, Pageable pageable, Authentication auth) {
+        if(accessService.checkRole(auth).equals(AppRole.PATIENT)){
+            accessService.authenticatePerson(auth,patientId);
+        }
         return appointmentCheckUpRepository.findAppointmentCheckUpByAppointmentPatientIdAndResultIsNotNull(patientId, pageable);
     }
 }

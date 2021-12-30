@@ -11,8 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
-
 @SpringBootApplication
 @EnableScheduling
 public class MedicalCenterApplication {
@@ -30,8 +28,8 @@ public class MedicalCenterApplication {
     @Bean
     CommandLineRunner run(UserService userService) {
         return args -> {
-            userService.addUser(new AppUser(1l, "kasia@gmail.com", "Kasia123", AppRole.DOCTOR));
-            userService.addUser(new AppUser(2l, "karol@gmail.com", "Karol123", AppRole.PATIENT));
+            userService.addUser(new AppUser(2l, "kasia@gmail.com", "Kasia123", AppRole.DOCTOR));
+            userService.addUser(new AppUser(1l, "karol@gmail.com", "Karol123", AppRole.PATIENT));
         };
     }
 

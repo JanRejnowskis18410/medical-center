@@ -49,7 +49,7 @@ public class UserService implements UserDetailsService {
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
         } else {
-            log.info("User found in the database: {}", email);
+            log.info("User found in the database: {}, {}", email, user.getRole());
         }
         List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
         return new User(user.getEmail(), user.getPassword(), authorities);
