@@ -38,6 +38,10 @@ public class PatientService {
         return patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Patient does not exists"));
     }
 
+    public Patient getPatientByPesel(String pesel){
+        return patientRepository.findByPesel(pesel).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Patient does not exists"));
+    }
+
     public Patient addPatient(Patient patient){
         return patientRepository.save(patient);
     }
@@ -54,19 +58,19 @@ public class PatientService {
     }
 
     public List<PatientsFile> getPatientsFile(long patientsId){
-        Patient patient = getPatientById(patientsId);
+        getPatientById(patientsId);
         return patientsFileRepository.getPatientsFileByPatientId(patientsId)
                 .stream().sorted((o1, o2) -> o2.getUploadDate().compareTo(o1.getUploadDate()))
                 .collect(Collectors.toList());
     }
 
     public Page<Appointment> getPatientsAppointments(long patientId, Pageable paging) {
-        Patient patient = getPatientById(patientId);
+        getPatientById(patientId);
         return appointmentRepository.findAppointmentsByPatientId(patientId, paging);
     }
 
     public Page<Appointment> getPatientsDoneAppointments(long patientId, Pageable paging) {
-        Patient patient = getPatientById(patientId);
+        getPatientById(patientId);
         return appointmentRepository.findAppointmentsByPatientIdAndState(patientId, Appointment.AppointmentState.DONE, paging);
     }
 

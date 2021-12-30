@@ -38,6 +38,11 @@ public class PatientController {
         return ResponseEntity.ok(new PatientDTO(patientService.getPatientById(id)));
     }
 
+    @GetMapping
+    public ResponseEntity<PatientDTO> getPatientByPESEL(@RequestParam(required = true) String pesel){
+        return ResponseEntity.ok(new PatientDTO(patientService.getPatientByPesel(pesel)));
+    }
+
     @GetMapping("/{patientId}/files")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<PatientsFileDTO>> getPatientsFiles(@PathVariable long patientId){
