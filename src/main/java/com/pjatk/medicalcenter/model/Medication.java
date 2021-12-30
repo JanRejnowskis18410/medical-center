@@ -26,15 +26,12 @@ public class Medication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private Unit unit;
-
-    @Column(nullable = false)
-    private double payment;
 
     @Column(nullable = false)
     private int quantity;

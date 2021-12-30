@@ -18,7 +18,7 @@ public class Doctor extends Person{
         PL, EN
     }
 
-    @Column(name = "PWZ", nullable = false)
+    @Column(name = "PWZ", nullable = false, length = 7, unique = true)
     private String PWZ;
 
     @OneToMany(mappedBy = "doctor")
@@ -35,7 +35,8 @@ public class Doctor extends Person{
     @Enumerated(EnumType.STRING)
     @Column (
             nullable = false,
-            name = "doctor_language"
+            name = "doctor_language",
+            length = 50
     )
     public Set<Language> languages = new HashSet<>();
 

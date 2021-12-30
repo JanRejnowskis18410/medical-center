@@ -29,7 +29,7 @@ public class MedicalService {
     @Setter(AccessLevel.NONE)
     private Specialization specialization;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
     @Column(nullable = false)

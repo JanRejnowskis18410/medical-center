@@ -29,7 +29,7 @@ public class PrescriptionMedication {
     @Column(nullable = false)
     private int numberOfPackages;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String dosing;
 
     public void setPrescription(Prescription prescription) {

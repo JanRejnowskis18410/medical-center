@@ -55,7 +55,6 @@ public class MedicationController {
         medication.setId(medicationDTO.getId());
         medication.setName(medicationDTO.getName());
         medication.setUnit(medicationDTO.getUnit());
-        medication.setPayment(medicationDTO.getPayment());
         medicationDTO.setQuantity(medicationDTO.getQuantity());
 
         return medication;

@@ -17,13 +17,13 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "firstName", nullable = false, length = 50)
     private String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "lastName", nullable = false, length = 50)
     private String lastName;
 
-    @Column(name = "email",unique = true, nullable = false)
+    @Column(name = "email",unique = true, nullable = false, length = 100)
     private String email;
 
     private String password;
@@ -31,6 +31,6 @@ public class Person {
     @Column(name = "birthDate", nullable = false)
     private LocalDate birthDate;
 
-    @Column(name = "PESEL",unique = true)
+    @Column(name = "PESEL",unique = true, length = 11)
     private String pesel;
 }
