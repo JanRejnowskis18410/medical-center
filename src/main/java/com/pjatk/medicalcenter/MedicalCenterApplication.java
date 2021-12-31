@@ -14,5 +14,8 @@ public class MedicalCenterApplication {
     public static void main(String[] args) {
         SpringApplication.run(MedicalCenterApplication.class, args);
     }
-
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 }

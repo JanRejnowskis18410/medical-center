@@ -5,6 +5,8 @@ import com.pjatk.medicalcenter.service.RegistrationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/registration")
 @CrossOrigin
@@ -17,7 +19,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public ResponseEntity<String> register(@RequestBody RegistrationDTO registrationDTO) {
+    public ResponseEntity<String> register(@RequestBody @Valid RegistrationDTO registrationDTO) {
         registrationService.register(registrationDTO);
         return ResponseEntity.ok().build();
     }
