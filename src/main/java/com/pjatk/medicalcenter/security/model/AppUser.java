@@ -17,21 +17,17 @@ public class AppUser {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private AppRole role;
 
-    @OneToOne(mappedBy = "user")
-//    @MapsId
+    @OneToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    @MapsId
     private Person person;
-
-    public AppUser(Long id, String email, String password, AppRole role) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
 
     public void setPerson(Person person) {
         this.person = person;

@@ -18,30 +18,30 @@ import java.util.stream.Collectors;
 @Getter @Setter @NoArgsConstructor
 public class PatientDTO {
 
-    @NotNull(message = "Id required")
+    @NotNull(message = "Id is required")
     private Long id;
 
     private Address address;
 
-    @NotEmpty(message = "Phone number required")
+    @NotEmpty(message = "Phone number is required")
     private String phoneNumber;
 
-    @NotEmpty(message = "First name required")
+    @NotEmpty(message = "First name is required")
     private String firstName;
 
-    @NotEmpty(message = "Last name required")
+    @NotEmpty(message = "Last name is required")
     private String lastName;
 
-    @NotEmpty(message = "Email required")
+    @NotEmpty(message = "Email is required")
     @Email(message = "Email is not valid",
             regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
     private String email;
 
-    @NotNull(message = "Birth date required")
+    @NotNull(message = "Birth date is required")
     @Past
     private LocalDate birthDate;
 
-    @NotEmpty(message = "PESEL required")
+    @NotEmpty(message = "PESEL is required")
     private String pesel;
 
     private List<PatientsFileDTO> patientsFiles;
@@ -52,7 +52,7 @@ public class PatientDTO {
         this.phoneNumber=patient.getPhoneNumber();
         this.firstName=patient.getFirstName();
         this.lastName=patient.getLastName();
-        this.email=patient.getEmail();
+        this.email=patient.getUser().getEmail();
         this.birthDate= patient.getBirthDate();
         this.pesel=patient.getPesel();
         if(Objects.nonNull(patient.getPatientsFiles()))

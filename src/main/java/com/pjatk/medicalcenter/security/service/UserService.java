@@ -27,6 +27,8 @@ public class UserService implements UserDetailsService {
     }
 
     public AppUser addUser(AppUser user){
+        userRepository.findAppUserByEmail(user.getEmail())
+                .orElseThrow(() -> new IllegalStateException("Email already taken"));
         log.info("Saving new user {} to the database", user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -34,7 +36,8 @@ public class UserService implements UserDetailsService {
 
     public AppUser getUserByEmail(String email){
         log.info("Fetching user {}", email);
-        return userRepository.findAppUserByEmail(email);
+        return userRepository.findAppUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found in the database"));
     }
 
     public List<AppUser> getUsers(){
@@ -44,13 +47,11 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AppUser user = userRepository.findAppUserByEmail(email);
-        if(user == null) {
-            log.error("User not found in the database");
-            throw new UsernameNotFoundException("User not found in the database");
-        } else {
-            log.info("User found in the database: {}, {}", email, user.getRole());
-        }
+        AppUser user = userRepository.findAppUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found in the database"));
+
+        log.info("User found in the database: {}, {}", email, user.getRole());
+
         List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
         return new User(user.getEmail(), user.getPassword(), authorities);
     }

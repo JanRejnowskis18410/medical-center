@@ -38,7 +38,7 @@ public class DoctorDTO {
     private String pesel;
 
     @NotEmpty(message = "PWZ is required")
-    private String PWZ;
+    private String pwz;
 
     @NotEmpty(message = "At least 1 language is required")
     private List<Doctor.Language> languages;
@@ -47,10 +47,10 @@ public class DoctorDTO {
         this.id=doctor.getId();
         this.firstName=doctor.getFirstName();
         this.lastName=doctor.getLastName();
-        this.email=doctor.getEmail();
+        this.email=doctor.getUser().getEmail();
         this.birthDate= doctor.getBirthDate();
         this.pesel=doctor.getPesel();
-        this.PWZ=doctor.getPWZ();
+        this.pwz =doctor.getPWZ();
         this.languages = new ArrayList<>(doctor.getLanguages());
     }
 }

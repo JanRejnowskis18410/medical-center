@@ -14,10 +14,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.pjatk.medicalcenter.util.ErrorMessages.FILE_NOT_FOUND_ERROR_MESS;
-import static com.pjatk.medicalcenter.util.ErrorMessages.PATIENT_NOT_FOUND_ERROR_MESS;
+import static com.pjatk.medicalcenter.util.ErrorMessages.*;
 
 @Service
 public class PatientService {
@@ -45,6 +45,14 @@ public class PatientService {
     public Patient getPatientById(long id, Authentication auth){
         accessService.authenticatePerson(auth,id);
         return patientRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,PATIENT_NOT_FOUND_ERROR_MESS));
+    }
+
+    public Patient getPatientByPeselToRegistration(String pesel) {
+        Patient patient = patientRepository.findByPesel(pesel).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,PATIENT_NOT_FOUND_ERROR_MESS));
+        if(!Objects.isNull(patient.getUser())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,USER_ALREADY_EXISTS_ERROR_MESS);
+        }
+        return patient;
     }
 
     public Patient updatePatient(Patient patient, Authentication auth){

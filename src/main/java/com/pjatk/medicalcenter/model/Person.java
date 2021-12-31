@@ -24,18 +24,12 @@ public class Person {
     @Column(name = "lastName", nullable = false)
     private String lastName;
 
-    @Column(name = "email",unique = true, nullable = false)
-    private String email;
-
-    private String password;
-
     @Column(name = "birthDate", nullable = false)
     private LocalDate birthDate;
 
     @Column(name = "PESEL",unique = true)
     private String pesel;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     private AppUser user;
 }

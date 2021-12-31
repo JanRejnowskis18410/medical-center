@@ -12,6 +12,7 @@ public class ErrorMessages {
     public static final String APPOINTMENT_NOT_FOUND_ERROR_MESS = "Appointment does not exists";
 
     public static final String SPECIALIZATION_FOR_DOCTOR_NOT_FOUND_ERROR_MESS = "Specialization not found for this doctor";
+    public static final String USER_ALREADY_EXISTS_ERROR_MESS = "Patient is already registered in the system";
 
 
 }
