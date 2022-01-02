@@ -9,6 +9,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static com.pjatk.medicalcenter.util.ErrorMessages.CHECKUP_NOT_FOUND_ERROR_MESS;
+import static com.pjatk.medicalcenter.util.ErrorMessages.DOCTOR_NOT_FOUND_ERROR_MESS;
+
 @Service
 public class CheckUpService {
 
@@ -23,7 +26,7 @@ public class CheckUpService {
     }
 
     public CheckUp getCheckUpById(long id) {
-        return checkUpRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Check up does not exists"));
+        return checkUpRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, CHECKUP_NOT_FOUND_ERROR_MESS));
     }
 
     public CheckUp addCheckUp(CheckUp checkUp) {
@@ -31,7 +34,7 @@ public class CheckUpService {
     }
 
     public CheckUp updateCheckUp(CheckUp checkUp) {
-        if (checkUpRepository.findById(checkUp.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Check up does not exists")) != null)
+        if (checkUpRepository.findById(checkUp.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, CHECKUP_NOT_FOUND_ERROR_MESS)) != null)
             return checkUpRepository.save(checkUp);
 
         return null;
@@ -39,7 +42,7 @@ public class CheckUpService {
 
     public void deleteCheckUpById(long id) {
         CheckUp checkUp = checkUpRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Doctor does not exists"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, DOCTOR_NOT_FOUND_ERROR_MESS));
 
         checkUpRepository.delete(checkUp);
     }

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.pjatk.medicalcenter.util.ErrorMessages.APPOINTMENT_NOT_FOUND_ERROR_MESS;
+import static com.pjatk.medicalcenter.util.ErrorMessages.*;
 
 @Service
 public class AppointmentService {
@@ -128,7 +128,7 @@ public class AppointmentService {
         Patient patient = appointment.getPatient();
 
         if (!appointment.getState().equals(Appointment.AppointmentState.CONFIRMED)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment was not confirmed");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, APPOINTMENT_NOT_CONFIRMED_ERROR_MESS);
         }
 
         JsonNullable<String> description = doneAppointmentDTO.getDescription();
@@ -180,11 +180,11 @@ public class AppointmentService {
         MedicalService medicalService = medicalServiceService.getServiceById(newAppointment.getMedicalServiceId());
         if(!medicalService.isDoneByMedicalStaff()){
             if(newAppointment.getDoctorId() == null){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Doctor is required");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, DOCTOR_IS_REQUIRED_ERROR_MESS);
             } else {
                 Doctor doctor = doctorService.getDoctorById(newAppointment.getDoctorId());
                 if(doctor.getDoctorSpecializations().stream().noneMatch(e -> e.getSpecialization().getId().equals(medicalService.getSpecialization().getId())))
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Doctor cannot be assign to this service");
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, DOCTOR_CANNOT_BE_ASSIGN_ERROR_MESS);
                 else
                     appointment.setDoctor(doctor);
             }

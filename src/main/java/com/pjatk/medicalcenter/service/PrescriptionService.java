@@ -8,6 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static com.pjatk.medicalcenter.util.ErrorMessages.PRESCRIPTION_NOT_FOUND_ERROR_MESS;
+
 @Service
 public class PrescriptionService {
 
@@ -22,7 +24,7 @@ public class PrescriptionService {
     }
 
     public Prescription getPrescriptionById(long id) {
-        return prescriptionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prescription does not exist"));
+        return prescriptionRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, PRESCRIPTION_NOT_FOUND_ERROR_MESS));
     }
 
     public Prescription addPrescription(Prescription prescription) {

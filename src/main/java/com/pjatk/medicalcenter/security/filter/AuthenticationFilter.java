@@ -50,7 +50,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) //Token is valid for 10 min
                 .withIssuer(request.getRequestURL().toString())
-                .withClaim("role", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()).get(0))
+                .withClaim("role", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()).get(1))
                 .sign(algorithm);
         Map<String,String> accessTokenToContent = new HashMap<>();
         accessTokenToContent.put("access_token", accessToken);

@@ -8,6 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static com.pjatk.medicalcenter.util.ErrorMessages.STAFF_NOT_FOUND_ERROR_MESS;
+
 @Service
 public class StaffService {
 
@@ -22,7 +24,7 @@ public class StaffService {
     }
 
     public Staff getStaffById(long id){
-        return staffRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Staff does not exists"));
+        return staffRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,STAFF_NOT_FOUND_ERROR_MESS));
     }
 
     public Staff addStaff(Staff staff){
@@ -30,13 +32,13 @@ public class StaffService {
     }
 
     public Staff updateStaff(Staff staff){
-        if(staffRepository.findById(staff.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Staff does not exists")) != null)
+        if(staffRepository.findById(staff.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, STAFF_NOT_FOUND_ERROR_MESS)) != null)
             return staffRepository.save(staff);
 
         return null;
     }
 
     public void deleteStaffById(long id){
-        staffRepository.delete(staffRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Staff does not exists")));
+        staffRepository.delete(staffRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,STAFF_NOT_FOUND_ERROR_MESS)));
     }
 }
