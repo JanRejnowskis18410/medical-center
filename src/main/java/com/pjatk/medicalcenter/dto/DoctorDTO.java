@@ -25,11 +25,6 @@ public class DoctorDTO {
     @NotEmpty(message = "Last name required")
     private String lastName;
 
-    @NotEmpty(message = "Email required")
-    @Email(message = "Email is not valid",
-            regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
-    private String email;
-
     @NotNull(message = "Birth date required")
     @Past
     private LocalDate birthDate;
@@ -47,7 +42,6 @@ public class DoctorDTO {
         this.id=doctor.getId();
         this.firstName=doctor.getFirstName();
         this.lastName=doctor.getLastName();
-        this.email=doctor.getUser().getEmail();
         this.birthDate= doctor.getBirthDate();
         this.pesel=doctor.getPesel();
         this.pwz =doctor.getPWZ();
