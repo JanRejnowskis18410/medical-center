@@ -18,7 +18,7 @@ public class TasksScheduler {
         this.appointmentService = appointmentService;
     }
 
-    @Scheduled(cron = "00 33 14 * * ?")
+    @Scheduled(cron = "00 00 00 * * ?")
     public void scheduleDeleteReferralsExpiredOneMonthAgo() {
         referalService.deleteReferralsExpiredOneMonthAgo();
     }
