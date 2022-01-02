@@ -1,24 +1,24 @@
 --lekarze
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1973-03-21', 'Małgorzata', 'Janiak', '73032145682');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('malgorzata.janiak@medicalcenter.com', 'Malgorzata123',1, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('malgorzata.janiak@medicalcenter.com',HEX(AES_ENCRYPT('Malgorzata123', SHA2('secret',512))),1, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1978-01-30', 'Adam', 'Staszewski', '78013078471');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('adam.staszewskigmail.com', 'Adam123',2, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('adam.staszewskigmail.com', HEX(AES_ENCRYPT('Adam123', SHA2('secret',512))),2, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1980-04-20', 'Barbara', 'Nowak', '80042067365');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('barbara.nowak@gmail.com', 'Barbara123',3, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('barbara.nowak@gmail.com', HEX(AES_ENCRYPT('Barbara123', SHA2('secret',512))),3, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-09-08', 'Elżbieta', 'Gos', '75090823596');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('elzbieta.gos@gmail.com', 'Elzbieta123',4, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('elzbieta.gos@gmail.com', HEX(AES_ENCRYPT('Elzbieta123', SHA2('secret',512))),4, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-11-20', 'Kamil', 'Górnicki', '60112032634');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('kamil.gornicki@gmail.com', 'Kamil123',5, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('kamil.gornicki@gmail.com', HEX(AES_ENCRYPT('Kamil123', SHA2('secret',512))),5, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-01-02', 'Aleksandra', 'Nowicka', '75010234299');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('aleksandra.nowicka@gmail.com', 'Aleksandra123',6, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('aleksandra.nowicka@gmail.com', HEX(AES_ENCRYPT('Aleksandra123', SHA2('secret',512))),6, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1962-03-15', 'Piotr', 'Olewnik', '62031512089');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('piotr.olewnik@gmail.com', 'Piotr123',7, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('piotr.olewnik@gmail.com', HEX(AES_ENCRYPT('Piotr123', SHA2('secret',512))),7, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-08-14', 'Tomasz', 'Król', '60081438756');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('tomasz.krol@gmail.com', 'Tomasz123',8, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('tomasz.krol@gmail.com', HEX(AES_ENCRYPT('Tomasz123', SHA2('secret',512))),8, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1967-07-12', 'Monika', 'Loch', '67071223645');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('monika.loch@gmail.com', 'Monika123',9, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('monika.loch@gmail.com', HEX(AES_ENCRYPT('Monika123', SHA2('secret',512))),9, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1970-09-16', 'Anna', 'Swatek', '70091645676');
-INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('anna.swatek@gmail.com', 'Anna123',10, 'DOCTOR');
+-- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('anna.swatek@gmail.com', HEX(AES_ENCRYPT('Anna123', SHA2('secret',512))),10, 'DOCTOR');
 
 --pacjenci
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-11-10', 'Jan', 'Kowalski', '98111005407');

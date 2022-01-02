@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.pjatk.medicalcenter.util.ErrorMessages.*;
@@ -123,5 +124,13 @@ public class DoctorService {
     public Page<AppointmentCheckUp> getDoctorsAppointmentsWithCheckupsWithoutResult(long id, Pageable paging, Authentication auth) {
         accessService.authenticatePerson(auth, id);
         return appointmentCheckUpRepository.findDoctorAppointmentCheckUpsWithoutResult(id, paging);
+    }
+
+    public Doctor getDoctorByPeselToRegistration(String pesel) {
+        Doctor doctor = doctorRepository.findByPesel(pesel);
+        if(!Objects.isNull(doctor) && !Objects.isNull(doctor.getUser())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,USER_ALREADY_EXISTS_ERROR_MESS);
+        }
+        return doctor;
     }
 }

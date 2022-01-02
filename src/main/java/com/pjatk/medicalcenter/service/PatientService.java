@@ -48,8 +48,8 @@ public class PatientService {
     }
 
     public Patient getPatientByPeselToRegistration(String pesel) {
-        Patient patient = patientRepository.findByPesel(pesel).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,PATIENT_NOT_FOUND_ERROR_MESS));
-        if(!Objects.isNull(patient.getUser())){
+        Patient patient = patientRepository.findByPesel(pesel);
+        if(!Objects.isNull(patient) && !Objects.isNull(patient.getUser())){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,USER_ALREADY_EXISTS_ERROR_MESS);
         }
         return patient;

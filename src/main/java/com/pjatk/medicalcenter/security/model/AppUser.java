@@ -1,6 +1,7 @@
 package com.pjatk.medicalcenter.security.model;
 
 import com.pjatk.medicalcenter.model.Person;
+import com.pjatk.medicalcenter.security.encoder.AttributeEncryptor;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class AppUser {
     private String email;
 
     @Column(nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String password;
 
     @Column(nullable = false)

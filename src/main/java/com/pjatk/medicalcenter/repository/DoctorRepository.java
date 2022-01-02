@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.print.Doc;
 import java.util.List;
 
 @Repository
@@ -30,4 +29,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             "ORDER BY p.last_name",
             nativeQuery = true)
     List<Doctor> findDoctorsBySpecializationId(@Param("specializationId") long specializationId);
+
+    Doctor findByPesel(String pesel);
 }

@@ -12,25 +12,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service @Transactional @Slf4j
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public AppUser addUser(AppUser user){
         userRepository.findAppUserByEmail(user.getEmail())
                 .orElseThrow(() -> new IllegalStateException("Email already taken"));
         log.info("Saving new user {} to the database", user.getEmail());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -52,7 +49,9 @@ public class UserService implements UserDetailsService {
 
         log.info("User found in the database: {}, {}", email, user.getRole());
 
-        List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getId().toString()));
+        authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
         return new User(user.getEmail(), user.getPassword(), authorities);
     }
 }
