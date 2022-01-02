@@ -60,12 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 "/doctors/services",
                                 "/doctors/*/schedule",
                                 "/medicalServices",
-                                "patients",
-                                "patients/*",
-                                "patients/*/referrals",
-                                "patients/*/prescriptions",
-                                "patients/*/files",
-                                "patients/*/files/*",
+                                "/patients",
+                                "/patients/*",
+                                "/patients/*/referrals",
+                                "/patients/*/prescriptions",
+                                "/patients/*/files",
+                                "/patients/*/files/*",
                                 "/specializations")
                 .hasAnyAuthority(PATIENT.getName());
         http.authorizeRequests().antMatchers(
