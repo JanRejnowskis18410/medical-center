@@ -13,18 +13,18 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 public class Address {
 
-    @Column(name="street", nullable = false)
+    @Column(name="street", nullable = false, length = 50)
     private String street;
 
-    @Column(name="streetNumber", nullable = false)
+    @Column(name="streetNumber", nullable = false, length = 10)
     private String streetNumber;
 
-    @Column(name="postCode", nullable = false)
+    @Column(name="postCode", nullable = false, length = 10)
     private String postCode;
 
-    @Column(name="city", nullable = false)
+    @Column(name="city", nullable = false, length = 50)
     private String city;
 
-    @Column(name="country", nullable = false)
+    @Column(name="country", nullable = false, length = 50)
     private String country;
 }

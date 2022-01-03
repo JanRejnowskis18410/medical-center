@@ -4,6 +4,7 @@ public class ErrorMessages {
 
     private ErrorMessages(){}
 
+    public static final String USER_NOT_FOUND_ERROR_MESS = "User does not exists";
     public static final String PATIENT_NOT_FOUND_ERROR_MESS = "Patient does not exists";
     public static final String FILE_NOT_FOUND_ERROR_MESS = "File does not exists";
     public static final String PERSON_NOT_FOUND_ERROR_MESS = "Person with this pesel does not exists";

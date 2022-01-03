@@ -20,7 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>,
 
     Page<Appointment> findAppointmentsByPatientId(long patientId, Pageable paging);
 
-    Page<Appointment> findAppointmentsByDoctorIdAndDateBetween(long doctorId, LocalDateTime localDateTime1, LocalDateTime localDateTime2, Pageable paging);
+    Page<Appointment> findAppointmentsByDoctorIdAndDateBetweenAndStateIn(long doctorId, LocalDateTime localDateTime1, LocalDateTime localDateTime2, List<Appointment.AppointmentState> states, Pageable pageable);
 
     @Query(value = "SELECT * FROM appointment a " +
                    "WHERE DATE(a.date)=:date " +
@@ -28,4 +28,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>,
                    "AND state='RESERVED'"
                    ,nativeQuery = true)
     List<Appointment> findAppointmentsByPatientIsNotNullAndDateAndState(@Param("date") LocalDate date);
+
+    List<Appointment> findAppointmentsByDateBeforeAndStateEquals(LocalDateTime date, Appointment.AppointmentState appointmentState);
 }

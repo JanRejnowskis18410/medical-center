@@ -1,7 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
 import lombok.*;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,7 +16,7 @@ public class PatientsFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 50)
     private String name;
 
     @Lob
@@ -30,7 +29,7 @@ public class PatientsFile {
     @Column(name = "upload_date", nullable = false)
     private LocalDate uploadDate = LocalDate.now();
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, length = 50)
     private String type;
 
     @ManyToOne

@@ -145,5 +145,4 @@ public class AppointmentController {
         appointmentService.endVisit(id, doneAppointmentDTO, auth);
         return ResponseEntity.noContent().build();
     }
-
 }

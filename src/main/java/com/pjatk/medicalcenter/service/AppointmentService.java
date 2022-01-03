@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -174,6 +175,11 @@ public class AppointmentService {
         appointmentCheckUpService.saveAppointmentCheckUp(appointmentCheckUp);
     }
 
+    public void deleteUnusedAppointments() {
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByDateBeforeAndStateEquals(LocalDateTime.now(), Appointment.AppointmentState.AVAILABLE);
+        appointmentRepository.deleteAll(appointments);
+    }
+
     private Appointment mapCreateNewAppointmentToAppointment(CreateAppointmentDTO newAppointment){
         Appointment appointment = new Appointment();
 
@@ -208,12 +214,11 @@ public class AppointmentService {
     }
 
     private Prescription mapAppointmentCreatePrescriptionDTOToPrescription(AppointmentCreatePrescriptionDTO appointmentCreatePrescriptionDTO,
-                                                                           Patient patient, Appointment appointment, Doctor doctor) {
+                                                                           Patient patient, Appointment appointment) {
         Prescription prescription = new Prescription();
         prescription.setCreationDate(LocalDate.now());
         prescription.setExpiryDate(appointmentCreatePrescriptionDTO.getExpiryDate());
         prescription.setAccessCode(appointmentCreatePrescriptionDTO.getAccessCode());
-        prescription.setDoctor(doctor);
         prescription.setPatient(patient);
         prescription.setAppointment(appointment);
         appointmentCreatePrescriptionDTO.getMedications().forEach(createPrescriptionMedication -> {

@@ -5,6 +5,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import com.pjatk.medicalcenter.service.ReferralService;
 
+
 @Component
 public class TasksScheduler {
 
@@ -16,7 +17,7 @@ public class TasksScheduler {
         this.appointmentService = appointmentService;
     }
 
-    @Scheduled(cron = "00 33 14 * * ?")
+    @Scheduled(cron = "00 00 00 * * ?")
     public void scheduleDeleteReferralsExpiredOneMonthAgo() {
         referalService.deleteReferralsExpiredOneMonthAgo();
     }
@@ -30,4 +31,7 @@ public class TasksScheduler {
     public void scheduleConfirmingAppointments() {
         appointmentService.confirmTodaysAppointment();
     }
+
+    @Scheduled(cron = "00 19 00 * * ?")
+    public void scheduleDeletingUnusedAppointments() { appointmentService.deleteUnusedAppointments(); }
 }

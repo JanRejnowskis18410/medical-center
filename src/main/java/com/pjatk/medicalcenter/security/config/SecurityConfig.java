@@ -1,6 +1,5 @@
 package com.pjatk.medicalcenter.security.config;
 
-import com.google.common.collect.ImmutableList;
 import com.pjatk.medicalcenter.security.filter.AuthenticationFilter;
 import com.pjatk.medicalcenter.security.filter.AuthorizationFilter;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 
 import static com.pjatk.medicalcenter.security.model.AppRole.DOCTOR;
 import static com.pjatk.medicalcenter.security.model.AppRole.PATIENT;
@@ -82,7 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 "/patients/*/files",
                                 "/patients/*/files/*",
                                 "/patients/*/appointments",
-                                "/patients/*/diagnosticTests")
+                                "/patients/*/diagnosticTests",
+                                "/users/*/changePassword")
                 .hasAnyAuthority(DOCTOR.getName(), PATIENT.getName());
 
         http.authorizeRequests().anyRequest().denyAll();

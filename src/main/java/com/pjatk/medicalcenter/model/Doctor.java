@@ -18,8 +18,8 @@ public class Doctor extends Person{
         PL, EN
     }
 
-    @Column(name = "PWZ", nullable = false)
-    private String PWZ;
+    @Column(name = "PWZ", nullable = false, length = 7, unique = true)
+    private String pwz;
 
     @OneToMany(mappedBy = "doctor")
     private List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
@@ -27,15 +27,13 @@ public class Doctor extends Person{
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "doctor")
-    private List<Prescription> prescriptions = new ArrayList<>();
-
     @ElementCollection(targetClass = Language.class)
     @CollectionTable(name = "language", joinColumns = @JoinColumn(name = "doctor_id"))
     @Enumerated(EnumType.STRING)
     @Column (
             nullable = false,
-            name = "doctor_language"
+            name = "doctor_language",
+            length = 50
     )
     public Set<Language> languages = new HashSet<>();
 
@@ -45,9 +43,5 @@ public class Doctor extends Person{
 
     public void addAppointment(Appointment appointment){
         this.appointments.add(appointment);
-    }
-
-    public void addPrescription(Prescription prescription) {
-        prescriptions.add(prescription);
     }
 }

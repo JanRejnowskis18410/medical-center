@@ -30,7 +30,7 @@ public class Appointment {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false)
     @Setter(AccessLevel.NONE)
     private Doctor doctor;
 
@@ -61,11 +61,11 @@ public class Appointment {
     @Column(nullable = true, length = 500)
     private String description;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private AppointmentType type;
 
-    @Column(name = "state", nullable = false, columnDefinition = "varchar(255) default 'AVAILABLE'")
+    @Column(name = "state", nullable = false, columnDefinition = "varchar(50) default 'AVAILABLE'")
     @Enumerated(EnumType.STRING)
     private AppointmentState state;
 

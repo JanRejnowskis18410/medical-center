@@ -1,7 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
 import lombok.*;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class MedicalService {
     @Setter(AccessLevel.NONE)
     private Specialization specialization;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
     @Column(nullable = false)

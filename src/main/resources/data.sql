@@ -1,24 +1,14 @@
 --lekarze
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1973-03-21', 'Małgorzata', 'Janiak', '73032145682');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('malgorzata.janiak@medicalcenter.com',HEX(AES_ENCRYPT('Malgorzata123', SHA2('secret',512))),1, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1978-01-30', 'Adam', 'Staszewski', '78013078471');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('adam.staszewskigmail.com', HEX(AES_ENCRYPT('Adam123', SHA2('secret',512))),2, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1980-04-20', 'Barbara', 'Nowak', '80042067365');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('barbara.nowak@gmail.com', HEX(AES_ENCRYPT('Barbara123', SHA2('secret',512))),3, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-09-08', 'Elżbieta', 'Gos', '75090823596');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('elzbieta.gos@gmail.com', HEX(AES_ENCRYPT('Elzbieta123', SHA2('secret',512))),4, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-11-20', 'Kamil', 'Górnicki', '60112032634');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('kamil.gornicki@gmail.com', HEX(AES_ENCRYPT('Kamil123', SHA2('secret',512))),5, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-01-02', 'Aleksandra', 'Nowicka', '75010234299');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('aleksandra.nowicka@gmail.com', HEX(AES_ENCRYPT('Aleksandra123', SHA2('secret',512))),6, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1962-03-15', 'Piotr', 'Olewnik', '62031512089');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('piotr.olewnik@gmail.com', HEX(AES_ENCRYPT('Piotr123', SHA2('secret',512))),7, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-08-14', 'Tomasz', 'Król', '60081438756');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('tomasz.krol@gmail.com', HEX(AES_ENCRYPT('Tomasz123', SHA2('secret',512))),8, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1967-07-12', 'Monika', 'Loch', '67071223645');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('monika.loch@gmail.com', HEX(AES_ENCRYPT('Monika123', SHA2('secret',512))),9, 'DOCTOR');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1970-09-16', 'Anna', 'Swatek', '70091645676');
--- INSERT INTO app_user (EMAIL, PASSWORD, PERSON_ID, ROLE) VALUES ('anna.swatek@gmail.com', HEX(AES_ENCRYPT('Anna123', SHA2('secret',512))),10, 'DOCTOR');
 
 --pacjenci
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-11-10', 'Jan', 'Kowalski', '98111005407');
@@ -157,16 +147,16 @@ INSERT INTO check_up (NAME) VALUES ('Posiew moczu');
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES ('DONE', '2021-11-18T12:45:00', 'Pacjent zgłosił następujące objawy: ból gardła i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie', 'Syrop flugamin 2/dz, ibuprom w przypadku gorączki,','FACILITY', 1, 7, 11);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2022-01-31', '2021-11-18', 1, 7, 11);
-INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, DOCTOR_ID, PATIENT_ID)
-VALUES (25689, '2021-11-18', '2021-12-18', 1, 1, 11);
+INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, PATIENT_ID)
+VALUES (25689, '2021-11-18', '2021-12-18', 1, 11);
 INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 1,1);
 
 --Konsultacja dermatologa - Adam Staszewski (2), Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
 VALUES ('DONE', '2021-10-18T13:00:00', 'Delitakny trądzik na brodzie oraz czole. Po zakończeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 2, 5, 11);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-31', '2021-10-18', 2, 5, 11);
-INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, DOCTOR_ID, PATIENT_ID)
-VALUES (23241, '2021-10-18', '2021-12-18', 2, 2, 11);
+INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, PATIENT_ID)
+VALUES (23241, '2021-10-18', '2021-12-18', 2, 11);
 INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykrycia baktorii odpowiedzialnej za trądzik', 'Nie wykryto bakterii',2,2);
 
 --Konsultacja dermatologa - Adam Staszewski (2), Pacjent id 1
@@ -180,8 +170,8 @@ INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR
 VALUES ('DONE', '2021-11-25T12:45:00', 'Pacjent zgłosił następujące objawy: ból gardła i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie', 'Syrop izoseft 2/dz, paracetamol w przypadku gorączki,','FACILITY',
         7, 7, 12);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2022-01-31', '2021-11-18', 1, 7, 12);
-INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, DOCTOR_ID, PATIENT_ID)
-VALUES (25689, '2021-11-18', '2021-12-18', 4, 1, 12);
+INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, PATIENT_ID)
+VALUES (25689, '2021-11-18', '2021-12-18', 4, 12);
 INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 4,1);
 
 --PULA WIZYT
@@ -207,7 +197,7 @@ insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization
 insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-11T09:00:00', '2021-12-11T13:00:00', 5, 1,1);
 
 
-INSERT INTO medication (NAME, UNIT, PAYMENT, QUANTITY) values ('Gynalgin', 'GRAMS', 0.8, 100);
+INSERT INTO medication (NAME, UNIT, QUANTITY) values ('Gynalgin', 'GRAMS', 100);
 
 insert into patients_file (name, file, description, type, upload_date, patient_id) values ('zdj1', '123', 'lala', '.png', CURRENT_TIMESTAMP(),11);
 

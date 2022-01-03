@@ -1,19 +1,25 @@
 package com.pjatk.medicalcenter.security.service;
 
 import com.pjatk.medicalcenter.security.model.AppUser;
+import com.pjatk.medicalcenter.security.model.dto.ChangePasswordDTO;
 import com.pjatk.medicalcenter.security.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static com.pjatk.medicalcenter.util.ErrorMessages.USER_NOT_FOUND_ERROR_MESS;
 
 @Service @Transactional @Slf4j
 public class UserService implements UserDetailsService {
@@ -31,16 +37,25 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public AppUser getUserByEmail(String email){
+    public AppUser getUserByEmail(String email) {
         log.info("Fetching user {}", email);
         return userRepository.findAppUserByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found in the database"));
     }
 
-    public List<AppUser> getUsers(){
-        log.info("Fetching all users");
-        return userRepository.findAll();
+    public void updateUserPassword(long id, ChangePasswordDTO changePasswordDTO, Authentication auth) {
+        AppUser user = getUserByEmail((String) auth.getPrincipal());
+        if (user == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot authenticate.");
+        else if(!Objects.equals(user.getId(), id)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Forbidden");
+        }
+        AppUser appUser = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, USER_NOT_FOUND_ERROR_MESS));
+        appUser.setPassword(changePasswordDTO.getPassword().get());
+        userRepository.save(appUser);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
