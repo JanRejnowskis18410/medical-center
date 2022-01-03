@@ -107,17 +107,8 @@ public class AppointmentService {
         Appointment appointment = new Appointment();
 
         MedicalService medicalService = medicalServiceService.getServiceById(newAppointment.getMedicalServiceId());
-        if(!medicalService.isDoneByMedicalStaff()){
-            if(newAppointment.getDoctorId() == null){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Doctor is required");
-            } else {
-                Doctor doctor = doctorService.getDoctorById(newAppointment.getDoctorId());
-                if(doctor.getDoctorSpecializations().stream().noneMatch(e -> e.getSpecialization().getId().equals(medicalService.getSpecialization().getId())))
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Doctor cannot be assign to this service");
-                else
-                    appointment.setDoctor(doctor);
-            }
-        }
+        Doctor doctor = doctorService.getDoctorById(newAppointment.getDoctorId());
+        appointment.setDoctor(doctor);
         appointment.setMedicalService(medicalService);
         appointment.setDate(newAppointment.getDate());
         appointment.setType(medicalService.isFacilityService() ? Appointment.AppointmentType.FACILITY : Appointment.AppointmentType.TELEPHONE);

@@ -19,6 +19,6 @@ public class CreateAppointmentDTO {
     private LocalDateTime date;
     @NotNull(message = "Medical service id required")
     private Long medicalServiceId;
-    @Nullable
+    @NotNull
     private Long doctorId;
 }

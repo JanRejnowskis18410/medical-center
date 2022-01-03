@@ -114,7 +114,6 @@ public class DTOsMapper {
         medicalService.setId(medicalServiceDTO.getId());
         medicalService.setName(medicalServiceDTO.getName());
         medicalService.setFacilityService(medicalServiceDTO.getFacilityService());
-        medicalService.setDoneByMedicalStaff(medicalServiceDTO.getDoneByMedicalStaff());
         return medicalService;
     }
 
@@ -123,7 +122,6 @@ public class DTOsMapper {
         medicalService.setId(createMedicalServiceDTO.getId());
         medicalService.setName(createMedicalServiceDTO.getName());
         medicalService.setFacilityService(createMedicalServiceDTO.isFacilityService());
-        medicalService.setDoneByMedicalStaff(createMedicalServiceDTO.isDoneByMedicalStaff());
         return medicalService;
     }
 

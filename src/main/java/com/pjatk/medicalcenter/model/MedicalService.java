@@ -35,9 +35,6 @@ public class MedicalService {
     @Column(nullable = false)
     private boolean facilityService;
 
-    @Column(nullable = false)
-    private boolean doneByMedicalStaff;
-
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);
     }
