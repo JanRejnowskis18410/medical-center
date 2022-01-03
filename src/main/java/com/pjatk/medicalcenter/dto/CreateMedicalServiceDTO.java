@@ -13,6 +13,5 @@ public class CreateMedicalServiceDTO {
     private Long id;
     private String name;
     private boolean facilityService;
-    private boolean doneByMedicalStaff;
     private long specializationId;
 }
