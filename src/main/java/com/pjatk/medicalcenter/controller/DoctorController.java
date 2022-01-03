@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,24 +36,15 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<DoctorWithSpecializationDTO>> getDoctors(){
-        return ResponseEntity.ok(doctorService.getDoctors().stream().map(DoctorWithSpecializationDTO::new).collect(Collectors.toList()));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<DoctorWithSpecializationDTO> getDoctorById(@PathVariable long id){
-        return ResponseEntity.ok(new DoctorWithSpecializationDTO(doctorService.getDoctorById(id)));
-    }
-
     @GetMapping("/{id}/todaysVisits")
     public ResponseEntity<Map<String, Object>> getDoctorsTodaysVisits(
             @PathVariable long id,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "1") int size) {
+            @RequestParam(name = "size", defaultValue = "1") int size,
+            Authentication auth) {
 
         Pageable paging = PageRequest.of(page, size, Sort.by("date").ascending());
-        Page<Appointment> todaysVisits = doctorService.getDoctorsTodaysVisit(id, paging);
+        Page<Appointment> todaysVisits = doctorService.getDoctorsTodaysVisit(id, paging, auth);
 
         Map<String,Object> response = new HashMap<>();
         response.put("appointments", todaysVisits.stream().map(AppointmentForDoctorDTO::new).collect(Collectors.toList()));
@@ -67,10 +59,11 @@ public class DoctorController {
     public ResponseEntity<Map<String, Object>> getDoctorsAppointmentWithCheckupsWithoutResult(
             @PathVariable long id,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "1") int size) {
+            @RequestParam(name = "size", defaultValue = "1") int size,
+            Authentication auth) {
 
         Pageable paging = PageRequest.of(page, size, Sort.by("a.date").descending());
-        Page<AppointmentCheckUp> appointmentCheckUps = doctorService.getDoctorsAppointmentsWithCheckupsWithoutResult(id, paging);
+        Page<AppointmentCheckUp> appointmentCheckUps = doctorService.getDoctorsAppointmentsWithCheckupsWithoutResult(id, paging, auth);
 
         Map<String,Object> response = new HashMap<>();
         response.put("checkUps", appointmentCheckUps.stream().map(AppointmentCheckUpDTO::new).collect(Collectors.toList()));
@@ -97,35 +90,6 @@ public class DoctorController {
     public ResponseEntity<DoctorWeeklyScheduleDTO> getDoctorWeeklySchedule(@PathVariable("id") Long id, @RequestParam("specializationId") Long specializationId){
         List<ScheduleDTO> scheduleDTOS = doctorService.getDoctorsSchedules(id,specializationId).stream().map(ScheduleDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(new DoctorWeeklyScheduleDTO(scheduleDTOS));
-    }
-
-    @PostMapping
-    public ResponseEntity<DoctorWithSpecializationDTO> addDoctor(@Valid @RequestBody DoctorDTO doctorDTO){
-        Doctor createdDoctor = doctorService.addDoctor(DTOsMapper.mapDoctorDTOtoDoctor(doctorDTO));
-        return ResponseEntity.created(URI.create(String.format("/doctors/%d", createdDoctor.getId()))).build();
-    }
-
-    @PostMapping("/{doctorId}/specializations")
-    public ResponseEntity<DoctorWithSpecializationDTO> addDoctorSpecialization(@PathVariable long doctorId, @Valid @RequestBody SpecializationWithScheduleRequestDTO specializationWithScheduleRequestDTO){
-        Doctor updatedDoctor = doctorService.addDoctorSpecializationWithSchedule(doctorId, specializationWithScheduleRequestDTO);
-        return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
-    }
-
-    @GetMapping("/{id}/specializations")
-    public ResponseEntity<List<SpecializationWithSchedulesDTO>> getDoctorSpecializations(@PathVariable long id){
-        return ResponseEntity.ok(doctorService.getDoctorSpecializations(id));
-    }
-
-    @PutMapping
-    public ResponseEntity<DoctorWithSpecializationDTO> updateDoctor(@RequestBody DoctorWithSpecializationDTO doctorWithSpecializationDTO){
-        Doctor updatedDoctor = doctorService.updateDoctor(DTOsMapper.mapDoctorWithSpecializationDTOtoDoctor(doctorWithSpecializationDTO));
-        return ResponseEntity.created(URI.create(String.format("/doctors/%d", updatedDoctor.getId()))).build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteDoctor(@PathVariable long id){
-        doctorService.deleteDoctorById(id);
-        return ResponseEntity.ok("Success");
     }
 
 }

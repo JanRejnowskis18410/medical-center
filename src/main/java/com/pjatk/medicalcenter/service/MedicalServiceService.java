@@ -13,6 +13,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static com.pjatk.medicalcenter.util.ErrorMessages.SERVICE_NOT_FOUND_ERROR_MESS;
+import static com.pjatk.medicalcenter.util.ErrorMessages.SPECIALIZATION_NOT_FOUND_ERROR_MESS;
+
 @Service
 public class MedicalServiceService {
 
@@ -35,13 +38,13 @@ public class MedicalServiceService {
     }
 
     public MedicalService getServiceById(long id) {
-        return medicalServiceRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exist"));
+        return medicalServiceRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, SERVICE_NOT_FOUND_ERROR_MESS));
     }
 
     public MedicalService addMedicalService(MedicalService medicalService, long specializationId) {
 
         Specialization specialization = specializationRepository.findById(specializationId)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists"));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, SPECIALIZATION_NOT_FOUND_ERROR_MESS));
 
         medicalService.setSpecialization(specialization);
         return medicalServiceRepository.save(medicalService);
@@ -49,13 +52,13 @@ public class MedicalServiceService {
 
     public MedicalService updateService(MedicalService medicalService) {
         if(medicalServiceRepository.findById(medicalService.getId()).orElseThrow(()->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exists")) != null)
+                new ResponseStatusException(HttpStatus.NOT_FOUND, SERVICE_NOT_FOUND_ERROR_MESS)) != null)
             return medicalServiceRepository.save(medicalService);
 
         return null;
     }
 
     public void deletePatientById(long id) {
-        medicalServiceRepository.delete(medicalServiceRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Service does not exist")));
+        medicalServiceRepository.delete(medicalServiceRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, SERVICE_NOT_FOUND_ERROR_MESS)));
     }
 }

@@ -20,10 +20,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long>,
 
     Page<Appointment> findAppointmentsByPatientId(long patientId, Pageable paging);
 
-//    Page<Appointment> findAppointmentsByDoctorIdAndDateBetweenAndStateEquals(long doctorId, LocalDateTime localDateTime1, LocalDateTime localDateTime2, "CONFRMED", Pageable paging);
-
-//    Page<Appointment> findAppointmentsByDoctorIdAndDateBetweenAndStateEquals(long doctorId, LocalDateTime localDateTime1, LocalDateTime localDateTime2, Appointment.AppointmentState appointmentState, Pageable pageable);
-
     Page<Appointment> findAppointmentsByDoctorIdAndDateBetweenAndStateIn(long doctorId, LocalDateTime localDateTime1, LocalDateTime localDateTime2, List<Appointment.AppointmentState> states, Pageable pageable);
 
     @Query(value = "SELECT * FROM appointment a " +

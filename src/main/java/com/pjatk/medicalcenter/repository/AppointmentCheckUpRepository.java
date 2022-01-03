@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface AppointmentCheckUpRepository extends JpaRepository<AppointmentCheckUp, Long> {
 
     AppointmentCheckUp findAppointmentCheckUpByAppointmentIdAndCheckUpId(Long appointmentId, Long checkUpId);
-    Page<AppointmentCheckUp> findAppointmentCheckUpByAppointmentPatientId(Long patientId, Pageable pageable);
+    Page<AppointmentCheckUp> findAppointmentCheckUpByAppointmentPatientIdAndResultIsNotNull(Long patientId, Pageable pageable);
     @Query(value = "SELECT * FROM appointment_check_up ac " +
             "JOIN appointment a ON ac.appointment_id=a.id " +
             "WHERE result IS NULL AND state='DONE' AND a.doctor_id= :doctorId",

@@ -19,7 +19,7 @@ public class Doctor extends Person{
     }
 
     @Column(name = "PWZ", nullable = false, length = 7, unique = true)
-    private String PWZ;
+    private String pwz;
 
     @OneToMany(mappedBy = "doctor")
     private List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();

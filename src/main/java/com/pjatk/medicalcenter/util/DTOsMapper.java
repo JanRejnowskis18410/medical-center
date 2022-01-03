@@ -10,12 +10,13 @@ import java.util.stream.Collectors;
 
 public class DTOsMapper {
 
+    private DTOsMapper(){}
+
     public static Patient mapPatientDTOtoPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
         patient.setId(patientDTO.getId());
         patient.setFirstName(patientDTO.getFirstName());
         patient.setLastName(patientDTO.getLastName());
-        patient.setEmail(patientDTO.getEmail());
         patient.setBirthDate(patientDTO.getBirthDate());
         patient.setPesel(patientDTO.getPesel());
         patient.setPhoneNumber(patientDTO.getPhoneNumber());
@@ -46,10 +47,9 @@ public class DTOsMapper {
         doctor.setId(doctorWithSpecializationDTO.getId());
         doctor.setFirstName(doctorWithSpecializationDTO.getFirstName());
         doctor.setLastName(doctorWithSpecializationDTO.getLastName());
-        doctor.setEmail(doctorWithSpecializationDTO.getEmail());
         doctor.setBirthDate(doctorWithSpecializationDTO.getBirthDate());
         doctor.setPesel(doctorWithSpecializationDTO.getPesel());
-        doctor.setPWZ(doctorWithSpecializationDTO.getPWZ());
+        doctor.setPWZ(doctorWithSpecializationDTO.getPwz());
         doctor.getLanguages().addAll(doctorWithSpecializationDTO.getLanguages());
 
         List<DoctorSpecialization> doctorSpecializations = new ArrayList<>();
@@ -72,10 +72,9 @@ public class DTOsMapper {
         doctor.setId(doctorDTO.getId());
         doctor.setFirstName(doctorDTO.getFirstName());
         doctor.setLastName(doctorDTO.getLastName());
-        doctor.setEmail(doctorDTO.getEmail());
         doctor.setBirthDate(doctorDTO.getBirthDate());
         doctor.setPesel(doctorDTO.getPesel());
-        doctor.setPWZ(doctorDTO.getPWZ());
+        doctor.setPWZ(doctorDTO.getPwz());
         doctor.getLanguages().addAll(doctorDTO.getLanguages());
 
         return doctor;
@@ -137,21 +136,4 @@ public class DTOsMapper {
         appointmentCheckUpDTO.setPatient(new PatientDTO(aCU.getAppointment().getPatient()));
         return appointmentCheckUpDTO;
     }
-
-//    public static PatientsDoneVisitDTO mapAppointmentToPatientsDoneVisitDTO(Appointment apmt){
-//        PatientsDoneVisitDTO patientsDoneVisitDTO = new PatientsDoneVisitDTO();
-//        patientsDoneVisitDTO.setServiceName(apmt.getMedicalService().getName());
-//        patientsDoneVisitDTO.setDoctor(new DoctorDTO(apmt.getDoctor()));
-//        patientsDoneVisitDTO.setDate(apmt.getDate());
-//        patientsDoneVisitDTO.setRecommendations(apmt.getRecommendations());
-//        patientsDoneVisitDTO.setType(apmt.getType());
-//        patientsDoneVisitDTO.setIssuedReferrals(apmt.getIssuedReferrals().stream()
-//                                                    .map(ReferralDTO::new)
-//                                                    .collect(Collectors.toList()));
-//        patientsDoneVisitDTO.setPrescriptions(apmt.getPrescriptions().stream()
-//                                                .map(PrescriptionDTO::new)
-//                                                .collect(Collectors.toList()));
-//        patientsDoneVisitDTO.setDiagnosticTests(apmt.);
-//        }
-//    }
 }

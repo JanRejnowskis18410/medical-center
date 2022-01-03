@@ -5,7 +5,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import com.pjatk.medicalcenter.service.ReferralService;
 
-import java.util.Date;
 
 @Component
 public class TasksScheduler {
@@ -30,7 +29,7 @@ public class TasksScheduler {
 
     @Scheduled(cron = "00 00 00 * * ?")
     public void scheduleConfirmingAppointments() {
-        appointmentService.confirmAppointment();
+        appointmentService.confirmTodaysAppointment();
     }
 
     @Scheduled(cron = "00 19 00 * * ?")

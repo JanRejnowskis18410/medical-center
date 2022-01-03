@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.pjatk.medicalcenter.util.ErrorMessages.REFERRAL_NOT_FOUND_ERROR_MESS;
+
 @Service
 public class ReferralService {
 
@@ -23,7 +25,7 @@ public class ReferralService {
     public Referral addReferral(Referral referral) { return referralRepository.save(referral); }
 
     public Referral getReferralById(long id){
-        return referralRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Referral does not exists"));
+        return referralRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,REFERRAL_NOT_FOUND_ERROR_MESS));
     }
 
     public List<Referral> getReferrals(){

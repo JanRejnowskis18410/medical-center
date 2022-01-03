@@ -2,6 +2,7 @@ package com.pjatk.medicalcenter.controller;
 
 import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.*;
+import com.pjatk.medicalcenter.security.model.AppRole;
 import com.pjatk.medicalcenter.service.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.data.domain.Page;
@@ -11,17 +12,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,29 +32,13 @@ public class AppointmentController {
     private final PatientService patientService;
     private final ReferralService referralService;
     private final AppointmentCheckUpService appointmentCheckUpService;
-    private final MedicalServiceService medicalServiceService;
-    private final PrescriptionService prescriptionService;
-    private final MedicationService medicationService;
-    private final CheckUpService checkUpService;
 
     public AppointmentController(AppointmentService appointmentService, PatientService patientService,
-                                 ReferralService referralService, AppointmentCheckUpService appointmentCheckUpService,
-                                 MedicalServiceService medicalServiceService, PrescriptionService prescriptionService,
-                                 MedicationService medicationService, CheckUpService checkUpService) {
+                                 ReferralService referralService, AppointmentCheckUpService appointmentCheckUpService) {
         this.appointmentService = appointmentService;
         this.patientService = patientService;
         this.referralService = referralService;
         this.appointmentCheckUpService = appointmentCheckUpService;
-        this.medicalServiceService = medicalServiceService;
-        this.prescriptionService = prescriptionService;
-        this.medicationService = medicationService;
-        this.checkUpService = checkUpService;
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<AvailableAppointmentDTO>> getAppointments() {
-        List<Appointment> availableAppointments = appointmentService.getAllAppointments();
-        return ResponseEntity.ok(availableAppointments.stream().map(AvailableAppointmentDTO::new).collect(Collectors.toList()));
     }
 
     @GetMapping
@@ -81,29 +64,16 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PatientsDoneVisitDTO> getAppointmentById(@PathVariable long id){
-        return ResponseEntity.ok(new PatientsDoneVisitDTO(appointmentService.getAppointmentById(id)));
-    }
-
     @GetMapping("/diagnosticTests")
-    public ResponseEntity<AppointmentCheckUpDTO> getAppointmentCheckUpById(@RequestParam("appointmentId") long appointmentId, @RequestParam("checkUpId") long checkUpId){
-        return ResponseEntity.ok(new AppointmentCheckUpDTO(appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId)));
+    public ResponseEntity<AppointmentCheckUpDTO> getAppointmentCheckUpById (
+            @RequestParam("appointmentId") long appointmentId,
+            @RequestParam("checkUpId") long checkUpId,
+            Authentication auth){
+        return ResponseEntity.ok(
+                new AppointmentCheckUpDTO(appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId, auth, AppRole.PATIENT))
+        );
     }
 
-    @PostMapping
-    public ResponseEntity<AvailableAppointmentDTO> addAppointment(@Valid @RequestBody CreateAppointmentDTO createAppointmentDTO) {
-        Appointment createdAppointment = appointmentService.saveAppointment(createAppointmentDTO);
-        return ResponseEntity.created(URI.create(String.format("/appointments/%d", createdAppointment.getId()))).build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAppointment(@PathVariable long id){
-        appointmentService.deleteAppointmentById(id);
-        return ResponseEntity.ok("Success");
-    }
-
-    //TODO: check if validation works
     @PatchMapping("{id}/reserve")
     public ResponseEntity<Void> reserveAppointment(@PathVariable("id") long id,
                                                    @Valid @RequestBody ConfirmAppointmentDTO confirmAppointmentDTO) {
@@ -133,14 +103,12 @@ public class AppointmentController {
     }
 
     @PatchMapping("{id}/confirm")
-    public ResponseEntity<Void> confirmAppointment(@PathVariable("id") long id) {
-        Appointment appointment = appointmentService.getAppointmentById(id);
-
-        appointment.setState(Appointment.AppointmentState.CONFIRMED);
-        appointmentService.saveAppointment(appointment);
+    public ResponseEntity<Void> confirmAppointment(@PathVariable("id") long id, Authentication auth) {
+        appointmentService.confirmAppointment(id, auth);
         return ResponseEntity.noContent().build();
     }
 
+    //pacjent walidacja id
     @PatchMapping("{id}/cancel")
     public ResponseEntity<Void> cancelAppointment(@PathVariable("id") long id) {
         Appointment appointment = appointmentService.getAppointmentById(id);
@@ -163,105 +131,18 @@ public class AppointmentController {
     @PatchMapping("{appointmentId}/testResult/{checkUpId}")
     public ResponseEntity<Void> addCheckupResult(@PathVariable("appointmentId") long appointmentId,
                                                  @PathVariable("checkUpId") long checkUpId,
-                                                 @Valid @RequestBody AddCheckUpResultDTO addCheckupResultDTO) {
+                                                 @Valid @RequestBody AddCheckUpResultDTO addCheckupResultDTO,
+                                                 Authentication auth) {
 
-        AppointmentCheckUp appointmentCheckUp = appointmentCheckUpService.getAppointmentCheckUp(appointmentId,checkUpId);
-
-        appointmentCheckUp.setResult(addCheckupResultDTO.getResult().get());
-        appointmentCheckUp.setFile(addCheckupResultDTO.getFile().get());
-        if (Objects.nonNull(addCheckupResultDTO.getDoctorsDescription().get())) {
-            appointmentCheckUp.setDoctorsDescription(addCheckupResultDTO.getDoctorsDescription().get());
-        }
-
-        appointmentCheckUpService.saveAppointmentCheckUp(appointmentCheckUp);
+       appointmentService.addCheckupResult(appointmentId, checkUpId, addCheckupResultDTO, auth);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("{id}/done")
     public ResponseEntity<Void> doneAppointment(@PathVariable("id") long id,
-                                                @Valid @RequestBody DoneAppointmentDTO doneAppointmentDTO) {
-        Appointment appointment = appointmentService.getAppointmentById(id);
-        Patient patient = appointment.getPatient();
-
-        if (!appointment.getState().equals(Appointment.AppointmentState.CONFIRMED)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Appointment was not confirmed");
-        }
-
-        JsonNullable<String> description = doneAppointmentDTO.getDescription();
-        if (description.isPresent()) {
-            appointment.setDescription(description.get());
-        }
-        JsonNullable<String> recommendations = doneAppointmentDTO.getRecommendations();
-        if (recommendations.isPresent()) {
-            appointment.setRecommendations(recommendations.get());
-        }
-        JsonNullable<List<AppointmentCreateReferralDTO>> referrals = doneAppointmentDTO.getReferrals();
-        if (referrals.isPresent()) {
-            referrals.get().forEach(referral -> {
-                referralService.addReferral(mapAppointmentCreateReferralDTOToReferral(referral, patient, appointment));
-            });
-        }
-        JsonNullable<List<AppointmentCreatePrescriptionDTO>> prescriptions = doneAppointmentDTO.getPrescriptions();
-        if (prescriptions.isPresent()) {
-            prescriptions.get().forEach(prescription -> {
-                prescriptionService.addPrescription(mapAppointmentCreatePrescriptionDTOToPrescription(prescription, patient, appointment, appointment.getDoctor()));
-            });
-        }
-        JsonNullable<List<AppointmentCreateAppointmentCheckUpDTO>> checkUps = doneAppointmentDTO.getCheckUps();
-        if (checkUps.isPresent()) {
-            checkUps.get().forEach(checkUp -> {
-                appointmentCheckUpService.saveAppointmentCheckUp(mapCreateAppointmentCheckUpDTOToAppointmentCheckUp(checkUp, appointment));
-            });
-        }
-        appointment.setState(Appointment.AppointmentState.DONE);
-        appointmentService.saveAppointment(appointment);
+                                                @Valid @RequestBody DoneAppointmentDTO doneAppointmentDTO,
+                                                Authentication auth) {
+        appointmentService.endVisit(id, doneAppointmentDTO, auth);
         return ResponseEntity.noContent().build();
-    }
-
-    private Referral mapAppointmentCreateReferralDTOToReferral(AppointmentCreateReferralDTO appointmentCreateReferralDTO,
-                                                               Patient patient, Appointment appointment) {
-        Referral referral = new Referral();
-        referral.setExpiryDate(appointmentCreateReferralDTO.getExpiryDate());
-        referral.setMedicalService(medicalServiceService.getServiceById(appointmentCreateReferralDTO.getMedicalServiceId()));
-        referral.setPatient(patient);
-        referral.setIssueAppointment(appointment);
-        return referral;
-    }
-
-    private Prescription mapAppointmentCreatePrescriptionDTOToPrescription(AppointmentCreatePrescriptionDTO appointmentCreatePrescriptionDTO,
-                                                                           Patient patient, Appointment appointment, Doctor doctor) {
-        Prescription prescription = new Prescription();
-        prescription.setCreationDate(LocalDate.now());
-        prescription.setExpiryDate(appointmentCreatePrescriptionDTO.getExpiryDate());
-        prescription.setAccessCode(appointmentCreatePrescriptionDTO.getAccessCode());
-        prescription.setPatient(patient);
-        prescription.setAppointment(appointment);
-        appointmentCreatePrescriptionDTO.getMedications().forEach(createPrescriptionMedication -> {
-            PrescriptionMedication prescriptionMedication = new PrescriptionMedication();
-            Medication medication = medicationService.getMedicationById(createPrescriptionMedication.getMedicationId());
-            prescriptionMedication.setMedication(medication);
-            prescriptionMedication.setPrescription(prescription);
-            prescriptionMedication.setDosing(createPrescriptionMedication.getDosing());
-            prescriptionMedication.setNumberOfPackages(createPrescriptionMedication.getNumberOfPackages());
-        });
-        return prescription;
-    }
-
-    private AppointmentCheckUp mapCreateAppointmentCheckUpDTOToAppointmentCheckUp(AppointmentCreateAppointmentCheckUpDTO appointmentCreateAppointmentCheckUpDTO,
-                                                                                  Appointment appointment) {
-        AppointmentCheckUp appointmentCheckUp = new AppointmentCheckUp();
-        CheckUp checkUp = checkUpService.getCheckUpById(appointmentCreateAppointmentCheckUpDTO.getCheckUpId());
-        appointmentCheckUp.setAppointment(appointment);
-        appointmentCheckUp.setCheckUp(checkUp);
-        if (appointmentCreateAppointmentCheckUpDTO.getFile().isPresent()) {
-            appointmentCheckUp.setFile(appointmentCreateAppointmentCheckUpDTO.getFile().get());
-        }
-        if (appointmentCreateAppointmentCheckUpDTO.getResult().isPresent()) {
-            appointmentCheckUp.setResult(appointmentCreateAppointmentCheckUpDTO.getResult().get());
-        }
-        if (appointmentCreateAppointmentCheckUpDTO.getDescription().isPresent()) {
-            appointmentCheckUp.setDoctorsDescription(appointmentCreateAppointmentCheckUpDTO.getDescription().get());
-        }
-        return appointmentCheckUp;
     }
 }

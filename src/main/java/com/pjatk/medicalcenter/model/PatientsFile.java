@@ -1,7 +1,6 @@
 package com.pjatk.medicalcenter.model;
 
 import lombok.*;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;

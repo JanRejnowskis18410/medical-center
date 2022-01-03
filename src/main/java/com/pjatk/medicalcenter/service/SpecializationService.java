@@ -8,6 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static com.pjatk.medicalcenter.util.ErrorMessages.SPECIALIZATION_NOT_FOUND_ERROR_MESS;
+
 @Service
 public class SpecializationService {
 
@@ -22,7 +24,7 @@ public class SpecializationService {
     }
 
     public Specialization getSpecializationById(long id){
-        return specializationRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Specialization does not exists"));
+        return specializationRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,SPECIALIZATION_NOT_FOUND_ERROR_MESS));
     }
 
     public Specialization addSpecialization(Specialization specialization){
@@ -30,13 +32,13 @@ public class SpecializationService {
     }
 
     public Specialization updateSpecialization(Specialization specialization){
-        if(specializationRepository.findById(specialization.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Specialization does not exists")) != null)
+        if(specializationRepository.findById(specialization.getId()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, SPECIALIZATION_NOT_FOUND_ERROR_MESS)) != null)
             return specializationRepository.save(specialization);
 
         return null;
     }
 
     public void deleteSpecializationById(long id){
-        specializationRepository.delete(specializationRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Specialization does not exists")));
+        specializationRepository.delete(specializationRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,SPECIALIZATION_NOT_FOUND_ERROR_MESS)));
     }
 }
