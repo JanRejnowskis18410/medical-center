@@ -149,7 +149,7 @@ public class AppointmentService {
         JsonNullable<List<AppointmentCreatePrescriptionDTO>> prescriptions = doneAppointmentDTO.getPrescriptions();
         if (prescriptions.isPresent()) {
             prescriptions.get().forEach(prescription ->
-                prescriptionService.addPrescription(mapAppointmentCreatePrescriptionDTOToPrescription(prescription, patient, appointment, appointment.getDoctor()))
+                prescriptionService.addPrescription(mapAppointmentCreatePrescriptionDTOToPrescription(prescription, patient, appointment))
             );
         }
         JsonNullable<List<AppointmentCreateAppointmentCheckUpDTO>> checkUps = doneAppointmentDTO.getCheckUps();
