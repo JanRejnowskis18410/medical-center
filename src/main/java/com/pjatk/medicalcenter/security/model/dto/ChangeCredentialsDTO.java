@@ -8,6 +8,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ChangePasswordDTO {
+public class ChangeCredentialsDTO {
     JsonNullable<String> password = JsonNullable.undefined();
+    JsonNullable<String> email = JsonNullable.undefined();
 }

@@ -1,7 +1,7 @@
 package com.pjatk.medicalcenter.security.service;
 
 import com.pjatk.medicalcenter.security.model.AppUser;
-import com.pjatk.medicalcenter.security.model.dto.ChangePasswordDTO;
+import com.pjatk.medicalcenter.security.model.dto.ChangeCredentialsDTO;
 import com.pjatk.medicalcenter.security.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found in the database"));
     }
 
-    public void updateUserPassword(long id, ChangePasswordDTO changePasswordDTO, Authentication auth) {
+    public void updateUserCredentials(long id, ChangeCredentialsDTO changeCredentialsDTO, Authentication auth) {
         AppUser user = getUserByEmail((String) auth.getPrincipal());
         if (user == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot authenticate.");
@@ -52,7 +52,11 @@ public class UserService implements UserDetailsService {
         }
         AppUser appUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, USER_NOT_FOUND_ERROR_MESS));
-        appUser.setPassword(changePasswordDTO.getPassword().get());
+
+        if(changeCredentialsDTO.getPassword().isPresent())
+            appUser.setPassword(changeCredentialsDTO.getPassword().get());
+        if(changeCredentialsDTO.getEmail().isPresent())
+            appUser.setEmail(changeCredentialsDTO.getEmail().get());
         userRepository.save(appUser);
     }
 
