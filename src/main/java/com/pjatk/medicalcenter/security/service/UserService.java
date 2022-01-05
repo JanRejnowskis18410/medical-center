@@ -53,8 +53,7 @@ public class UserService implements UserDetailsService {
         AppUser appUser = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, USER_NOT_FOUND_ERROR_MESS));
 
-        if(changeCredentialsDTO.getPassword().isPresent())
-            appUser.setPassword(changeCredentialsDTO.getPassword().get());
+        appUser.setPassword(changeCredentialsDTO.getPassword());
         if(changeCredentialsDTO.getEmail().isPresent())
             appUser.setEmail(changeCredentialsDTO.getEmail().get());
         userRepository.save(appUser);
