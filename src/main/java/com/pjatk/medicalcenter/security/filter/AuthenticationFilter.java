@@ -48,7 +48,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000)) //Token is valid for 10 min
+                .withExpiresAt(new Date(System.currentTimeMillis() + 20 * 60 * 1000)) //Token is valid for 20 min
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("role", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()).get(1))
                 .sign(algorithm);

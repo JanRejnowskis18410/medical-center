@@ -67,8 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 "/specializations")
                 .hasAnyAuthority(PATIENT.getName());
         http.authorizeRequests().antMatchers(
-                                "/*/testResult/*",
-                                "/*/done",
+                                "/appointments/*/testResult/**",
+                                "/appointments/*/done",
                                 "/doctors/*/todaysVisits",
                                 "/doctors/*/testsWithoutResults",
                                 "/medications",
