@@ -15,14 +15,14 @@ public class AppUser {
     @Id
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     @Convert(converter = AttributeEncryptor.class)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private AppRole role;
 
