@@ -20,6 +20,8 @@ public class AppointmentCheckUpDTO {
     private String doctorsDescription;
     private Byte[] file;
     private PatientDTO patient;
+    private String doctorFirstName;
+    private String doctorLastName;
 
     public AppointmentCheckUpDTO(AppointmentCheckUp appointmentCheckUp) {
         this.appointmentId = appointmentCheckUp.getAppointment().getId();
@@ -30,5 +32,7 @@ public class AppointmentCheckUpDTO {
         this.doctorsDescription = appointmentCheckUp.getDoctorsDescription();
         this.file = appointmentCheckUp.getFile();
         this.patient = new PatientDTO(appointmentCheckUp.getAppointment().getPatient());
+        this.doctorFirstName = appointmentCheckUp.getAppointment().getDoctor().getFirstName();
+        this.doctorLastName = appointmentCheckUp.getAppointment().getDoctor().getLastName();
     }
 }
