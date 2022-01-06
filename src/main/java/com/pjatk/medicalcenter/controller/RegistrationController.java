@@ -19,7 +19,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public ResponseEntity<String> register(@RequestBody @Valid RegistrationDTO registrationDTO) {
+    public ResponseEntity<Void> register(@RequestBody @Valid RegistrationDTO registrationDTO) {
         registrationService.register(registrationDTO);
         return ResponseEntity.ok().build();
     }

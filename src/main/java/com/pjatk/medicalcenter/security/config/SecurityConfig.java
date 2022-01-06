@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationFilter.setFilterProcessesUrl("/login");
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login/**").permitAll();
+        http.authorizeRequests().antMatchers("/login**").permitAll();
         http.authorizeRequests().antMatchers("/users").permitAll();
         http.authorizeRequests().antMatchers("/swagger-ui.html**").permitAll();
         http.authorizeRequests().antMatchers("/registration").permitAll();
@@ -67,8 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 "/specializations")
                 .hasAnyAuthority(PATIENT.getName());
         http.authorizeRequests().antMatchers(
-                                "/*/testResult/*",
-                                "/*/done",
+                                "/appointments/*/testResult/**",
+                                "/appointments/*/done",
                                 "/doctors/*/todaysVisits",
                                 "/doctors/*/testsWithoutResults",
                                 "/medications",
@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().anyRequest().denyAll();
 
-        http.logout();
+        http.logout().logoutSuccessUrl("/swagger-ui.html");
         http.addFilter(authenticationFilter);
         http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

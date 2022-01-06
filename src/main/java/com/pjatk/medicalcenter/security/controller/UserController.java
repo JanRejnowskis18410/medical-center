@@ -16,7 +16,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PatchMapping("/{id}/changePassword")
+    @PatchMapping("/{id}/changeCredentials")
     public ResponseEntity<Void> changePassword(@PathVariable long id,
                                                @RequestBody ChangeCredentialsDTO changeCredentialsDTO,
                                                Authentication auth){
