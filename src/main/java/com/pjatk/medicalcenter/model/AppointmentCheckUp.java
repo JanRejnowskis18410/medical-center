@@ -27,7 +27,7 @@ public class AppointmentCheckUp {
     @Column(length = 1000)
     private String result;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 500)
     private String doctorsDescription;
 
     @Lob
