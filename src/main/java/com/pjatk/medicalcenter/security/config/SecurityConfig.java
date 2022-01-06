@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 "/patients/*/files/*",
                                 "/patients/*/appointments",
                                 "/patients/*/diagnosticTests",
-                                "/users/*/changePassword")
+                                "/users/*/changeCredentials")
                 .hasAnyAuthority(DOCTOR.getName(), PATIENT.getName());
 
         http.authorizeRequests().anyRequest().denyAll();
