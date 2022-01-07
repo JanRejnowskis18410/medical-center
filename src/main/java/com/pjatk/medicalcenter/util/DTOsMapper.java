@@ -66,7 +66,6 @@ public class DTOsMapper {
         Schedule schedule = new Schedule();
         if(scheduleDTO.getId()!=0)
             schedule.setId(scheduleDTO.getId());
-        schedule.setDayOfWeek(scheduleDTO.getDayOfWeek());
         schedule.setDateFrom(scheduleDTO.getDateFrom());
         schedule.setDateTo(scheduleDTO.getDateTo());
 

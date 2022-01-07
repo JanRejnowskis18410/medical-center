@@ -12,10 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Schedule {
 
-    public enum DayOfWeek{
-        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +23,6 @@ public class Schedule {
     })
     private DoctorSpecialization doctorSpecialization;
 
-    @Column(name = "dayOfWeek", nullable = false)
-    private DayOfWeek dayOfWeek;
     @Column(name = "dateFrom", nullable = false)
     private LocalDateTime dateFrom;
     @Column(name = "dateTo", nullable = false)

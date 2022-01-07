@@ -192,13 +192,13 @@ INSERT INTO appointment (STATE, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIE
 INSERT INTO appointment (STATE, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES ('CONFIRMED', CURRENT_TIMESTAMP(), 'TELEPHONE', 8, 1, 14);
 
 --Ginekolog Elzbieta Gos
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-06T08:00:00', '2021-12-06T12:00:00', 0, 1,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-07T10:00:00', '2021-12-07T14:00:00', 1, 1,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-08T08:00:00', '2021-12-08T11:00:00', 2, 1,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-08T14:00:00', '2021-12-08T17:00:00', 2, 1,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-09T08:00:00', '2021-12-09T17:00:00', 3, 1,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-10T13:00:00', '2021-12-10T17:00:00', 4, 1,1);
-insert into schedule (Date_from, Date_to, day_of_week, doctor_id, specialization_id) values ('2021-12-11T09:00:00', '2021-12-11T13:00:00', 5, 1,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-06T08:00:00', '2021-12-06T12:00:00', 1, 1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-07T10:00:00', '2021-12-07T14:00:00', 1, 1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-08T08:00:00', '2021-12-08T11:00:00', 1, 1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-08T14:00:00', '2021-12-08T17:00:00', 1, 1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-09T08:00:00', '2021-12-09T17:00:00', 1, 1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-10T13:00:00', '2021-12-10T17:00:00', 1, 1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-11T09:00:00', '2021-12-11T13:00:00', 1, 1);
 
 
 INSERT INTO medication (NAME, UNIT, QUANTITY) values ('Gynalgin', 'GRAMS', 100);
