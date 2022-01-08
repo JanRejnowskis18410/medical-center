@@ -113,6 +113,16 @@ public class AppointmentService {
         appointments.forEach(appointment -> appointment.setState(Appointment.AppointmentState.CONFIRMED));
         appointmentRepository.saveAll(appointments);
     }
+//
+//    public List<Appointment> getReservedAppointmentsIn2days(){
+//        List<Appointment> appointments = appointmentRepository.findReservedAppointmentsVisitIn2days(LocalDate.now().plusDays(2));
+//        return appointments;
+//    }
+
+    public List<Appointment> getConfirmedAndReservedAppointmentsIn2days(){
+        List<Appointment> appointments = appointmentRepository.findConfirmedAndReservedAppointmentsVisitIn2days(LocalDate.now().plusDays(2));
+        return appointments;
+    }
 
     public void confirmAppointment(long id, Authentication auth) {
         Appointment appointment = getAppointmentById(id);
