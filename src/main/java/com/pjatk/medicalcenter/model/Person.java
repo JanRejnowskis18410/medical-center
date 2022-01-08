@@ -27,7 +27,7 @@ public class Person {
     @Column(name = "birthDate", nullable = false)
     private LocalDate birthDate;
 
-    @Column(name = "PESEL",unique = true, length = 11)
+    @Column(name = "PESEL",unique = true, length = 11, nullable = false)
     private String pesel;
 
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
