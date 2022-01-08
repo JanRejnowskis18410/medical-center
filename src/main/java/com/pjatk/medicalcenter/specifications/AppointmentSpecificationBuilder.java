@@ -21,8 +21,4 @@ public class AppointmentSpecificationBuilder {
         }
         return mergedSpecifications;
     }
-
-    public List<Specification<Appointment>> getSpecifications() {
-        return specifications;
-    }
 }

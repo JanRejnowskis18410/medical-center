@@ -16,18 +16,22 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>, JpaSpecificationExecutor<Appointment> {
 
+    Page<Appointment> findAppointmentsByDoctorIdAndDateBetweenAndStateIn(long doctorId,
+                                                                         LocalDateTime localDateTime1,
+                                                                         LocalDateTime localDateTime2,
+                                                                         List<Appointment.AppointmentState> states,
+                                                                         Pageable pageable);
+
     Page<Appointment> findAppointmentsByPatientIdAndState(long patientId, Appointment.AppointmentState state, Pageable pageable);
 
-    Page<Appointment> findAppointmentsByPatientId(long patientId, Pageable paging);
-
-    Page<Appointment> findAppointmentsByDoctorIdAndDateBetweenAndStateIn(long doctorId, LocalDateTime localDateTime1, LocalDateTime localDateTime2, List<Appointment.AppointmentState> states, Pageable pageable);
-
     @Query(value = "SELECT * FROM appointment a " +
-                   "WHERE DATE(a.date)=:date " +
-                   "AND a.patient_id IS NOT NULL " +
-                   "AND state='RESERVED'"
-                   ,nativeQuery = true)
+            "WHERE DATE(a.date)=:date " +
+            "AND a.patient_id IS NOT NULL " +
+            "AND state='RESERVED'"
+            ,nativeQuery = true)
     List<Appointment> findAppointmentsByPatientIsNotNullAndDateAndState(@Param("date") LocalDate date);
+
+    Page<Appointment> findAppointmentsByPatientId(long patientId, Pageable paging);
 
     List<Appointment> findAppointmentsByDateBeforeAndStateEquals(LocalDateTime date, Appointment.AppointmentState appointmentState);
 }
