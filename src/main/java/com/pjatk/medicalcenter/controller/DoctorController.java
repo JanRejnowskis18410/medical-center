@@ -4,9 +4,7 @@ import com.pjatk.medicalcenter.dto.*;
 import com.pjatk.medicalcenter.model.Appointment;
 import com.pjatk.medicalcenter.model.AppointmentCheckUp;
 import com.pjatk.medicalcenter.model.Doctor;
-import com.pjatk.medicalcenter.model.Schedule;
 import com.pjatk.medicalcenter.service.DoctorService;
-import com.pjatk.medicalcenter.util.DTOsMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,11 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +33,7 @@ public class DoctorController {
     public ResponseEntity<Map<String, Object>> getDoctorsTodaysVisits(
             @PathVariable long id,
             @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "1") int size,
+            @RequestParam(name = "size", defaultValue = "5") int size,
             Authentication auth) {
 
         Pageable paging = PageRequest.of(page, size, Sort.by("date").ascending());

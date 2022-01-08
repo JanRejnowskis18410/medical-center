@@ -33,6 +33,7 @@ public class AppointmentService {
     private final ReferralService referralService;
     private final PrescriptionService prescriptionService;
     private final AppointmentCheckUpService appointmentCheckUpService;
+    private final PatientService patientService;
     private final AccessService accessService;
 
     public AppointmentService(AppointmentRepository appointmentRepository,
@@ -43,7 +44,7 @@ public class AppointmentService {
                               ReferralService referralService,
                               PrescriptionService prescriptionService,
                               AppointmentCheckUpService appointmentCheckUpService,
-                              AccessService accessService) {
+                              PatientService patientService, AccessService accessService) {
         this.appointmentRepository = appointmentRepository;
         this.medicalServiceService = medicalServiceService;
         this.medicationService = medicationService;
@@ -52,6 +53,7 @@ public class AppointmentService {
         this.referralService = referralService;
         this.prescriptionService = prescriptionService;
         this.appointmentCheckUpService = appointmentCheckUpService;
+        this.patientService = patientService;
         this.accessService = accessService;
     }
 
@@ -118,6 +120,48 @@ public class AppointmentService {
         accessService.authenticatePerson(auth, appointment.getPatient().getId());
 
         appointment.setState(Appointment.AppointmentState.CONFIRMED);
+        saveAppointment(appointment);
+    }
+
+    public void cancelAppointment(long id, Authentication auth) {
+        Appointment appointment = getAppointmentById(id);
+
+        if(appointment.getState().equals(Appointment.AppointmentState.CONFIRMED)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment confirmed- cannot cancel");
+        }
+        if (appointment.getReferral() != null) {
+            appointment.setReferral(null);
+        }
+        if (appointment.getPatient() != null) {
+            appointment.setPatient(null);
+        }
+
+        appointment.setState(Appointment.AppointmentState.AVAILABLE);
+        saveAppointment(appointment);
+    }
+
+    public void reserveAppointment(long id, ReserveAppointmentDTO reserveAppointmentDTO){
+        Appointment appointment = getAppointmentById(id);
+
+        JsonNullable<Long> patientId = reserveAppointmentDTO.getPatientId();
+        if (patientId.isPresent()) {
+            Patient patient = patientService.getPatientById(patientId.get());
+            appointment.setPatient(patient);
+        }
+
+        JsonNullable<Long> referralId = reserveAppointmentDTO.getReferralId();
+        if (referralId.isPresent()) {
+            Referral referral = referralService.getReferralById(referralId.get());
+            appointment.setReferral(referral);
+        }
+
+        LocalDate appointmentDate = appointment.getDate().toLocalDate();
+        if (LocalDate.now().isEqual(appointmentDate)) {
+            appointment.setState(Appointment.AppointmentState.CONFIRMED);
+        } else {
+            appointment.setState(Appointment.AppointmentState.RESERVED);
+        }
+
         saveAppointment(appointment);
     }
 

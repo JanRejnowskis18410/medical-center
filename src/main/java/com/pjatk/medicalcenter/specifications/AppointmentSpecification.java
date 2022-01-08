@@ -5,10 +5,11 @@ import com.pjatk.medicalcenter.model.Doctor;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
-import javax.print.Doc;
 import java.time.LocalDateTime;
 
 public class AppointmentSpecification {
+
+    private AppointmentSpecification(){}
 
     public static Specification<Appointment> medicalServiceIdEqualTo(long medicalServiceId){
         return (root, query, criteriaBuilder)

@@ -6,7 +6,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 import javax.validation.constraints.NotNull;
 
 @Getter
-public class ConfirmAppointmentDTO {
+public class ReserveAppointmentDTO {
 
     @NotNull
     private JsonNullable<Long> patientId = JsonNullable.undefined();
