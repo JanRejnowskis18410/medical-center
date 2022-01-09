@@ -3,6 +3,7 @@ package com.pjatk.medicalcenter.security.config;
 import com.pjatk.medicalcenter.security.filter.AuthenticationFilter;
 import com.pjatk.medicalcenter.security.filter.AuthorizationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
         http.authorizeRequests().antMatchers("/registration").permitAll();
         http.authorizeRequests().antMatchers(
                                 "/appointments",
