@@ -125,9 +125,9 @@ INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Komputerowe pole widzenia', true, 6);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Badanie EKG', true, 9);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Założenie Holtera EKG', true, 9);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE) VALUES ('Pobranie krwi i innych materiałów- na czczo', true);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE) VALUES ('Pobranie krwi i innych materiałów- nie na czczo', true);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE) VALUES ('Cytologia szyjki macicy', true);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Pobranie krwi i innych materiałów- na czczo', true, 4);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Pobranie krwi i innych materiałów- nie na czczo', true, 4);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Cytologia szyjki macicy', true, 1);
 
 
 INSERT INTO check_up (NAME) VALUES ('Wymaz z gardła');

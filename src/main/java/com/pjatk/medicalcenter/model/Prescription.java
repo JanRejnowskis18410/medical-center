@@ -31,7 +31,7 @@ public class Prescription {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "appointment_id", referencedColumnName = "id")
+    @JoinColumn(name = "appointment_id", referencedColumnName = "id", nullable = false)
     @Setter(AccessLevel.NONE)
     private Appointment appointment;
 

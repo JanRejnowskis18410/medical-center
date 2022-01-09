@@ -24,7 +24,7 @@ public class MedicalService {
     private List<Referral> referrals = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "specialization_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "specialization_id", referencedColumnName = "id", nullable = false)
     @Setter(AccessLevel.NONE)
     private Specialization specialization;
 
