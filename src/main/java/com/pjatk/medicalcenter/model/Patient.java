@@ -15,7 +15,7 @@ public class Patient extends Person{
     @Embedded
     private Address address;
 
-    @Column(name = "phoneNumber", nullable = false, length = 15)
+    @Column(name = "phoneNumber", nullable = false, length = 15, unique = true)
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")
