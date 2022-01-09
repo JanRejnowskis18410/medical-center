@@ -8,9 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor
 public class AppUser {
 
     @Id

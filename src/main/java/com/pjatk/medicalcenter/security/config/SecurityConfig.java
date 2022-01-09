@@ -45,9 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationFilter.setFilterProcessesUrl("/login");
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login**").permitAll();
-        http.authorizeRequests().antMatchers("/users").permitAll();
-        http.authorizeRequests().antMatchers("/swagger-ui.html**").permitAll();
+        http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/registration").permitAll();
         http.authorizeRequests().antMatchers(
                                 "/appointments",
@@ -66,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 "/specializations")
                 .hasAnyAuthority(PATIENT.getName());
         http.authorizeRequests().antMatchers(
-                                "/appointments/*/testResult/**",
+                                "/appointments/*/testResult",
                                 "/appointments/*/done",
                                 "/doctors/*/todaysVisits",
                                 "/doctors/*/testsWithoutResults",
@@ -81,12 +79,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 "/patients/*/appointments",
                                 "/patients/*/diagnosticTests",
                                 "/users/*/changeCredentials",
-                                "/medicalServices")
+                                "/medicalServices",
+                                "/users")
                 .hasAnyAuthority(DOCTOR.getName(), PATIENT.getName());
 
         http.authorizeRequests().anyRequest().denyAll();
 
-        http.logout().logoutSuccessUrl("/swagger-ui.html");
+        http.logout();
         http.addFilter(authenticationFilter);
         http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
