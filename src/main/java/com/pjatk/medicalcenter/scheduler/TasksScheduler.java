@@ -9,15 +9,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import com.pjatk.medicalcenter.service.ReferralService;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
-@Component @Slf4j
-import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Component @Slf4j
 public class TasksScheduler {
 
     private final ReferralService referalService;
@@ -54,7 +50,7 @@ public class TasksScheduler {
         log.info("Task: delete unused appointments executed at {}", LocalDateTime.now());
     }
 
-    @Scheduled(cron = "00 12 00 * * ?")
+    @Scheduled(cron = "00 00 12 * * ?")
     public void scheduleSendingEmailForVisitsIn2days() {
 
         List<Appointment> appointments = appointmentService.getConfirmedAndReservedAppointmentsIn2days();
@@ -66,7 +62,8 @@ public class TasksScheduler {
                 app.getState().equals(Appointment.AppointmentState.RESERVED) ?
                         "W celu potwierdzenia lub odwołania wizyty zapraszamy do portalu pacjenta." : "");
 
-            mailService.sendEmail("weronika.smardz199@gmail.com","Nadchodząca wizyta", message);
+            mailService.sendEmail(app.getPatient().getUser().getEmail(),"Nadchodząca wizyta", message);
         });
+        log.info("Task: schedule sending emails, executed at {}", LocalDateTime.now());
     }
 }
