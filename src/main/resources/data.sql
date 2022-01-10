@@ -1,12 +1,12 @@
 --lekarze
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1973-03-21', 'MaЕ‚gorzata', 'Janiak', '74113042266');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1973-03-21', 'Małgorzata', 'Janiak', '74113042266');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1978-01-30', 'Adam', 'Staszewski', '61120148478');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1980-04-20', 'Barbara', 'Nowak', '86011641122');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-09-08', 'ElЕјbieta', 'Gos', '73121164625');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-11-20', 'Kamil', 'GГіrnicki', '60081657173');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-09-08', 'Elżbieta', 'Gos', '73121164625');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-11-20', 'Kamil', 'Górnicki', '60081657173');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-01-02', 'Aleksandra', 'Nowicka', '73121037189');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1962-03-15', 'Piotr', 'Olewnik', '86102027299');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-08-14', 'Tomasz', 'KrГіl', '90061325893');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-08-14', 'Tomasz', 'Król', '90061325893');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1967-07-12', 'Monika', 'Loch', '57051495725');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1970-09-16', 'Anna', 'Swatek', '70091645676');
 
@@ -14,12 +14,12 @@ INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1970-09-1
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1969-01-14', 'Jan', 'Kowalski', '69011471496');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-11-10', 'Adam', 'Nowak', '98111005401');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'Adam', 'Kochanowski', '86012028991');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'Aldona', 'SЕ‚owik', '94060431348');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'Aldona', 'Słowik', '94060431348');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-04-30', 'Anna', 'Morawska', '60043064267');
-INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Lublin', 'Polska', '20-040', 'SowiЕ„skiego', '18/20', '604456897', 11);
-INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '01-172', 'MarszaЕ‚kowska', '14/89', '503273947', 12);
-INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Piaseczno', 'Polska', '20-040', 'NadarzyЕ„ska', '47/12', '726326900', 13);
-INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '02-128', 'PuЕ‚awska', '67/16', '745927345', 14);
+INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Lublin', 'Polska', '20-040', 'Sowińskiego', '18/20', '604456897', 11);
+INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '01-172', 'Marszałkowska', '14/89', '503273947', 12);
+INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Piaseczno', 'Polska', '20-040', 'Nadarzyńska', '47/12', '726326900', 13);
+INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '02-128', 'Puławska', '67/16', '745927345', 14);
 INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Ryki', 'Polska', '08-500', 'Swatowska', '58', '604568898', 15);
 
 
@@ -119,74 +119,74 @@ INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu biodrowego', true, 7);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu barkowego', true, 7);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu kolanowego', true, 7);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu Е‚okciowego', true, 7);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu łokciowego', true, 7);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('USG stawu skokowego', true, 7);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- nadgarstka', true, 2);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- nadnerczy', true, 2);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- podudzia', true, 2);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- przedramienia', true, 2);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- przysadki mГіzgowej', true, 2);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- rД™ki', true, 2);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- przysadki mózgowej', true, 2);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- ręki', true, 2);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- stawu biodrowego', true, 2);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- stopy', true, 2);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- uda', true, 2);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- gЕ‚owy', true, 2);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Soczewki kontaktowe- dobГіr', true, 6);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Rezonans magnetyczny- głowy', true, 2);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Soczewki kontaktowe- dobór', true, 6);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Komputerowe pole widzenia', true, 6);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Badanie EKG', true, 9);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('ZaЕ‚oЕјenie Holtera EKG', true, 9);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Pobranie krwi i innych materiaЕ‚Гіw- na czczo', true, 4);
-INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Pobranie krwi i innych materiaЕ‚Гіw- nie na czczo', true, 4);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Założenie Holtera EKG', true, 9);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Pobranie krwi i innych materiałów- na czczo', true, 4);
+INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Pobranie krwi i innych materiałów- nie na czczo', true, 4);
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Cytologia szyjki macicy', true, 1);
 
 
-INSERT INTO check_up (NAME) VALUES ('Wymaz z gardЕ‚a');
-INSERT INTO check_up (NAME) VALUES ('Posiew ze zmiany trД…dzikowej- beztlenowo');
-INSERT INTO check_up (NAME) VALUES ('Posiew ze zmiany trД…dzikowej- tlenowo');
+INSERT INTO check_up (NAME) VALUES ('Wymaz z gardła');
+INSERT INTO check_up (NAME) VALUES ('Posiew ze zmiany trądzikowej- beztlenowo');
+INSERT INTO check_up (NAME) VALUES ('Posiew ze zmiany trądzikowej- tlenowo');
 INSERT INTO check_up (NAME) VALUES ('Cytologia');
 INSERT INTO check_up (NAME) VALUES ('USG jamy brzusznej');
 INSERT INTO check_up (NAME) VALUES ('USG piersi');
 INSERT INTO check_up (NAME) VALUES ('USG transwaginalne');
-INSERT INTO check_up (NAME) VALUES ('Rezonans przysadki mГіzgowej');
+INSERT INTO check_up (NAME) VALUES ('Rezonans przysadki mózgowej');
 INSERT INTO check_up (NAME) VALUES ('Rezonans czaszki');
 INSERT INTO check_up (NAME) VALUES ('Posiew moczu');
 
 
 --ODBYTE WIZYTY
---Konsultacja ginekologa - ElЕјbieta Gos (1), Pacjent id 11
+--Konsultacja ginekologa - Elżbieta Gos (1), Pacjent id 11
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
-VALUES ('DONE', '2021-11-18T12:45:00', 'Pacjent zgЕ‚osiЕ‚ nastД™pujД…ce objawy: bГіl gardЕ‚a i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie',
-        'Syrop flugamin 2/dz, ibuprom w przypadku gorД…czki,','FACILITY', 1, 7, 11);
+VALUES ('DONE', '2021-11-18T12:45:00', 'Pacjent zgłosił następujące objawy: ból gardła i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie',
+        'Syrop flugamin 2/dz, ibuprom w przypadku gorączki,','FACILITY', 1, 7, 11);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2022-01-31', '2021-11-18', 1, 7, 11);
 INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, PATIENT_ID)
 VALUES (25689, '2021-11-18', '2021-12-18', 1, 11);
 INSERT INTO appointment_check_up (doctors_description, appointment_id, check_up_id)
-VALUES ('Badanie w celu wykluczenia zakaЕјenia bakteryjnego', 1,1);
+VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 1,1);
 
 --Konsultacja dermatologa - Adam Staszewski (2), Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
-VALUES ('DONE', '2021-10-18T13:00:00', 'Delitakny trД…dzik na brodzie oraz czole. Po zakoЕ„czeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 2, 5, 11);
+VALUES ('DONE', '2021-10-18T13:00:00', 'Delitakny trądzik na brodzie oraz czole. Po zakończeniu antybiotyku wizyta kontrolna', 'Antybiotyk 1dz/7dni','FACILITY', 2, 5, 11);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-31', '2021-10-18', 2, 5, 11);
 INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, APPOINTMENT_ID, PATIENT_ID)
 VALUES (23241, '2021-10-18', '2021-12-18', 2, 11);
-INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykrycia baktorii odpowiedzialnej za trД…dzik', 'Nie wykryto bakterii',2,2);
+INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id) VALUES ('Badanie w celu wykrycia baktorii odpowiedzialnej za trądzik', 'Nie wykryto bakterii',2,2);
 
 --Konsultacja dermatologa - Adam Staszewski (2), Pacjent id 1
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
-VALUES ('DONE', '2021-09-18T13:00:00', 'Wizyta kontrolna z trД…dzikiem', 'Koniec przyjmowania antybiotyku','FACILITY', 2, 5, 11);
+VALUES ('DONE', '2021-09-18T13:00:00', 'Wizyta kontrolna z trądzikiem', 'Koniec przyjmowania antybiotyku','FACILITY', 2, 5, 11);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2021-12-18', '2021-12-01', 2, 5, 11);
 UPDATE referral SET APPOINTMENT_ID=3 WHERE ID=2; --WYKORZYSTANIE SKIEROWANIA Z POPRZEDNIEJ WIZYTY
 
---Konsultacja ginekologa - ElЕјbieta Gos (1), Pacjent id 2
+--Konsultacja ginekologa - Elżbieta Gos (1), Pacjent id 2
 INSERT INTO appointment (STATE, DATE, DESCRIPTION, RECOMMENDATIONS, TYPE, DOCTOR_ID, MEDICAL_SERVICE_ID, PATIENT_ID)
-VALUES ('DONE', '2021-11-25T12:45:00', 'Pacjent zgЕ‚osiЕ‚ nastД™pujД…ce objawy: bГіl gardЕ‚a i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie',
-        'Syrop izoseft 2/dz, paracetamol w przypadku gorД…czki,','FACILITY',
+VALUES ('DONE', '2021-11-25T12:45:00', 'Pacjent zgłosił następujące objawy: ból gardła i zatok, suchy kaszel. Zalecana wizyta kontrolna za 2 tygdonie',
+        'Syrop izoseft 2/dz, paracetamol w przypadku gorączki,','FACILITY',
         7, 7, 12);
 INSERT INTO referral (EXPIRY_DATE, ISSUE_DATE, ISSUE_appointment_ID, MEDICAL_SERVICE_ID, PATIENT_ID) VALUES ('2022-01-31', '2021-12-30', 1, 7, 12);
 INSERT INTO prescription (ACCESS_CODE, CREATION_DATE, EXPIRY_DATE, appointment_ID, PATIENT_ID)
 VALUES (25689, '2021-11-18', '2021-12-18', 4, 12);
 INSERT INTO appointment_check_up (doctors_description, result, appointment_id, check_up_id)
-VALUES ('Badanie w celu wykluczenia zakaЕјenia bakteryjnego', 'Nie wykryto bakterii', 4,1);
+VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 4,1);
 
 --PULA WIZYT
 --ginekolog
@@ -281,7 +281,7 @@ insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values (
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-14T08:00:00', '2022-01-14T13:00:00', 3,3);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-15T08:00:00', '2022-01-15T12:00:00', 3,3);
 
---Internista ElЕјbieta Gos
+--Internista Elżbieta Gos
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-10T09:00:00', '2022-01-10T16:00:00', 4,4);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-11T09:00:00', '2022-01-11T16:00:00', 4,4);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-12T09:00:00', '2022-01-12T16:00:00', 4,4);
@@ -289,7 +289,7 @@ insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values (
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-14T09:00:00', '2022-01-14T16:00:00', 4,4);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-15T09:00:00', '2022-01-15T12:00:00', 4,4);
 
---Pediatra Kamil GГіrnicki
+--Pediatra Kamil Górnicki
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-10T08:00:00', '2022-01-10T16:00:00', 5,5);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-11T08:00:00', '2022-01-11T16:00:00', 5,5);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-12T08:00:00', '2022-01-12T12:00:00', 5,5);
@@ -313,7 +313,7 @@ insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values (
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-14T13:00:00', '2022-01-14T17:00:00', 7,7);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-15T09:00:00', '2022-01-15T13:00:00', 7,7);
 
---Endokrynolog Tomasz KrГіl
+--Endokrynolog Tomasz Król
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-10T08:00:00', '2022-01-10T16:00:00', 8,8);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-11T08:00:00', '2022-01-11T16:00:00', 8,8);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-12T08:00:00', '2022-01-12T16:00:00', 8,8);
