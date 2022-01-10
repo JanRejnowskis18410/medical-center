@@ -1,24 +1,26 @@
 --lekarze
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1973-03-21', 'Małgorzata', 'Janiak', '73032145682');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1978-01-30', 'Adam', 'Staszewski', '78013078471');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1980-04-20', 'Barbara', 'Nowak', '80042067365');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-09-08', 'Elżbieta', 'Gos', '75090823596');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-11-20', 'Kamil', 'Górnicki', '60112032634');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-01-02', 'Aleksandra', 'Nowicka', '75010234299');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1962-03-15', 'Piotr', 'Olewnik', '62031512089');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-08-14', 'Tomasz', 'Król', '60081438756');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1967-07-12', 'Monika', 'Loch', '67071223645');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1973-03-21', 'Małgorzata', 'Janiak', '74113042266');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1978-01-30', 'Adam', 'Staszewski', '61120148478');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1980-04-20', 'Barbara', 'Nowak', '86011641122');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-09-08', 'Elżbieta', 'Gos', '73121164625');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-11-20', 'Kamil', 'Górnicki', '60081657173');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1975-01-02', 'Aleksandra', 'Nowicka', '73121037189');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1962-03-15', 'Piotr', 'Olewnik', '86102027299');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-08-14', 'Tomasz', 'Król', '90061325893');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1967-07-12', 'Monika', 'Loch', '57051495725');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1970-09-16', 'Anna', 'Swatek', '70091645676');
 
 --pacjenci
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-11-10', 'Jan', 'Kowalski', '98111005407');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1969-01-14', 'Jan', 'Kowalski', '69011471496');
 INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-11-10', 'Adam', 'Nowak', '98111005401');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'Adam', 'Kochanowski', '98050505409');
-INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'Aldona', 'Słowik', '98050591286');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'Adam', 'Kochanowski', '86012028991');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1998-05-10', 'Aldona', 'Słowik', '94060431348');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1960-04-30', 'Anna', 'Morawska', '60043064267');
 INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Lublin', 'Polska', '20-040', 'Sowińskiego', '18/20', '604456897', 11);
 INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '01-172', 'Marszałkowska', '14/89', '503273947', 12);
 INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Piaseczno', 'Polska', '20-040', 'Nadarzyńska', '47/12', '726326900', 13);
 INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '02-128', 'Puławska', '67/16', '745927345', 14);
+INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Ryki', 'Polska', '08-500', 'Swatowska', '58', '604568898', 15);
 
 
 INSERT INTO doctor (PWZ, ID) VALUES ('2564897', 1);
@@ -179,11 +181,11 @@ INSERT INTO appointment_check_up (doctors_description, result, appointment_id, c
         VALUES ('Badanie w celu wykluczenia zakażenia bakteryjnego', 'Nie wykryto bakterii', 4,1);
 
 --PULA WIZYT
-INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2021-12-28T18:00:00', 'FACILITY', 1, 1);
-INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2021-12-28T18:00:00', 'FACILITY', 1, 1);
-INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2021-12-28T12:15:00', 'FACILITY', 1, 1);
-INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2021-12-28T12:30:00', 'FACILITY', 1, 1);
-INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2021-12-28T12:45:00', 'FACILITY', 1, 1);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-14T18:00:00', 'FACILITY', 1, 1);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-13T18:30:00', 'FACILITY', 1, 1);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-10T17:00:00', 'FACILITY', 1, 1);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-11T10:30:00', 'FACILITY', 3, 3);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-18T12:45:00', 'FACILITY', 6, 6);
 
 --POTWIERDZONE
 INSERT INTO appointment (STATE, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES ('CONFIRMED', CURRENT_TIMESTAMP(), 'FACILITY', 7, 1, 11);
@@ -192,14 +194,13 @@ INSERT INTO appointment (STATE, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIE
 INSERT INTO appointment (STATE, DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID, PATIENT_ID) VALUES ('CONFIRMED', CURRENT_TIMESTAMP(), 'TELEPHONE', 8, 1, 14);
 
 --Ginekolog Elzbieta Gos
-insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-06T08:00:00', '2021-12-06T12:00:00', 1, 1);
-insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-07T10:00:00', '2021-12-07T14:00:00', 1, 1);
-insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-08T08:00:00', '2021-12-08T11:00:00', 1, 1);
-insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-08T14:00:00', '2021-12-08T17:00:00', 1, 1);
-insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-09T08:00:00', '2021-12-09T17:00:00', 1, 1);
-insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-10T13:00:00', '2021-12-10T17:00:00', 1, 1);
-insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2021-12-11T09:00:00', '2021-12-11T13:00:00', 1, 1);
-
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-10T08:00:00', '2022-01-10T12:00:00', 1,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-11T10:00:00', '2022-01-11T14:00:00', 1,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-12T08:00:00', '2022-01-12T11:00:00', 1,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-12T14:00:00', '2022-01-12T17:00:00', 1,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-13T08:00:00', '2022-01-13T17:00:00', 1,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-14T13:00:00', '2022-01-14T17:00:00', 1,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-15T09:00:00', '2022-01-15T13:00:00', 1,1);
 
 INSERT INTO medication (NAME, UNIT, QUANTITY) values ('Gynalgin', 'GRAMS', 100);
 
