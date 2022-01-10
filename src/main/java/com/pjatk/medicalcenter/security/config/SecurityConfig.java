@@ -46,6 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationFilter.setFilterProcessesUrl("/login");
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeRequests().antMatchers("/").permitAll()
+                        .antMatchers("/static/css/**").permitAll()
+                        .antMatchers("/locales/**").permitAll()
+                        .antMatchers("/static/js/**").permitAll()
+                        .antMatchers("/static/media/**").permitAll();
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
         http.authorizeRequests().antMatchers("/registration").permitAll();
