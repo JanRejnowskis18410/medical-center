@@ -43,7 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
         authenticationFilter.setFilterProcessesUrl("/login");
-
+        http.authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/static/css/**").permitAll()
+                .antMatchers("/locales/**").permitAll()
+                .antMatchers("/static/js/**").permitAll()
+                .antMatchers("/static/media/**").permitAll();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/login").permitAll();
         http.authorizeRequests().antMatchers("/registration").permitAll();
