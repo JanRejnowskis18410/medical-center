@@ -28,6 +28,14 @@ INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMB
 INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Warszawa', 'Polska', '02-128', 'Puławska', '67/16', '745927345', 19);
 INSERT INTO patient (CITY, COUNTRY, POST_CODE, STREET, STREET_NUMBER, PHONE_NUMBER, ID) VALUES ('Ryki', 'Polska', '08-500', 'Swatowska', '58', '604568898', 20);
 
+--dodatkowi lekarze
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1988-06-16', 'Jan', 'Tomaszewski', '88061628733');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1990-10-26', 'Adam', 'Bogucki', '90102622859');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1983-02-23', 'Andrzej', 'Wasiluk', '83022379356');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1971-08-08', 'Paweł', 'Mieczyk', '71080823485');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1965-04-29', 'Iwona', 'Marek', '65042946224');
+INSERT INTO person (BIRTH_DATE, FIRST_NAME, LAST_NAME, PESEL) VALUES ('1991-12-17', 'Zofia', 'Filipiuk', '91121729471');
+
 
 INSERT INTO doctor (PWZ, ID) VALUES ('2564897', 1);
 INSERT INTO doctor (PWZ, ID) VALUES ('5698742', 2);
@@ -45,6 +53,12 @@ INSERT INTO doctor (PWZ, ID) VALUES ('8526548', 12);
 INSERT INTO doctor (PWZ, ID) VALUES ('1145684', 13);
 INSERT INTO doctor (PWZ, ID) VALUES ('0025645', 14);
 INSERT INTO doctor (PWZ, ID) VALUES ('7536548', 15);
+INSERT INTO doctor (PWZ, ID) VALUES ('2679340', 21);
+INSERT INTO doctor (PWZ, ID) VALUES ('6463830', 22);
+INSERT INTO doctor (PWZ, ID) VALUES ('3166558', 23);
+INSERT INTO doctor (PWZ, ID) VALUES ('5443917', 24);
+INSERT INTO doctor (PWZ, ID) VALUES ('7600469', 25);
+INSERT INTO doctor (PWZ, ID) VALUES ('4584898', 26);
 
 
 insert into specialization (NAME) values ('Ginekolog'); --1
@@ -63,7 +77,6 @@ insert into specialization (NAME) values ('Urolog'); --13
 insert into specialization (NAME) values ('Chirurg'); --14
 insert into specialization (NAME) values ('Gastrolog'); --15
 
-
 INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (1,1); --GINEKOLOG
 INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (2,2); --RADIOLOG
 INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (3,3); --DERMATOLOG
@@ -80,6 +93,12 @@ INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (12,12);
 INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (13,13); --UROLOG
 INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (14,14); --CHIRURG
 INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (15,15); --GASTROLOG
+INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (21,1); --GINEKOLOG
+INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (22,3); --DERMATOLOG
+INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (23,4); --INTERNISTA
+INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (24,6); --OKULISTA
+INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (25,9); --KARDIOLOG
+INSERT INTO doctor_specialization (DOCTOR_ID, SPECIALIZATION_ID) VALUES (26,14); --CHIRURG
 
 
 INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (1,'PL');
@@ -108,6 +127,16 @@ INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (14, 'PL');
 INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (14, 'EN');
 INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (15, 'PL');
 INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (15, 'EN');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (21, 'PL');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (21, 'EN');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (22, 'PL');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (22, 'EN');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (23, 'PL');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (24, 'PL');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (24, 'EN');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (25, 'PL');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (25, 'EN');
+INSERT INTO language (DOCTOR_ID, DOCTOR_language) VALUES (26, 'PL');
 
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Konsultacja ginekologa', true, 1); --1
 INSERT INTO medical_service(NAME, FACILITY_SERVICE, SPECIALIZATION_ID) VALUES ('Teleporada- Konsultacja ginekologa', false, 1);
@@ -257,6 +286,31 @@ INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('202
 
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-28T09:30:00', 'FACILITY', 1, 1);
 
+-- ginekolog - Jan Tomaszewski
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T08:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-01T11:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-02T10:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-03T11:00:00', 'TELEPHONE', 2, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-04T14:00:00', 'TELEPHONE', 2, 21);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-07T10:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-08T09:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-09T08:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-10T15:00:00', 'TELEPHONE', 2, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-11T13:00:00', 'TELEPHONE', 2, 21);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-14T11:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-15T12:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-16T10:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-17T13:00:00', 'TELEPHONE', 2, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-18T14:00:00', 'TELEPHONE', 2, 21);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-21T10:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-22T09:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-23T08:00:00', 'FACILITY', 1, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-24T15:00:00', 'TELEPHONE', 2, 21);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-25T13:00:00', 'TELEPHONE', 2, 21);
+
 --radiolog
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-27T10:00:00', 'FACILITY', 3, 2);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T10:30:00', 'FACILITY', 3, 2);
@@ -329,6 +383,31 @@ INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('202
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-28T09:00:00', 'TELEPHONE', 6, 3);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-28T09:30:00', 'TELEPHONE', 6, 3);
 
+-- dermatolog - Adam Bogucki
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T09:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-01T11:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-02T12:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-03T15:00:00', 'TELEPHONE', 6, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-04T14:00:00', 'TELEPHONE', 6, 22);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-07T10:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-08T11:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-09T12:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-10T13:00:00', 'TELEPHONE', 6, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-11T14:00:00', 'TELEPHONE', 6, 22);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-14T15:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-15T16:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-16T10:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-17T12:00:00', 'TELEPHONE', 6, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-18T13:00:00', 'TELEPHONE', 6, 22);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-21T10:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-22T11:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-23T12:00:00', 'FACILITY', 5, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-24T13:00:00', 'TELEPHONE', 6, 22);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-25T15:00:00', 'TELEPHONE', 6, 22);
+
 --internista
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T09:45:00', 'FACILITY', 7, 4);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-01T12:15:00', 'TELEPHONE', 8, 4);
@@ -359,6 +438,31 @@ INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('202
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-26T10:00:00', 'FACILITY', 7, 4);
 
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-28T09:30:00', 'FACILITY', 7, 4);
+
+--Internista - Andrzej Wasiluk
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T08:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-01T11:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-02T10:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-03T11:00:00', 'TELEPHONE', 8, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-04T14:00:00', 'TELEPHONE', 8, 23);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-07T10:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-08T09:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-09T08:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-10T15:00:00', 'TELEPHONE', 8, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-11T13:00:00', 'TELEPHONE', 8, 23);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-14T11:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-15T12:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-16T10:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-17T13:00:00', 'TELEPHONE', 8, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-18T14:00:00', 'TELEPHONE', 8, 23);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-21T10:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-22T09:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-23T08:00:00', 'FACILITY', 7, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-24T15:00:00', 'TELEPHONE', 8, 23);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-25T13:00:00', 'TELEPHONE', 8, 23);
 
 --pediatra
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-28T10:00:00', 'FACILITY', 9, 5);
@@ -406,6 +510,31 @@ INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('202
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-24T09:30:00', 'FACILITY', 11, 6);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-25T10:30:00', 'TELEPHONE', 12, 6);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-26T14:30:00', 'FACILITY', 11, 6);
+
+-- okulista - Paweł Mieczyk
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T11:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-01T12:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-02T13:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-03T15:00:00', 'TELEPHONE', 12, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-04T16:00:00', 'TELEPHONE', 12, 24);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-07T08:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-08T09:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-09T14:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-10T15:00:00', 'TELEPHONE', 12, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-11T16:00:00', 'TELEPHONE', 12, 24);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-14T19:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-15T18:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-16T15:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-17T16:00:00', 'TELEPHONE', 12, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-18T17:00:00', 'TELEPHONE', 12, 24);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-21T10:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-22T09:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-23T08:00:00', 'FACILITY', 11, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-24T15:00:00', 'TELEPHONE', 12, 24);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-25T13:00:00', 'TELEPHONE', 12, 24);
 
 --ortopeda
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T12:30:00', 'TELEPHONE', 14, 7);
@@ -491,6 +620,31 @@ INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('202
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-03-04T12:45:00', 'TELEPHONE', 18, 9);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-03-04T12:00:00', 'FACILITY', 17, 9);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-03-04T16:00:00', 'FACILITY', 17, 9);
+
+--Kardiolog - Iwona Marek
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T08:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-01T11:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-02T10:00:00', 'FACILITY', 52, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-03T11:00:00', 'TELEPHONE', 18, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-04T14:00:00', 'TELEPHONE', 18, 25);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-07T10:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-08T09:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-09T08:00:00', 'FACILITY', 52, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-10T15:00:00', 'TELEPHONE', 18, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-11T13:00:00', 'TELEPHONE', 18, 25);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-14T11:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-15T12:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-16T10:00:00', 'FACILITY', 52, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-17T13:00:00', 'TELEPHONE', 18, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-18T14:00:00', 'TELEPHONE', 18, 25);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-21T10:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-22T09:00:00', 'FACILITY', 17, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-23T08:00:00', 'FACILITY', 52, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-24T15:00:00', 'TELEPHONE', 18, 25);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-25T13:00:00', 'TELEPHONE', 18, 25);
 
 --laryngolog
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-28T09:00:00', 'FACILITY', 19, 10);
@@ -788,6 +942,31 @@ INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('202
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-03-04T12:45:00', 'TELEPHONE', 28,14);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-03-04T12:00:00', 'TELEPHONE', 28,14);
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-03-04T16:15:00', 'TELEPHONE', 28,14);
+
+--Chirurg - Zofia Filipiuk
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-31T10:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-01T11:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-02T12:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-03T13:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-04T14:00:00', 'FACILITY', 27, 26);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-07T12:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-08T13:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-09T14:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-10T15:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-11T16:00:00', 'FACILITY', 27, 26);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-14T10:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-15T11:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-16T12:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-17T13:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-18T14:00:00', 'FACILITY', 27, 26);
+
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-21T10:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-22T09:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-23T08:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-24T15:00:00', 'FACILITY', 27, 26);
+INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-02-25T13:00:00', 'FACILITY', 27, 26);
 
 --gastrolog
 INSERT INTO appointment (DATE, TYPE, MEDICAL_SERVICE_ID, DOCTOR_ID) VALUES ('2022-01-28T09:00:00', 'FACILITY', 29, 15);
@@ -1402,6 +1581,155 @@ insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values (
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-03-10T09:00:00', '2022-03-10T12:30:00', 15,15);
 insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-03-11T08:00:00', '2022-03-11T17:30:00', 15,15);
 
+-- Ginekolog Jan Tomaszewski
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-31T08:00:00', '2022-01-31T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-01T08:00:00', '2022-02-01T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-02T10:00:00', '2022-02-02T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-03T10:00:00', '2022-02-03T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-04T08:00:00', '2022-02-04T16:00:00', 21,1);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-07T08:00:00', '2022-02-07T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-08T08:00:00', '2022-02-08T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-09T10:00:00', '2022-02-09T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-10T10:00:00', '2022-02-10T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-11T08:00:00', '2022-02-11T16:00:00', 21,1);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-14T08:00:00', '2022-02-14T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-15T08:00:00', '2022-02-15T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-16T10:00:00', '2022-02-16T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-17T10:00:00', '2022-02-17T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-18T08:00:00', '2022-02-18T16:00:00', 21,1);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-21T08:00:00', '2022-02-21T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-22T08:00:00', '2022-02-22T16:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-23T10:00:00', '2022-02-23T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-24T10:00:00', '2022-02-24T18:00:00', 21,1);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-25T08:00:00', '2022-02-25T16:00:00', 21,1);
+
+-- Dermatolog Adam Bogucki
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-31T09:00:00', '2022-01-31T17:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-01T09:00:00', '2022-02-01T17:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-02T10:00:00', '2022-02-02T18:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-03T10:00:00', '2022-02-03T18:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-04T08:00:00', '2022-02-04T16:00:00', 22,3);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-07T08:00:00', '2022-02-07T16:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-08T08:00:00', '2022-02-08T16:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-09T08:00:00', '2022-02-09T16:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-10T08:00:00', '2022-02-10T16:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-11T08:00:00', '2022-02-11T16:00:00', 22,3);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-14T09:00:00', '2022-02-14T17:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-15T09:00:00', '2022-02-15T17:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-16T10:00:00', '2022-02-16T18:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-17T10:00:00', '2022-02-17T18:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-18T09:00:00', '2022-02-18T17:00:00', 22,3);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-21T08:00:00', '2022-02-21T16:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-22T08:00:00', '2022-02-22T16:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-23T10:00:00', '2022-02-23T18:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-24T10:00:00', '2022-02-24T18:00:00', 22,3);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-25T08:00:00', '2022-02-25T16:00:00', 22,3);
+
+-- Internista Andrzej Wasiluk
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-31T08:00:00', '2022-01-31T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-01T08:00:00', '2022-02-01T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-02T08:00:00', '2022-02-02T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-03T08:00:00', '2022-02-03T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-04T08:00:00', '2022-02-04T16:00:00', 23,4);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-07T08:00:00', '2022-02-07T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-08T08:00:00', '2022-02-08T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-09T08:00:00', '2022-02-09T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-10T08:00:00', '2022-02-10T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-11T08:00:00', '2022-02-11T16:00:00', 23,4);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-14T08:00:00', '2022-02-14T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-15T08:00:00', '2022-02-15T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-16T08:00:00', '2022-02-16T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-17T08:00:00', '2022-02-17T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-18T08:00:00', '2022-02-18T16:00:00', 23,4);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-21T08:00:00', '2022-02-21T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-22T08:00:00', '2022-02-22T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-23T08:00:00', '2022-02-23T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-24T08:00:00', '2022-02-24T16:00:00', 23,4);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-25T08:00:00', '2022-02-25T16:00:00', 23,4);
+
+-- Okulista Paweł Mieczyk
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-31T11:00:00', '2022-01-31T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-01T11:00:00', '2022-02-01T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-02T11:00:00', '2022-02-02T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-03T11:00:00', '2022-02-03T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-04T11:00:00', '2022-02-04T19:00:00', 24,6);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-07T08:00:00', '2022-02-07T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-08T08:00:00', '2022-02-08T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-09T08:00:00', '2022-02-09T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-10T08:00:00', '2022-02-10T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-11T08:00:00', '2022-02-11T16:00:00', 24,6);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-14T11:00:00', '2022-02-14T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-15T11:00:00', '2022-02-15T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-16T11:00:00', '2022-02-16T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-17T11:00:00', '2022-02-17T19:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-18T11:00:00', '2022-02-18T19:00:00', 24,6);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-21T08:00:00', '2022-02-21T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-22T08:00:00', '2022-02-22T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-23T08:00:00', '2022-02-23T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-24T08:00:00', '2022-02-24T16:00:00', 24,6);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-25T08:00:00', '2022-02-25T16:00:00', 24,6);
+
+-- Kardiolog Iwona Marek
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-31T08:00:00', '2022-01-31T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-01T08:00:00', '2022-02-01T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-02T08:00:00', '2022-02-02T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-03T08:00:00', '2022-02-03T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-04T08:00:00', '2022-02-04T16:00:00', 25,9);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-07T08:00:00', '2022-02-07T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-08T08:00:00', '2022-02-08T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-09T08:00:00', '2022-02-09T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-10T08:00:00', '2022-02-10T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-11T08:00:00', '2022-02-11T16:00:00', 25,9);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-14T08:00:00', '2022-02-14T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-15T08:00:00', '2022-02-15T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-16T08:00:00', '2022-02-16T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-17T08:00:00', '2022-02-17T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-18T08:00:00', '2022-02-18T16:00:00', 25,9);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-21T08:00:00', '2022-02-21T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-22T08:00:00', '2022-02-22T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-23T08:00:00', '2022-02-23T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-24T08:00:00', '2022-02-24T16:00:00', 25,9);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-25T08:00:00', '2022-02-25T16:00:00', 25,9);
+
+-- Chirurg Zofia Filipiuk
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-01-31T10:00:00', '2022-01-31T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-01T10:00:00', '2022-02-01T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-02T10:00:00', '2022-02-02T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-03T10:00:00', '2022-02-03T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-04T10:00:00', '2022-02-04T18:00:00', 26,14);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-07T10:00:00', '2022-02-07T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-08T10:00:00', '2022-02-08T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-09T10:00:00', '2022-02-09T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-10T10:00:00', '2022-02-10T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-11T10:00:00', '2022-02-11T18:00:00', 26,14);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-14T10:00:00', '2022-02-14T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-15T10:00:00', '2022-02-15T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-16T10:00:00', '2022-02-16T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-17T10:00:00', '2022-02-17T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-18T10:00:00', '2022-02-18T18:00:00', 26,14);
+
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-21T10:00:00', '2022-02-21T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-22T10:00:00', '2022-02-22T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-23T10:00:00', '2022-02-23T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-24T10:00:00', '2022-02-24T18:00:00', 26,14);
+insert into schedule (Date_from, Date_to, doctor_id, specialization_id) values ('2022-02-25T10:00:00', '2022-02-25T18:00:00', 26,14);
 
 INSERT INTO medication (NAME, UNIT, QUANTITY) values ('Gynalgin', 'GRAMS', 100);
 INSERT INTO medication (NAME, UNIT, QUANTITY) values ('Unidox', 'GRAMS', 250);
