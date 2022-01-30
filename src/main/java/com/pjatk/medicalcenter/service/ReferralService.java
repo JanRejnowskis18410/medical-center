@@ -9,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.pjatk.medicalcenter.util.ErrorMessages.REFERRAL_NOT_FOUND_ERROR_MESS;
 
